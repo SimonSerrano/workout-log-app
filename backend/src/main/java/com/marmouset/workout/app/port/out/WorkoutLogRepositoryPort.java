@@ -13,4 +13,6 @@ public interface WorkoutLogRepositoryPort {
   WorkoutLog getLogDetails(UUID uuid) throws WorkoutLogNotFound;
 
   WorkoutLog createWorkoutLog(CreateWorkoutLogCommand command);
+
+  void deleteWorkoutLog(UUID uuid);
 }

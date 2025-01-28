@@ -42,4 +42,9 @@ public class WorkoutLogRepositoryImpl implements WorkoutLogRepositoryPort {
     return repository.save(new WorkoutLog(command.getTitle()));
   }
 
+  @Override
+  public void deleteWorkoutLog(UUID uuid) {
+    repository.deleteById(uuid);
+  }
+
 }

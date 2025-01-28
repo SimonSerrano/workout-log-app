@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import com.marmouset.workout.adapter.in.dto.CreateWorkoutLogRequest;
 import com.marmouset.workout.adapter.in.mapper.WorkoutLogRequestMapper;
 import com.marmouset.workout.adapter.out.dto.WorkoutLogListElementResponse;
 import com.marmouset.workout.app.port.in.CreateWorkoutLogPort;
+import com.marmouset.workout.app.port.in.DeleteWorkoutLogPort;
 import com.marmouset.workout.app.port.in.GetLogDetailsPort;
 import com.marmouset.workout.app.port.in.ListWorkoutLogsPort;
 import com.marmouset.workout.domain.WorkoutLog;
@@ -29,16 +31,16 @@ public class WorkoutLogController {
   private final ListWorkoutLogsPort listWorkoutLogsPort;
   private final GetLogDetailsPort getLogDetailsPort;
   private final CreateWorkoutLogPort createWorkoutLogPort;
+  private final DeleteWorkoutLogPort deleteWorkoutLogPort;
   private final WorkoutLogRequestMapper mapper;
 
-  public WorkoutLogController(
-      ListWorkoutLogsPort listWorkoutLogsPort,
-      GetLogDetailsPort getLogDetailsPort,
+  public WorkoutLogController(ListWorkoutLogsPort listWorkoutLogsPort, GetLogDetailsPort getLogDetailsPort,
       CreateWorkoutLogPort createWorkoutLogPort,
-      WorkoutLogRequestMapper mapper) {
+      com.marmouset.workout.app.port.in.DeleteWorkoutLogPort deleteWorkoutLogPort, WorkoutLogRequestMapper mapper) {
     this.listWorkoutLogsPort = listWorkoutLogsPort;
     this.getLogDetailsPort = getLogDetailsPort;
     this.createWorkoutLogPort = createWorkoutLogPort;
+    this.deleteWorkoutLogPort = deleteWorkoutLogPort;
     this.mapper = mapper;
   }
 
@@ -61,5 +63,11 @@ public class WorkoutLogController {
     return new ResponseEntity<WorkoutLog>(
         createWorkoutLogPort.createWorkoutLog(mapper.toCreateWorkoutLogCommand(request)),
         HttpStatus.CREATED);
+  }
+
+  @DeleteMapping(path = "/{logId}")
+  public ResponseEntity<Void> deleteLog(@PathVariable UUID logId) {
+    deleteWorkoutLogPort.deleteWorkoutLog(logId);
+    return ResponseEntity.noContent().build();
   }
 }

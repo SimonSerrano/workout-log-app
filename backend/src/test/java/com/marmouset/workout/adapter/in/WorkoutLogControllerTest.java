@@ -1,6 +1,7 @@
 package com.marmouset.workout.adapter.in;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -25,6 +26,7 @@ import com.marmouset.workout.adapter.in.dto.CreateWorkoutLogRequest;
 import com.marmouset.workout.adapter.in.mapper.WorkoutLogRequestMapper;
 import com.marmouset.workout.adapter.out.dto.WorkoutLogListElementResponse;
 import com.marmouset.workout.app.port.in.CreateWorkoutLogPort;
+import com.marmouset.workout.app.port.in.DeleteWorkoutLogPort;
 import com.marmouset.workout.app.port.in.GetLogDetailsPort;
 import com.marmouset.workout.app.port.in.ListWorkoutLogsPort;
 import com.marmouset.workout.domain.WorkoutLog;
@@ -45,6 +47,9 @@ public class WorkoutLogControllerTest {
 
   @MockitoBean
   private CreateWorkoutLogPort createWorkoutLogPort;
+
+  @MockitoBean
+  private DeleteWorkoutLogPort deleteWorkoutLogPort;
 
   @Test
   void shouldReturnLogsFromService() throws Exception {
@@ -95,5 +100,11 @@ public class WorkoutLogControllerTest {
                 .content(new ObjectMapper().writeValueAsString(request)))
         .andDo(print())
         .andExpect(status().isCreated());
+  }
+
+  @Test
+  void shouldDeleteWorkoutLog() throws Exception {
+    UUID uuid = UUID.randomUUID();
+    mockMvc.perform(delete("/log/" + uuid.toString())).andExpect(status().isNoContent());
   }
 }
