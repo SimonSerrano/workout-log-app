@@ -1,4 +1,4 @@
-package com.marmouset.workout.domain;
+package com.marmouset.workout.adapter.out.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.marmouset.workout.adapter.out.dto.WorkoutLogListElementResponse;
-import com.marmouset.workout.adapter.out.mapper.WorkoutLogResponseMapper;
+import com.marmouset.workout.domain.WorkoutLog;
 
 @SpringBootTest
 public class WorkoutLogResponseMapperTest {
