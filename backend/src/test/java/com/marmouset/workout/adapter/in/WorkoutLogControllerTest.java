@@ -1,4 +1,4 @@
-package com.marmouset.workout.app.log;
+package com.marmouset.workout.adapter.in;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -15,6 +15,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.marmouset.workout.app.port.in.GetLogDetailsPort;
+import com.marmouset.workout.app.port.in.ListWorkoutLogsPort;
+import com.marmouset.workout.domain.WorkoutLog;
+import com.marmouset.workout.domain.WorkoutLogListElementDTO;
+import com.marmouset.workout.domain.WorkoutLogNotFound;
+
 @WebMvcTest(WorkoutLogController.class)
 public class WorkoutLogControllerTest {
 
@@ -22,12 +28,17 @@ public class WorkoutLogControllerTest {
   private MockMvc mockMvc;
 
   @MockitoBean
-  private WorkoutLogService service;
+  private ListWorkoutLogsPort listWorkoutLogsPort;
+
+  @MockitoBean
+  private GetLogDetailsPort getLogDetailsPort;
 
   @Test
   void shouldReturnLogsFromService() throws Exception {
-    List<WorkoutLog> returnedLogs = Arrays.asList(new WorkoutLog("Toto"), new WorkoutLog("Titi"));
-    when(service.getLogs()).thenReturn(returnedLogs);
+    List<WorkoutLogListElementDTO> returnedLogs = Arrays.asList(
+        new WorkoutLogListElementDTO(UUID.randomUUID(), "Toto", 1738071414L),
+        new WorkoutLogListElementDTO(UUID.randomUUID(), "Titi", 1738071414L));
+    when(listWorkoutLogsPort.listWorkouts()).thenReturn(returnedLogs);
 
     mockMvc.perform(get("/log"))
         .andExpect(status().isOk())
@@ -40,7 +51,7 @@ public class WorkoutLogControllerTest {
   void shouldReturnLogFromService() throws Exception {
     WorkoutLog returnedLog = new WorkoutLog("Toto");
     UUID uuid = UUID.randomUUID();
-    when(service.getLog(uuid)).thenReturn(returnedLog);
+    when(getLogDetailsPort.getDetails(uuid)).thenReturn(returnedLog);
 
     mockMvc.perform(get("/log/" + uuid.toString()))
         .andExpect(status().isOk())
@@ -50,7 +61,7 @@ public class WorkoutLogControllerTest {
   @Test
   void shouldReturnNotFoundResponse() throws Exception {
     UUID uuid = UUID.randomUUID();
-    when(service.getLog(uuid)).thenThrow(new WorkoutLogNotFound(uuid));
+    when(getLogDetailsPort.getDetails(uuid)).thenThrow(new WorkoutLogNotFound(uuid));
 
     mockMvc.perform(get("/log/" + uuid.toString()))
         .andExpect(status().isNotFound());

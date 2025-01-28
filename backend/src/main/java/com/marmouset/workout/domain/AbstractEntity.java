@@ -1,4 +1,4 @@
-package com.marmouset.workout.app.util;
+package com.marmouset.workout.domain;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
@@ -62,5 +62,23 @@ public abstract class AbstractEntity implements Serializable {
   @Override
   public int hashCode() {
     return Objects.hash(id);
+  }
+
+  /**
+   * This method should only be used for tests
+   * 
+   * @param id
+   */
+  public void setId(UUID id) {
+    this.id = id;
+  }
+
+  /**
+   * This method should only be used for tests
+   * 
+   * @param createdAt
+   */
+  public void setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
   }
 }

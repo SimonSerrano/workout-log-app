@@ -1,4 +1,4 @@
-package com.marmouset.workout.app.log;
+package com.marmouset.workout.domain;
 
 import java.util.UUID;
 

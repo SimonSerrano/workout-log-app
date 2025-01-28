@@ -1,4 +1,4 @@
-package com.marmouset.workout.app;
+package com.marmouset.workout;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

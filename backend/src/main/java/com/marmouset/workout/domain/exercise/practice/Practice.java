@@ -1,6 +1,6 @@
-package com.marmouset.workout.app.exercise.practice;
+package com.marmouset.workout.domain.exercise.practice;
 
-import com.marmouset.workout.app.util.AbstractEntity;
+import com.marmouset.workout.domain.AbstractEntity;
 
 import jakarta.persistence.Entity;
 

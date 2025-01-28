@@ -1,9 +1,8 @@
-package com.marmouset.workout.app.log;
+package com.marmouset.workout.domain;
 
 import java.util.List;
 
-import com.marmouset.workout.app.exercise.trained.TrainedExercise;
-import com.marmouset.workout.app.util.AbstractEntity;
+import com.marmouset.workout.domain.exercise.trained.TrainedExercise;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;

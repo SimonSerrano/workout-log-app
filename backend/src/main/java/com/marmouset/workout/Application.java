@@ -1,4 +1,4 @@
-package com.marmouset.workout.app;
+package com.marmouset.workout;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

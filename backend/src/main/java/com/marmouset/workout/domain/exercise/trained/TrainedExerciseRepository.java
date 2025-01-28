@@ -1,4 +1,4 @@
-package com.marmouset.workout.app.exercise.trained;
+package com.marmouset.workout.domain.exercise.trained;
 
 import java.util.UUID;
 
