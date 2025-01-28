@@ -15,10 +15,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.marmouset.workout.adapter.out.dto.WorkoutLogListElementResponse;
 import com.marmouset.workout.app.port.in.GetLogDetailsPort;
 import com.marmouset.workout.app.port.in.ListWorkoutLogsPort;
 import com.marmouset.workout.domain.WorkoutLog;
-import com.marmouset.workout.domain.WorkoutLogListElementDTO;
 import com.marmouset.workout.domain.WorkoutLogNotFound;
 
 @WebMvcTest(WorkoutLogController.class)
@@ -35,9 +35,9 @@ public class WorkoutLogControllerTest {
 
   @Test
   void shouldReturnLogsFromService() throws Exception {
-    List<WorkoutLogListElementDTO> returnedLogs = Arrays.asList(
-        new WorkoutLogListElementDTO(UUID.randomUUID(), "Toto", 1738071414L),
-        new WorkoutLogListElementDTO(UUID.randomUUID(), "Titi", 1738071414L));
+    List<WorkoutLogListElementResponse> returnedLogs = Arrays.asList(
+        new WorkoutLogListElementResponse(UUID.randomUUID(), "Toto", 1738071414L),
+        new WorkoutLogListElementResponse(UUID.randomUUID(), "Titi", 1738071414L));
     when(listWorkoutLogsPort.listWorkouts()).thenReturn(returnedLogs);
 
     mockMvc.perform(get("/log"))

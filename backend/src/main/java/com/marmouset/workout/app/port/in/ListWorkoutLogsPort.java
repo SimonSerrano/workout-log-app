@@ -1,7 +1,7 @@
 package com.marmouset.workout.app.port.in;
 
-import com.marmouset.workout.domain.WorkoutLogListElementDTO;
+import com.marmouset.workout.adapter.out.dto.WorkoutLogListElementResponse;
 
 public interface ListWorkoutLogsPort {
-  Iterable<WorkoutLogListElementDTO> listWorkouts();
+  Iterable<WorkoutLogListElementResponse> listWorkouts();
 }

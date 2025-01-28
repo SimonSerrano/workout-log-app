@@ -10,14 +10,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-public class WorkoutLogAdapterTest {
+import com.marmouset.workout.adapter.out.dto.WorkoutLogListElementResponse;
+import com.marmouset.workout.adapter.out.mapper.WorkoutLogResponseMapper;
 
-  private WorkoutLogAdapter adapter;
+@SpringBootTest
+public class WorkoutLogResponseMapperTest {
+
+  private WorkoutLogResponseMapper adapter;
 
   @BeforeEach
   void setup() {
-    adapter = new WorkoutLogAdapter();
+    adapter = new WorkoutLogResponseMapper();
   }
 
   @Test
@@ -31,7 +34,7 @@ public class WorkoutLogAdapterTest {
 
     var dto = adapter.toWorkoutLogListElementDTO(workoutLog);
 
-    assertEquals(new WorkoutLogListElementDTO(uuid, "Toto", timestamp), dto);
+    assertEquals(new WorkoutLogListElementResponse(uuid, "Toto", timestamp), dto);
 
   }
 }
