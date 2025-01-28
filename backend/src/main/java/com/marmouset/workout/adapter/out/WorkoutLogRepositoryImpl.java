@@ -24,6 +24,9 @@ public class WorkoutLogRepositoryImpl implements WorkoutLogRepositoryPort {
   public WorkoutLogRepositoryImpl(@Lazy WorkoutLogRepository repository, WorkoutLogResponseMapper mapper) {
     this.repository = repository;
     this.mapper = mapper;
+
+    this.repository.save(new WorkoutLog("Toto"));
+    this.repository.save(new WorkoutLog("Titi"));
   }
 
   @Override
