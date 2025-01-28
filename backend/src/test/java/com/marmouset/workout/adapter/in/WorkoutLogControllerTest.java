@@ -2,8 +2,10 @@ package com.marmouset.workout.adapter.in;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,16 +14,24 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.marmouset.workout.adapter.in.dto.CreateWorkoutLogCommand;
+import com.marmouset.workout.adapter.in.dto.CreateWorkoutLogRequest;
+import com.marmouset.workout.adapter.in.mapper.WorkoutLogRequestMapper;
 import com.marmouset.workout.adapter.out.dto.WorkoutLogListElementResponse;
+import com.marmouset.workout.app.port.in.CreateWorkoutLogPort;
 import com.marmouset.workout.app.port.in.GetLogDetailsPort;
 import com.marmouset.workout.app.port.in.ListWorkoutLogsPort;
 import com.marmouset.workout.domain.WorkoutLog;
 import com.marmouset.workout.domain.WorkoutLogNotFound;
 
 @WebMvcTest(WorkoutLogController.class)
+@ContextConfiguration(classes = { WorkoutLogController.class, WorkoutLogRequestMapper.class })
 public class WorkoutLogControllerTest {
 
   @Autowired
@@ -32,6 +42,9 @@ public class WorkoutLogControllerTest {
 
   @MockitoBean
   private GetLogDetailsPort getLogDetailsPort;
+
+  @MockitoBean
+  private CreateWorkoutLogPort createWorkoutLogPort;
 
   @Test
   void shouldReturnLogsFromService() throws Exception {
@@ -67,4 +80,20 @@ public class WorkoutLogControllerTest {
         .andExpect(status().isNotFound());
   }
 
+  @Test
+  void shouldCreateANewWorkoutLog() throws Exception {
+    var command = new CreateWorkoutLogCommand("Toto");
+    var log = new WorkoutLog("Toto");
+    when(createWorkoutLogPort.createWorkoutLog(command)).thenReturn(log);
+    var request = new CreateWorkoutLogRequest();
+    request.setTitle("Toto");
+
+    mockMvc
+        .perform(
+            post("/log")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(request)))
+        .andDo(print())
+        .andExpect(status().isCreated());
+  }
 }

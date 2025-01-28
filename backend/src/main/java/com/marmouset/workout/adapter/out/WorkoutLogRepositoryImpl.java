@@ -7,6 +7,7 @@ import java.util.stream.StreamSupport;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
+import com.marmouset.workout.adapter.in.dto.CreateWorkoutLogCommand;
 import com.marmouset.workout.adapter.out.dto.WorkoutLogListElementResponse;
 import com.marmouset.workout.adapter.out.mapper.WorkoutLogResponseMapper;
 import com.marmouset.workout.adapter.out.persistence.WorkoutLogRepository;
@@ -34,6 +35,11 @@ public class WorkoutLogRepositoryImpl implements WorkoutLogRepositoryPort {
   @Override
   public WorkoutLog getLogDetails(UUID uuid) throws WorkoutLogNotFound {
     return repository.findById(uuid).orElseThrow(() -> new WorkoutLogNotFound(uuid));
+  }
+
+  @Override
+  public WorkoutLog createWorkoutLog(CreateWorkoutLogCommand command) {
+    return repository.save(new WorkoutLog(command.getTitle()));
   }
 
 }
