@@ -2,10 +2,9 @@ package com.marmouset.workout.adapter.out.persistence;
 
 import java.util.UUID;
 
-import org.springframework.data.repository.CrudRepository;
-
+import org.springframework.data.jpa.repository.JpaRepository;
 import com.marmouset.workout.domain.exercise.Exercise;
 
-public interface ExerciseRepository extends CrudRepository<Exercise, UUID> {
+public interface ExerciseRepository extends JpaRepository<Exercise, UUID> {
 
 }

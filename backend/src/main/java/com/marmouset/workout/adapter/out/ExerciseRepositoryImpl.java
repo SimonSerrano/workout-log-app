@@ -1,5 +1,7 @@
 package com.marmouset.workout.adapter.out;
 
+import java.util.UUID;
+
 import org.springframework.context.annotation.Lazy;
 
 import com.marmouset.workout.adapter.out.persistence.ExerciseRepository;
@@ -20,6 +22,11 @@ public class ExerciseRepositoryImpl implements ExerciseRepositoryPort {
   @Override
   public Iterable<Exercise> getExercises() {
     return exerciseRepository.findAll();
+  }
+
+  @Override
+  public Exercise getExerciseReference(UUID id) {
+    return exerciseRepository.getReferenceById(id);
   }
 
 }

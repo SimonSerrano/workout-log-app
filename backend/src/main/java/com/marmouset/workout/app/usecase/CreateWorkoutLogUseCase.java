@@ -18,7 +18,7 @@ public class CreateWorkoutLogUseCase implements CreateWorkoutLogPort {
 
   @Override
   public WorkoutLog createWorkoutLog(CreateWorkoutLogCommand command) {
-    return workoutLogRepository.createWorkoutLog(command);
+    return workoutLogRepository.createWorkoutLog(new WorkoutLog(command.getTitle()));
   }
 
 }
