@@ -2,14 +2,15 @@ import { Button, CircularProgress, Grid2 } from "@mui/material";
 import NewWorkoutLogDialog from "./components/NewWorkoutLogDialog";
 import { useSignal } from "@preact/signals-react";
 import WorkoutLogList from "./components/WorkoutLogList";
-import LogService from "../../log/LogService";
 import { useQuery } from "@tanstack/react-query";
+import { useListWorkoutLogs } from "./ListWorkoutLogsContext";
 
 export default function WorkoutLogPage() {
 
   const newWorkoutDialogOpen = useSignal<boolean>(false);
+  const workoutLogClient = useListWorkoutLogs();
 
-  const { isPending, isError, data: logs, error } = useQuery({queryKey: ['logs'], queryFn: LogService.getLogs.bind(LogService)});
+  const { isPending, isError, data: logs, error } = useQuery({queryKey: ['logs'], queryFn: workoutLogClient.listWorkouts.bind(workoutLogClient)});
 
 
   if(error) {
