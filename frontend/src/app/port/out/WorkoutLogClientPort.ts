@@ -1,5 +1,6 @@
-import WorkoutLogListElementResponse from "../../../adapter/out/dto/WorkoutLogListElementResponse";
+import WorkoutLogResponse from "../../../adapter/out/dto/WorkoutLogResponse";
 
 export default interface WorkoutLogClientPort {
-  listWorkouts(): Promise<WorkoutLogListElementResponse[]>;
+  listWorkouts(): Promise<WorkoutLogResponse[]>;
+  getWorkoutLogDetails(uuid: string): Promise<WorkoutLogResponse>
 }

@@ -1,6 +1,6 @@
 import { List, ListItem } from "@mui/material";
 import WorkoutLogElement from "./WorkoutLogElement";
-import WorkoutLog from "../../../log/WorkoutLog";
+import WorkoutLog from "../../../../../domain/log/WorkoutLog";
 
 
 export interface WorkoutLogListProps {

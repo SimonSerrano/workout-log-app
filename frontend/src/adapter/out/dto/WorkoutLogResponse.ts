@@ -1,4 +1,4 @@
-export default interface WorkoutLogListElementResponse {
+export default interface WorkoutLogResponse {
   id: string;
   title: string;
   createdAtTimestamp: number;

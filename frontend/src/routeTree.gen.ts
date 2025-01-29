@@ -16,22 +16,31 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
-const LogLazyImport = createFileRoute('/log')()
 const IndexLazyImport = createFileRoute('/')()
+const LogIndexLazyImport = createFileRoute('/log/')()
+const LogLogIdIndexLazyImport = createFileRoute('/log/$logId/')()
 
 // Create/Update Routes
-
-const LogLazyRoute = LogLazyImport.update({
-  id: '/log',
-  path: '/log',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/log.lazy').then((d) => d.Route))
 
 const IndexLazyRoute = IndexLazyImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const LogIndexLazyRoute = LogIndexLazyImport.update({
+  id: '/log/',
+  path: '/log/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/log/index.lazy').then((d) => d.Route))
+
+const LogLogIdIndexLazyRoute = LogLogIdIndexLazyImport.update({
+  id: '/log/$logId/',
+  path: '/log/$logId/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/log/$logId/index.lazy').then((d) => d.Route),
+)
 
 // Populate the FileRoutesByPath interface
 
@@ -44,11 +53,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/log': {
-      id: '/log'
+    '/log/': {
+      id: '/log/'
       path: '/log'
       fullPath: '/log'
-      preLoaderRoute: typeof LogLazyImport
+      preLoaderRoute: typeof LogIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/log/$logId/': {
+      id: '/log/$logId/'
+      path: '/log/$logId'
+      fullPath: '/log/$logId'
+      preLoaderRoute: typeof LogLogIdIndexLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -58,37 +74,42 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
-  '/log': typeof LogLazyRoute
+  '/log': typeof LogIndexLazyRoute
+  '/log/$logId': typeof LogLogIdIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
-  '/log': typeof LogLazyRoute
+  '/log': typeof LogIndexLazyRoute
+  '/log/$logId': typeof LogLogIdIndexLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
-  '/log': typeof LogLazyRoute
+  '/log/': typeof LogIndexLazyRoute
+  '/log/$logId/': typeof LogLogIdIndexLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/log'
+  fullPaths: '/' | '/log' | '/log/$logId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/log'
-  id: '__root__' | '/' | '/log'
+  to: '/' | '/log' | '/log/$logId'
+  id: '__root__' | '/' | '/log/' | '/log/$logId/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
-  LogLazyRoute: typeof LogLazyRoute
+  LogIndexLazyRoute: typeof LogIndexLazyRoute
+  LogLogIdIndexLazyRoute: typeof LogLogIdIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
-  LogLazyRoute: LogLazyRoute,
+  LogIndexLazyRoute: LogIndexLazyRoute,
+  LogLogIdIndexLazyRoute: LogLogIdIndexLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -102,14 +123,18 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/log"
+        "/log/",
+        "/log/$logId/"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
     },
-    "/log": {
-      "filePath": "log.lazy.tsx"
+    "/log/": {
+      "filePath": "log/index.lazy.tsx"
+    },
+    "/log/$logId/": {
+      "filePath": "log/$logId/index.lazy.tsx"
     }
   }
 }

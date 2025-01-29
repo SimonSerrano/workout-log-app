@@ -8,9 +8,9 @@ import { useListWorkoutLogs } from "../../../../app/context/ListWorkoutLogsConte
 export default function WorkoutLogPage() {
 
   const newWorkoutDialogOpen = useSignal<boolean>(false);
-  const workoutLogClient = useListWorkoutLogs();
+  const listWorkoutLogs = useListWorkoutLogs();
 
-  const { isPending, isError, data: logs, error } = useQuery({queryKey: ['logs'], queryFn: workoutLogClient.listWorkouts.bind(workoutLogClient)});
+  const { isPending, isError, data: logs, error } = useQuery({queryKey: ['logs'], queryFn: listWorkoutLogs.listWorkouts.bind(listWorkoutLogs)});
 
 
   if(error) {

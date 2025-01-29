@@ -1,9 +1,9 @@
 import WorkoutLog from "../../../../domain/log/WorkoutLog";
-import WorkoutLogListElementResponse from "../../../../adapter/out/dto/WorkoutLogListElementResponse";
+import WorkoutLogResponse from "../../../../adapter/out/dto/WorkoutLogResponse";
 
-export default class WorkoutLogListElementResponseMapper {
+export default class WorkoutLogResponseMapper {
 
-  toWorkoutLog(response: WorkoutLogListElementResponse): WorkoutLog {
+  toWorkoutLog(response: WorkoutLogResponse): WorkoutLog {
     return {
       id: response.id,
       title: response.title,
