@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.marmouset.workout.adapter.in.dto.CreateWorkoutLogRequest;
 import com.marmouset.workout.adapter.in.mapper.WorkoutLogRequestMapper;
-import com.marmouset.workout.adapter.out.dto.WorkoutLogListElementResponse;
+import com.marmouset.workout.adapter.out.dto.WorkoutLogResponse;
 import com.marmouset.workout.app.port.in.CreateWorkoutLogPort;
 import com.marmouset.workout.app.port.in.DeleteWorkoutLogPort;
 import com.marmouset.workout.app.port.in.GetLogDetailsPort;
@@ -45,12 +45,12 @@ public class WorkoutLogController {
   }
 
   @GetMapping
-  public ResponseEntity<Iterable<WorkoutLogListElementResponse>> getLogs() {
+  public ResponseEntity<Iterable<WorkoutLogResponse>> getLogs() {
     return ResponseEntity.ok(listWorkoutLogsPort.listWorkouts());
   }
 
   @GetMapping(path = "/{logId}")
-  public ResponseEntity<WorkoutLog> getLog(@PathVariable UUID logId) {
+  public ResponseEntity<WorkoutLogResponse> getLog(@PathVariable UUID logId) {
     try {
       return ResponseEntity.ok(getLogDetailsPort.getDetails(logId));
     } catch (WorkoutLogNotFound e) {

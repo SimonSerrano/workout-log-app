@@ -1,13 +1,8 @@
 package com.marmouset.workout.adapter.out;
 
 import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
 import org.springframework.stereotype.Repository;
 
-import com.marmouset.workout.adapter.out.dto.WorkoutLogListElementResponse;
-import com.marmouset.workout.adapter.out.mapper.WorkoutLogResponseMapper;
 import com.marmouset.workout.adapter.out.persistence.WorkoutLogRepository;
 import com.marmouset.workout.app.port.out.WorkoutLogRepositoryPort;
 import com.marmouset.workout.domain.WorkoutLog;
@@ -17,20 +12,17 @@ import com.marmouset.workout.domain.WorkoutLogNotFound;
 public class WorkoutLogRepositoryPortImpl implements WorkoutLogRepositoryPort {
 
   private final WorkoutLogRepository repository;
-  private final WorkoutLogResponseMapper mapper;
 
-  public WorkoutLogRepositoryPortImpl(WorkoutLogRepository repository, WorkoutLogResponseMapper mapper) {
+  public WorkoutLogRepositoryPortImpl(WorkoutLogRepository repository) {
     this.repository = repository;
-    this.mapper = mapper;
 
     createWorkoutLog(new WorkoutLog("Toto"));
     createWorkoutLog(new WorkoutLog("Titi"));
   }
 
   @Override
-  public Iterable<WorkoutLogListElementResponse> getAllLogs() {
-    return StreamSupport.stream(repository.findAll().spliterator(), false)
-        .map(mapper::toWorkoutLogListElementDTO).collect(Collectors.toList());
+  public Iterable<WorkoutLog> getAllLogs() {
+    return repository.findAll();
   }
 
   @Override

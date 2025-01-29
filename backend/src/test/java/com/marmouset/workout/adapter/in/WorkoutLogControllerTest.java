@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marmouset.workout.adapter.in.dto.CreateWorkoutLogCommand;
 import com.marmouset.workout.adapter.in.dto.CreateWorkoutLogRequest;
 import com.marmouset.workout.adapter.in.mapper.WorkoutLogRequestMapper;
-import com.marmouset.workout.adapter.out.dto.WorkoutLogListElementResponse;
+import com.marmouset.workout.adapter.out.dto.WorkoutLogResponse;
 import com.marmouset.workout.app.port.in.CreateWorkoutLogPort;
 import com.marmouset.workout.app.port.in.DeleteWorkoutLogPort;
 import com.marmouset.workout.app.port.in.GetLogDetailsPort;
@@ -53,9 +53,9 @@ public class WorkoutLogControllerTest {
 
   @Test
   void shouldReturnLogsFromService() throws Exception {
-    List<WorkoutLogListElementResponse> returnedLogs = Arrays.asList(
-        new WorkoutLogListElementResponse(UUID.randomUUID(), "Toto", 1738071414L),
-        new WorkoutLogListElementResponse(UUID.randomUUID(), "Titi", 1738071414L));
+    List<WorkoutLogResponse> returnedLogs = Arrays.asList(
+        new WorkoutLogResponse(UUID.randomUUID(), "Toto", 1738071414L),
+        new WorkoutLogResponse(UUID.randomUUID(), "Titi", 1738071414L));
     when(listWorkoutLogsPort.listWorkouts()).thenReturn(returnedLogs);
 
     mockMvc.perform(get("/log"))
@@ -67,7 +67,7 @@ public class WorkoutLogControllerTest {
 
   @Test
   void shouldReturnLogFromService() throws Exception {
-    WorkoutLog returnedLog = new WorkoutLog("Toto");
+    WorkoutLogResponse returnedLog = new WorkoutLogResponse(UUID.randomUUID(), "Toto", 1738071414L);
     UUID uuid = UUID.randomUUID();
     when(getLogDetailsPort.getDetails(uuid)).thenReturn(returnedLog);
 
