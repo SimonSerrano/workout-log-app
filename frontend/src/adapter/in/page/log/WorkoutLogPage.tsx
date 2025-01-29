@@ -3,7 +3,7 @@ import NewWorkoutLogDialog from "./components/NewWorkoutLogDialog";
 import { useSignal } from "@preact/signals-react";
 import WorkoutLogList from "./components/WorkoutLogList";
 import { useQuery } from "@tanstack/react-query";
-import { useListWorkoutLogs } from "./ListWorkoutLogsContext";
+import { useListWorkoutLogs } from "../../../../app/context/ListWorkoutLogsContext";
 
 export default function WorkoutLogPage() {
 

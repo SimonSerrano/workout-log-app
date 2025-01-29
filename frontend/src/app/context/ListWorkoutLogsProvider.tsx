@@ -1,8 +1,8 @@
 import { PropsWithChildren } from "react";
 import { ListWorkoutLogsContext } from "./ListWorkoutLogsContext";
-import ListWorkoutLogsUseCase from "../../../../app/usecase/ListWorkoutLogsUseCase";
-import WorkoutLogClient from "../../../out/WorkoutLogClient";
-import WorkoutLogListElementResponseMapper from "../../../../app/port/out/mapper/WorkoutLogListElementResponseMapper";
+import ListWorkoutLogsUseCase from "../usecase/ListWorkoutLogsUseCase";
+import WorkoutLogClient from "../../adapter/out/WorkoutLogClient";
+import WorkoutLogListElementResponseMapper from "../port/out/mapper/WorkoutLogListElementResponseMapper";
 
 
 
