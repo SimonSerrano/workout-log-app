@@ -8,4 +8,6 @@ public interface ExerciseRepositoryPort {
   Iterable<Exercise> getExercises();
 
   Exercise getExerciseReference(UUID id);
+
+  Exercise createExercise(Exercise exercise);
 }

@@ -2,21 +2,22 @@ package com.marmouset.workout.adapter.out;
 
 import java.util.UUID;
 
-import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Repository;
 
 import com.marmouset.workout.adapter.out.persistence.ExerciseRepository;
 import com.marmouset.workout.app.port.out.ExerciseRepositoryPort;
 import com.marmouset.workout.domain.exercise.Exercise;
 
-public class ExerciseRepositoryImpl implements ExerciseRepositoryPort {
+@Repository
+public class ExerciseRepositoryPortImpl implements ExerciseRepositoryPort {
 
   private final ExerciseRepository exerciseRepository;
 
-  public ExerciseRepositoryImpl(@Lazy ExerciseRepository exerciseRepository) {
+  public ExerciseRepositoryPortImpl(ExerciseRepository exerciseRepository) {
     this.exerciseRepository = exerciseRepository;
 
-    this.exerciseRepository.save(new Exercise("Push up"));
-    this.exerciseRepository.save(new Exercise("Pull up"));
+    createExercise(new Exercise("Push up"));
+    createExercise(new Exercise("Pull up"));
   }
 
   @Override
@@ -27,6 +28,11 @@ public class ExerciseRepositoryImpl implements ExerciseRepositoryPort {
   @Override
   public Exercise getExerciseReference(UUID id) {
     return exerciseRepository.getReferenceById(id);
+  }
+
+  @Override
+  public Exercise createExercise(Exercise exercise) {
+    return exerciseRepository.save(exercise);
   }
 
 }

@@ -4,7 +4,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
 import com.marmouset.workout.adapter.out.dto.WorkoutLogListElementResponse;
@@ -15,17 +14,17 @@ import com.marmouset.workout.domain.WorkoutLog;
 import com.marmouset.workout.domain.WorkoutLogNotFound;
 
 @Repository
-public class WorkoutLogRepositoryImpl implements WorkoutLogRepositoryPort {
+public class WorkoutLogRepositoryPortImpl implements WorkoutLogRepositoryPort {
 
   private final WorkoutLogRepository repository;
   private final WorkoutLogResponseMapper mapper;
 
-  public WorkoutLogRepositoryImpl(@Lazy WorkoutLogRepository repository, WorkoutLogResponseMapper mapper) {
+  public WorkoutLogRepositoryPortImpl(WorkoutLogRepository repository, WorkoutLogResponseMapper mapper) {
     this.repository = repository;
     this.mapper = mapper;
 
-    this.repository.save(new WorkoutLog("Toto"));
-    this.repository.save(new WorkoutLog("Titi"));
+    createWorkoutLog(new WorkoutLog("Toto"));
+    createWorkoutLog(new WorkoutLog("Titi"));
   }
 
   @Override
