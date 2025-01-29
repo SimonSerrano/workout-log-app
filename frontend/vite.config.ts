@@ -4,5 +4,9 @@ import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [TanStackRouterVite(), react()],
+  plugins: [TanStackRouterVite(), react({
+    babel: {
+      plugins: [['module:@preact/signals-react-transform']]
+    }
+  })],
 })

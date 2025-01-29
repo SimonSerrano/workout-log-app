@@ -6,7 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useListWorkoutLogs } from "../../../../app/context/ListWorkoutLogsContext";
 
 export default function WorkoutLogPage() {
-
   const newWorkoutDialogOpen = useSignal<boolean>(false);
   const listWorkoutLogs = useListWorkoutLogs();
 
