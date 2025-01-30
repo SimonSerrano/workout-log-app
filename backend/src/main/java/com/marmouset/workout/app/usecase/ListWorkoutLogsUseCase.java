@@ -1,6 +1,5 @@
 package com.marmouset.workout.app.usecase;
 
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.stereotype.Component;
