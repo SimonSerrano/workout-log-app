@@ -1,12 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useGetLogDetails } from "../../../../app/context/GetLogDetailsContext"
-import { Route } from "../../../../routes/log/$logId/index.lazy";
 import { Button, CircularProgress, Grid2, Typography } from "@mui/material";
-import { useNavigate } from "@tanstack/react-router";
+import { getRouteApi, useNavigate } from "@tanstack/react-router";
 
 export default function WorkoutLogDetailsPage() {
 
-  const { logId } = Route.useParams();
+  const { logId } = getRouteApi('/log/$logId/').useParams();
   const navigate = useNavigate();
 
   const getLogDetails = useGetLogDetails();
