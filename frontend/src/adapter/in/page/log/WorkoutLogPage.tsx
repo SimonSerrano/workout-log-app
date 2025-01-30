@@ -3,7 +3,8 @@ import NewWorkoutLogDialog from './components/NewWorkoutLogDialog';
 import { useSignal } from '@preact/signals-react';
 import WorkoutLogList from './components/WorkoutLogList';
 import { useQuery } from '@tanstack/react-query';
-import { useListWorkoutLogs } from '../../../../app/context/ListWorkoutLogsContext';
+import { useListWorkoutLogs } 
+  from '../../../../app/context/ListWorkoutLogsContext';
 import WorkoutLogElement from './components/WorkoutLogElement';
 import { useNavigate } from '@tanstack/react-router';
 import WorkoutLog from '../../../../domain/log/WorkoutLog';
@@ -19,7 +20,7 @@ export default function WorkoutLogPage() {
     data: logs,
     error,
   } = useQuery({
-    queryKey: ['logs'],
+    queryKey: ['logs',],
     queryFn: listWorkoutLogs.listWorkouts.bind(listWorkoutLogs),
   });
 
@@ -28,8 +29,8 @@ export default function WorkoutLogPage() {
   }
 
   const handleDetailsClick = (log: WorkoutLog) => {
-    const state: Record<string, WorkoutLog> = { log };
-    navigate({ to: '/log/$logId', params: { logId: log.id }, state });
+    const state: Record<string, WorkoutLog> = { log, };
+    navigate({ to: '/log/$logId', params: { logId: log.id, }, state, });
   };
 
   return (

@@ -8,7 +8,7 @@ export default defineConfig({
     TanStackRouterVite(),
     react({
       babel: {
-        plugins: [['module:@preact/signals-react-transform']],
+        plugins: [['module:@preact/signals-react-transform',],],
       },
     }),
   ],

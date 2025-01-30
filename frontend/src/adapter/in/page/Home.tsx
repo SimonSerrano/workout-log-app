@@ -11,9 +11,9 @@ export default function Home() {
 
   useEffect(() => {
     if (location.pathname === '/') {
-      navigate({ to: '/log' });
+      navigate({ to: '/log', });
     }
-  }, [location, navigate]);
+  }, [location, navigate,]);
 
   return (
     <QueryClientProvider client={queryClient}>

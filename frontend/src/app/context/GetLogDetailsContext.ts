@@ -4,7 +4,7 @@ import getLogDetailsPort from '../port/in/GetLogDetailsPort';
 
 export const GetLogDetailsContext = createContext<getLogDetailsPort>({
   getLogDetails: async (): Promise<WorkoutLog> => {
-    return { id: '', title: '', createdAt: '' };
+    return { id: '', title: '', createdAt: '', };
   },
 });
 

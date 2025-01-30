@@ -7,7 +7,7 @@ import WorkoutLogResponseMapper from '../port/out/mapper/WorkoutLogResponseMappe
 export default function ListWorkoutLogsProvider(props: PropsWithChildren) {
   const useCase = new ListWorkoutLogsUseCase(
     new WorkoutLogClient(),
-    new WorkoutLogResponseMapper(),
+    new WorkoutLogResponseMapper()
   );
 
   return (

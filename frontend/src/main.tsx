@@ -4,7 +4,7 @@ import './index.css';
 import { routeTree } from './routeTree.gen';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 
-const router = createRouter({ routeTree });
+const router = createRouter({ routeTree, });
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -18,6 +18,6 @@ if (!rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <RouterProvider router={router} />
-    </StrictMode>,
+    </StrictMode>
   );
 }

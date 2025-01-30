@@ -3,10 +3,11 @@ import {
   Card,
   CardActions,
   CardContent,
-  Typography,
+  Typography
 } from '@mui/material';
 import { isWorkoutLog } from '../../../../../domain/log/guard';
-import LogWithEmptyValueError from '../../../../../domain/log/LogWithEmptyValueError';
+import LogWithEmptyValueError 
+  from '../../../../../domain/log/LogWithEmptyValueError';
 import WorkoutLog from '../../../../../domain/log/WorkoutLog';
 
 export interface WorkoutLogElementProps {

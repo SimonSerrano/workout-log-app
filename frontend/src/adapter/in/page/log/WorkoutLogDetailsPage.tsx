@@ -16,13 +16,13 @@ export default function WorkoutLogDetailsPage() {
     }
 
     return null;
-  }, [routerState]);
+  }, [routerState,]);
 
   useEffect(() => {
     if (log === null) {
-      navigate({ to: '/log' });
+      navigate({ to: '/log', });
     }
-  }, [log, navigate]);
+  }, [log, navigate,]);
 
   if (!log) {
     return <CircularProgress />;
@@ -30,7 +30,7 @@ export default function WorkoutLogDetailsPage() {
 
   return (
     <Grid2 container direction="column">
-      <Button onClick={() => navigate({ to: '/log' })}>Back</Button>
+      <Button onClick={() => navigate({ to: '/log', })}>Back</Button>
       <Grid2>
         <Typography>{log.title}</Typography>
       </Grid2>
