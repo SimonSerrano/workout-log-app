@@ -1,12 +1,16 @@
 import NewWorkoutLog from '../../app/port/out/dto/NewWorkoutLog';
 import WorkoutLogClientPort from '../../app/port/out/WorkoutLogClientPort';
 import LogFetchError from '../../domain/log/LogFetchError';
+import AbstractClient from './AbstractClient';
 import WorkoutLogResponse from './dto/WorkoutLogResponse';
 
-export default class WorkoutLogClient implements WorkoutLogClientPort {
-  constructor(private url = 'http://localhost:8080/log') { }
-
-
+export default class WorkoutLogClient 
+  extends AbstractClient implements WorkoutLogClientPort {
+    
+  protected getPath(): string {
+    return '/log';
+  }
+  
   async listWorkouts(): Promise<WorkoutLogResponse[]> {
     const response = await fetch(this.url);
     if (!response.ok) {
