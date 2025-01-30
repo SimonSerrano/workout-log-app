@@ -1,16 +1,15 @@
 import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
-import { useNavigate } from "@tanstack/react-router";
 import { isRequiredLog } from "../../../../../domain/log/guard";
 import LogWithEmptyValueError from "../../../../../domain/log/LogWithEmptyValueError";
 import WorkoutLog from "../../../../../domain/log/WorkoutLog";
 
 interface WorkoutLogElementProps {
   log: WorkoutLog
+  onDetailsClick(): void
 }
 
-export default function WorkoutLogElement({log}: WorkoutLogElementProps ) {
+export default function WorkoutLogElement({log, onDetailsClick}: WorkoutLogElementProps ) {
 
-  const navigate = useNavigate();
 
   if(!isRequiredLog(log)) {
     throw new LogWithEmptyValueError();
@@ -21,7 +20,7 @@ export default function WorkoutLogElement({log}: WorkoutLogElementProps ) {
       <Typography>{log.createdAt}</Typography>
     </CardContent>
     <CardActions>
-      <Button onClick={() => navigate({ to: `/log/${log.id}` })}>Details</Button>
+      <Button onClick={onDetailsClick}>Details</Button>
     </CardActions>
   </Card>
 }

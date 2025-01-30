@@ -1,10 +1,10 @@
 import { List, ListItem } from "@mui/material";
-import WorkoutLogElement from "./WorkoutLogElement";
 import WorkoutLog from "../../../../../domain/log/WorkoutLog";
 
 
 export interface WorkoutLogListProps {
   logs: WorkoutLog[]
+  listElementComponent(log: WorkoutLog): JSX.Element
 }
 
 export default function WorkoutLogList(props: WorkoutLogListProps) {
@@ -12,7 +12,7 @@ export default function WorkoutLogList(props: WorkoutLogListProps) {
   {
     props.logs.map((log) => (
       <ListItem key={log.id}>
-        <WorkoutLogElement log={log}/>
+        {props.listElementComponent(log)}
       </ListItem>
     ))
   }
