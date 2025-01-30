@@ -12,6 +12,6 @@ import org.springframework.stereotype.Component;
 public class ExerciseFactoryImpl implements ExerciseFactory {
   @Override
   public Exercise create(UUID id, String name) {
-    return new ExerciseImpl(name);
+    return new ExerciseImpl(id, name);
   }
 }
