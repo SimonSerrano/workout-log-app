@@ -1,9 +1,10 @@
 package com.marmouset.workout.app.domain.exercise.impl;
 
 import com.marmouset.workout.app.domain.exercise.Exercise;
+import java.util.UUID;
 
 
-record ExerciseImpl(String name) implements Exercise {
+record ExerciseImpl(UUID id, String name) implements Exercise {
   @Override
   public boolean equals(Object o) {
     if (this == o) {
