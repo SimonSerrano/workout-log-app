@@ -31,5 +31,11 @@ export default class WorkoutLogClient implements WorkoutLogClientPort {
       method: 'POST',
       body: JSON.stringify(log),
     });
+
+    if(response.status !== 201) {
+      throw new LogFetchError();
+    }
+
+    return response.json();
   }
 }
