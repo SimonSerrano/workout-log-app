@@ -1,10 +1,10 @@
 import WorkoutLog from '../../domain/log/WorkoutLog';
-import getLogDetailsPort from '../port/in/GetLogDetailsPort';
+import GetLogDetailsPort from '../port/in/GetLogDetailsPort';
 import WorkoutLogResponseMapper 
   from '../port/out/mapper/WorkoutLogResponseMapper';
 import WorkoutLogClientPort from '../port/out/WorkoutLogClientPort';
 
-export default class getLogDetailsUseCase implements getLogDetailsPort {
+export default class getLogDetailsUseCase implements GetLogDetailsPort {
   constructor(
     private readonly logClient: WorkoutLogClientPort,
     private readonly mapper: WorkoutLogResponseMapper

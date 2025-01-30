@@ -1,8 +1,8 @@
 import { createContext, useContext } from 'react';
 import WorkoutLog from '../../domain/log/WorkoutLog';
-import getLogDetailsPort from '../port/in/GetLogDetailsPort';
+import GetLogDetailsPort from '../port/in/GetLogDetailsPort';
 
-export const GetLogDetailsContext = createContext<getLogDetailsPort>({
+export const GetLogDetailsContext = createContext<GetLogDetailsPort>({
   getLogDetails: async (): Promise<WorkoutLog> => {
     return { id: '', title: '', createdAt: '', };
   },

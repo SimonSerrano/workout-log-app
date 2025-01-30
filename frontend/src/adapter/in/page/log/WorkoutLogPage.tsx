@@ -8,10 +8,14 @@ import { useListWorkoutLogs }
 import WorkoutLogElement from './components/WorkoutLogElement';
 import { useNavigate } from '@tanstack/react-router';
 import WorkoutLog from '../../../../domain/log/WorkoutLog';
+import { useCreateWorkoutLog } 
+  from '../../../../app/context/CreateWorkoutLogContext';
+import NewWorkoutLogForm from '../../dto/NewWorkoutLogForm';
 
 export default function WorkoutLogPage() {
   const newWorkoutDialogOpen = useSignal<boolean>(false);
   const listWorkoutLogs = useListWorkoutLogs();
+  const createWorkoutLog = useCreateWorkoutLog();
   const navigate = useNavigate();
 
   const {
@@ -33,6 +37,16 @@ export default function WorkoutLogPage() {
     navigate({ to: '/log/$logId', params: { logId: log.id, }, state, });
   };
 
+  const handleOnSubmitNewWorkout = 
+  async (log: NewWorkoutLogForm): Promise<void> => {
+    const returnedWorkoutLog = await createWorkoutLog.createNewWorkoutLog(log);
+    const state: Record<string, WorkoutLog> = { log: returnedWorkoutLog, };
+    navigate({ 
+      to: '/log/$logId', 
+      params: {logId: returnedWorkoutLog.id,}, 
+      state,});
+  };
+
   return (
     <Grid2 container direction={'column'}>
       <Grid2>
@@ -42,6 +56,7 @@ export default function WorkoutLogPage() {
         <NewWorkoutLogDialog
           open={newWorkoutDialogOpen.value}
           onClose={() => (newWorkoutDialogOpen.value = false)}
+          onSubmit={handleOnSubmitNewWorkout}
         />
       </Grid2>
       <Grid2>
