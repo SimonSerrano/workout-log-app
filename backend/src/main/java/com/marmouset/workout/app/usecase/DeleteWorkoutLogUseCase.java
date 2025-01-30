@@ -5,27 +5,19 @@ import com.marmouset.workout.app.port.out.WorkoutLogRepository;
 import java.util.UUID;
 import org.springframework.stereotype.Component;
 
-/**
- * Use case for the workout log deletion.
- */
 @Component
-public class DeleteWorkoutLogUseCase implements DeleteWorkoutLog {
+class DeleteWorkoutLogUseCase implements DeleteWorkoutLog {
 
-  private final WorkoutLogRepository workoutLogRepository;
+  private final WorkoutLogRepository repository;
 
-  /**
-   * Constructor for this use case.
-   *
-   * @param repository the workout log repository
-   */
   public DeleteWorkoutLogUseCase(WorkoutLogRepository repository) {
-    this.workoutLogRepository = repository;
+    this.repository = repository;
   }
 
 
   @Override
   public void deleteWorkoutLog(UUID uuid) {
-    workoutLogRepository.deleteWorkoutLog(uuid);
+    repository.deleteWorkoutLog(uuid);
   }
 
 }
