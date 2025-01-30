@@ -22,7 +22,9 @@ public class ListWorkoutLogsUseCase implements ListWorkoutLogs {
 
   @Override
   public Iterable<WorkoutLogResponse> listWorkouts() {
-    return StreamSupport.stream(workoutLogRepository.getAllLogs().spliterator(), false)
-        .map(presenter::prepareSuccessfulResponse).collect(Collectors.toList());
+    return StreamSupport
+        .stream(workoutLogRepository.getAllLogs().spliterator(), false)
+        .map(presenter::prepareSuccessfulResponse)
+        .toList();
   }
 }
