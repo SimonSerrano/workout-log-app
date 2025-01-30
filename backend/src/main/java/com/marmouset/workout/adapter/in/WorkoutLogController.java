@@ -19,7 +19,6 @@ import com.marmouset.workout.app.port.in.CreateWorkoutLogPort;
 import com.marmouset.workout.app.port.in.DeleteWorkoutLogPort;
 import com.marmouset.workout.app.port.in.GetLogDetailsPort;
 import com.marmouset.workout.app.port.in.ListWorkoutLogsPort;
-import com.marmouset.workout.domain.WorkoutLog;
 import com.marmouset.workout.domain.WorkoutLogNotFound;
 
 import jakarta.validation.Valid;
@@ -59,8 +58,8 @@ public class WorkoutLogController {
   }
 
   @PostMapping
-  public ResponseEntity<WorkoutLog> createLog(@Valid @RequestBody CreateWorkoutLogRequest request) {
-    return new ResponseEntity<WorkoutLog>(
+  public ResponseEntity<WorkoutLogResponse> createLog(@Valid @RequestBody CreateWorkoutLogRequest request) {
+    return new ResponseEntity<WorkoutLogResponse>(
         createWorkoutLogPort.createWorkoutLog(mapper.toCreateWorkoutLogCommand(request)),
         HttpStatus.CREATED);
   }
