@@ -24,6 +24,7 @@
     "@eslint/js": "^9.17.0",
     "@preact/signals-react-transform": "^0.5.1",
     "@tanstack/eslint-plugin-query": "^5.65.0",
+    "@tanstack/eslint-plugin-router": "^1.98.1",
     "@tanstack/router-devtools": "^1.97.24",
     "@tanstack/router-plugin": "^1.97.24",
     "@types/react": "^18.3.18",
