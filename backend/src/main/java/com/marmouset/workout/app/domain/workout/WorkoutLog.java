@@ -1,16 +1,15 @@
 package com.marmouset.workout.app.domain.workout;
 
+import com.marmouset.workout.app.domain.exercise.TrainedExercise;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
-
-import com.marmouset.workout.app.domain.exercise.TrainedExercise;
 
 public interface WorkoutLog {
 
   UUID getId();
 
-  String getTitle();
+  String getName();
 
   void rename(String title);
 
