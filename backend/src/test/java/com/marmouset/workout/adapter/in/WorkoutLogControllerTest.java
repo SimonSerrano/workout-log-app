@@ -29,7 +29,6 @@ import com.marmouset.workout.app.port.in.CreateWorkoutLogPort;
 import com.marmouset.workout.app.port.in.DeleteWorkoutLogPort;
 import com.marmouset.workout.app.port.in.GetLogDetailsPort;
 import com.marmouset.workout.app.port.in.ListWorkoutLogsPort;
-import com.marmouset.workout.domain.WorkoutLog;
 import com.marmouset.workout.domain.WorkoutLogNotFound;
 
 @WebMvcTest(WorkoutLogController.class)
@@ -88,7 +87,7 @@ public class WorkoutLogControllerTest {
   @Test
   void shouldCreateANewWorkoutLog() throws Exception {
     var command = new CreateWorkoutLogCommand("Toto");
-    var log = new WorkoutLog("Toto");
+    var log = new WorkoutLogResponse(UUID.randomUUID(), "Toto", 1738071414L);
     when(createWorkoutLogPort.createWorkoutLog(command)).thenReturn(log);
     var request = new CreateWorkoutLogRequest();
     request.setTitle("Toto");
