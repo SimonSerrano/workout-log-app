@@ -3,7 +3,7 @@ import { isRequiredLog } from "../../../../../domain/log/guard";
 import LogWithEmptyValueError from "../../../../../domain/log/LogWithEmptyValueError";
 import WorkoutLog from "../../../../../domain/log/WorkoutLog";
 
-interface WorkoutLogElementProps {
+export interface WorkoutLogElementProps {
   log: WorkoutLog
   onDetailsClick(): void
 }
