@@ -1,9 +1,7 @@
 package com.marmouset.workout.app.domain.exercise;
 
-import java.util.List;
-
 import com.marmouset.workout.app.domain.set.ExerciseSet;
-import com.marmouset.workout.app.domain.workout.WorkoutLog;
+import java.util.List;
 
 public interface TrainedExercise {
 
@@ -17,5 +15,5 @@ public interface TrainedExercise {
 
   TrainedExercise removeSet(ExerciseSet set);
 
-  WorkoutLog getLog();
+
 }
