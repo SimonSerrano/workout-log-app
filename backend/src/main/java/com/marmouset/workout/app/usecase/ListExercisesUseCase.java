@@ -1,23 +1,29 @@
 package com.marmouset.workout.app.usecase;
 
+import java.util.stream.StreamSupport;
+
 import org.springframework.stereotype.Component;
 
-import com.marmouset.workout.app.port.in.ListExercisesPort;
-import com.marmouset.workout.app.port.out.ExerciseRepositoryPort;
-import com.marmouset.workout.domain.exercise.Exercise;
+import com.marmouset.workout.app.port.in.ListExercises;
+import com.marmouset.workout.app.port.out.ExercisePresenter;
+import com.marmouset.workout.app.port.out.ExerciseRepository;
+import com.marmouset.workout.app.port.out.dto.ExerciseResponse;
 
 @Component
-public class ListExercisesUseCase implements ListExercisesPort {
+public class ListExercisesUseCase implements ListExercises {
 
-  private final ExerciseRepositoryPort exerciseRepositoryPort;
+  private final ExerciseRepository exerciseRepositoryPort;
+  private final ExercisePresenter presenter;
 
-  public ListExercisesUseCase(ExerciseRepositoryPort exerciseRepositoryPort) {
+  public ListExercisesUseCase(ExerciseRepository exerciseRepositoryPort, ExercisePresenter presenter) {
     this.exerciseRepositoryPort = exerciseRepositoryPort;
+    this.presenter = presenter;
   }
 
   @Override
-  public Iterable<Exercise> listExercises() {
-    return exerciseRepositoryPort.getExercises();
+  public Iterable<ExerciseResponse> listExercises() {
+    return StreamSupport.stream(exerciseRepositoryPort.getExercises().spliterator(), false)
+        .map(presenter::prepareResponse).toList();
   }
 
 }

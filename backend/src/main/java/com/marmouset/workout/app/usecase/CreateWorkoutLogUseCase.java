@@ -2,27 +2,30 @@ package com.marmouset.workout.app.usecase;
 
 import org.springframework.stereotype.Component;
 
-import com.marmouset.workout.adapter.in.dto.CreateWorkoutLogCommand;
-import com.marmouset.workout.adapter.out.dto.WorkoutLogResponse;
-import com.marmouset.workout.adapter.out.mapper.WorkoutLogResponseMapper;
-import com.marmouset.workout.app.port.in.CreateWorkoutLogPort;
-import com.marmouset.workout.app.port.out.WorkoutLogRepositoryPort;
-import com.marmouset.workout.domain.WorkoutLog;
+import com.marmouset.workout.app.port.in.CreateWorkoutLog;
+import com.marmouset.workout.app.port.in.dto.CreateWorkoutLogCommand;
+import com.marmouset.workout.app.port.out.WorkoutLogPresenter;
+import com.marmouset.workout.app.port.out.WorkoutLogRepository;
+import com.marmouset.workout.app.port.out.dto.CreateWorkoutLogRepoRequest;
+import com.marmouset.workout.app.port.out.dto.WorkoutLogResponse;
 
 @Component
-public class CreateWorkoutLogUseCase implements CreateWorkoutLogPort {
+public class CreateWorkoutLogUseCase implements CreateWorkoutLog {
 
-  private final WorkoutLogRepositoryPort workoutLogRepository;
-  private final WorkoutLogResponseMapper mapper;
+  private final WorkoutLogRepository workoutLogRepository;
+  private final WorkoutLogPresenter presenter;
 
-  public CreateWorkoutLogUseCase(WorkoutLogRepositoryPort workoutLogRepository, WorkoutLogResponseMapper mapper) {
+  public CreateWorkoutLogUseCase(WorkoutLogRepository workoutLogRepository,
+      WorkoutLogPresenter presenter) {
     this.workoutLogRepository = workoutLogRepository;
-    this.mapper = mapper;
+    this.presenter = presenter;
   }
 
   @Override
   public WorkoutLogResponse createWorkoutLog(CreateWorkoutLogCommand command) {
-    return mapper.toWorkoutLogListElementDTO(workoutLogRepository.createWorkoutLog(new WorkoutLog(command.getTitle())));
+    var log = workoutLogRepository
+        .createWorkoutLog(new CreateWorkoutLogRepoRequest(command.getName()));
+    return presenter.prepareSuccessfulResponse(log);
   }
 
 }

@@ -5,24 +5,24 @@ import java.util.stream.StreamSupport;
 
 import org.springframework.stereotype.Component;
 
-import com.marmouset.workout.adapter.out.dto.WorkoutLogResponse;
-import com.marmouset.workout.adapter.out.mapper.WorkoutLogResponseMapper;
-import com.marmouset.workout.app.port.in.ListWorkoutLogsPort;
-import com.marmouset.workout.app.port.out.WorkoutLogRepositoryPort;
+import com.marmouset.workout.app.port.in.ListWorkoutLogs;
+import com.marmouset.workout.app.port.out.WorkoutLogPresenter;
+import com.marmouset.workout.app.port.out.WorkoutLogRepository;
+import com.marmouset.workout.app.port.out.dto.WorkoutLogResponse;
 
 @Component
-public class ListWorkoutLogsUseCase implements ListWorkoutLogsPort {
-  private final WorkoutLogRepositoryPort workoutLogRepository;
-  private final WorkoutLogResponseMapper mapper;
+public class ListWorkoutLogsUseCase implements ListWorkoutLogs {
+  private final WorkoutLogRepository workoutLogRepository;
+  private final WorkoutLogPresenter presenter;
 
-  public ListWorkoutLogsUseCase(WorkoutLogRepositoryPort workoutLogRepository, WorkoutLogResponseMapper mapper) {
+  public ListWorkoutLogsUseCase(WorkoutLogRepository workoutLogRepository, WorkoutLogPresenter presenter) {
     this.workoutLogRepository = workoutLogRepository;
-    this.mapper = mapper;
+    this.presenter = presenter;
   }
 
   @Override
   public Iterable<WorkoutLogResponse> listWorkouts() {
     return StreamSupport.stream(workoutLogRepository.getAllLogs().spliterator(), false)
-        .map(mapper::toWorkoutLogListElementDTO).collect(Collectors.toList());
+        .map(presenter::prepareSuccessfulResponse).collect(Collectors.toList());
   }
 }

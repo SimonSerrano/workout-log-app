@@ -21,15 +21,16 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.marmouset.workout.adapter.in.dto.CreateWorkoutLogCommand;
-import com.marmouset.workout.adapter.in.dto.CreateWorkoutLogRequest;
-import com.marmouset.workout.adapter.in.mapper.WorkoutLogRequestMapper;
-import com.marmouset.workout.adapter.out.dto.WorkoutLogResponse;
-import com.marmouset.workout.app.port.in.CreateWorkoutLogPort;
-import com.marmouset.workout.app.port.in.DeleteWorkoutLogPort;
-import com.marmouset.workout.app.port.in.GetLogDetailsPort;
-import com.marmouset.workout.app.port.in.ListWorkoutLogsPort;
-import com.marmouset.workout.domain.WorkoutLogNotFound;
+import com.marmouset.workout.app.domain.WorkoutLogNotFound;
+import com.marmouset.workout.app.port.in.CreateWorkoutLog;
+import com.marmouset.workout.app.port.in.DeleteWorkoutLog;
+import com.marmouset.workout.app.port.in.GetLogDetails;
+import com.marmouset.workout.app.port.in.ListWorkoutLogs;
+import com.marmouset.workout.app.port.in.dto.CreateWorkoutLogCommand;
+import com.marmouset.workout.app.port.out.dto.WorkoutLogResponse;
+import com.marmouset.workout.external.web.workout.CreateWorkoutLogRequest;
+import com.marmouset.workout.external.web.workout.WorkoutLogController;
+import com.marmouset.workout.external.web.workout.WorkoutLogRequestMapper;
 
 @WebMvcTest(WorkoutLogController.class)
 @ContextConfiguration(classes = { WorkoutLogController.class, WorkoutLogRequestMapper.class })
@@ -39,16 +40,16 @@ public class WorkoutLogControllerTest {
   private MockMvc mockMvc;
 
   @MockitoBean
-  private ListWorkoutLogsPort listWorkoutLogsPort;
+  private ListWorkoutLogs listWorkoutLogsPort;
 
   @MockitoBean
-  private GetLogDetailsPort getLogDetailsPort;
+  private GetLogDetails getLogDetailsPort;
 
   @MockitoBean
-  private CreateWorkoutLogPort createWorkoutLogPort;
+  private CreateWorkoutLog createWorkoutLogPort;
 
   @MockitoBean
-  private DeleteWorkoutLogPort deleteWorkoutLogPort;
+  private DeleteWorkoutLog deleteWorkoutLogPort;
 
   @Test
   void shouldReturnLogsFromService() throws Exception {

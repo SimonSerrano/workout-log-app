@@ -4,24 +4,24 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
-import com.marmouset.workout.adapter.out.dto.WorkoutLogResponse;
-import com.marmouset.workout.adapter.out.mapper.WorkoutLogResponseMapper;
-import com.marmouset.workout.app.port.in.GetLogDetailsPort;
-import com.marmouset.workout.app.port.out.WorkoutLogRepositoryPort;
-import com.marmouset.workout.domain.WorkoutLogNotFound;
+import com.marmouset.workout.app.domain.WorkoutLogNotFound;
+import com.marmouset.workout.app.port.in.GetLogDetails;
+import com.marmouset.workout.app.port.out.WorkoutLogPresenter;
+import com.marmouset.workout.app.port.out.WorkoutLogRepository;
+import com.marmouset.workout.app.port.out.dto.WorkoutLogResponse;
 
 @Component
-public class GetLogDetailsUseCase implements GetLogDetailsPort {
-  private final WorkoutLogRepositoryPort workoutLogRepository;
-  private final WorkoutLogResponseMapper mapper;
+public class GetLogDetailsUseCase implements GetLogDetails {
+  private final WorkoutLogRepository workoutLogRepository;
+  private final WorkoutLogPresenter presenter;
 
-  public GetLogDetailsUseCase(WorkoutLogRepositoryPort workoutLogRepository, WorkoutLogResponseMapper mapper) {
+  public GetLogDetailsUseCase(WorkoutLogRepository workoutLogRepository, WorkoutLogPresenter presenter) {
     this.workoutLogRepository = workoutLogRepository;
-    this.mapper = mapper;
+    this.presenter = presenter;
   }
 
   @Override
   public WorkoutLogResponse getDetails(UUID uuid) throws WorkoutLogNotFound {
-    return mapper.toWorkoutLogListElementDTO(workoutLogRepository.getLogDetails(uuid));
+    return presenter.prepareSuccessfulResponse(workoutLogRepository.getLogDetails(uuid));
   }
 }

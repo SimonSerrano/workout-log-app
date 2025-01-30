@@ -1,0 +1,23 @@
+package com.marmouset.workout.app.domain.workout;
+
+import java.time.Instant;
+import java.util.List;
+import java.util.UUID;
+
+import com.marmouset.workout.app.domain.exercise.TrainedExercise;
+
+public interface WorkoutLog {
+
+  UUID getId();
+
+  String getTitle();
+
+  void rename(String title);
+
+  List<TrainedExercise> getExercises();
+
+  WorkoutLog addExercise(TrainedExercise exercise);
+
+  Instant getCreatedAt();
+
+}

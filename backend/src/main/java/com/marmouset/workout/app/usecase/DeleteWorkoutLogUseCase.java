@@ -4,15 +4,15 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
-import com.marmouset.workout.app.port.in.DeleteWorkoutLogPort;
-import com.marmouset.workout.app.port.out.WorkoutLogRepositoryPort;
+import com.marmouset.workout.app.port.in.DeleteWorkoutLog;
+import com.marmouset.workout.app.port.out.WorkoutLogRepository;
 
 @Component
-public class DeleteWorkoutLogUseCase implements DeleteWorkoutLogPort {
+public class DeleteWorkoutLogUseCase implements DeleteWorkoutLog {
 
-  private final WorkoutLogRepositoryPort workoutLogRepository;
+  private final WorkoutLogRepository workoutLogRepository;
 
-  public DeleteWorkoutLogUseCase(WorkoutLogRepositoryPort workoutLogRepository) {
+  public DeleteWorkoutLogUseCase(WorkoutLogRepository workoutLogRepository) {
     this.workoutLogRepository = workoutLogRepository;
   }
 
