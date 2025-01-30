@@ -18,8 +18,10 @@ public class ListTrainedExerciseUseCase implements ListTrainedExercises {
   private final WorkoutLogRepository workoutLogRepositoryPort;
   private final TrainedExercisePresenter presenter;
 
-  public ListTrainedExerciseUseCase(TrainedExerciseRepository trainedExerciseRepositoryPort,
-      WorkoutLogRepository workoutLogRepositoryPort, TrainedExercisePresenter presenter) {
+  public ListTrainedExerciseUseCase(
+      TrainedExerciseRepository trainedExerciseRepositoryPort,
+      WorkoutLogRepository workoutLogRepositoryPort,
+      TrainedExercisePresenter presenter) {
     this.trainedExerciseRepositoryPort = trainedExerciseRepositoryPort;
     this.workoutLogRepositoryPort = workoutLogRepositoryPort;
     this.presenter = presenter;
@@ -30,7 +32,8 @@ public class ListTrainedExerciseUseCase implements ListTrainedExercises {
     var workout = workoutLogRepositoryPort.getLogReference(logId);
     return StreamSupport
         .stream(trainedExerciseRepositoryPort.getTrainedExercises(workout).spliterator(), false)
-        .map(presenter::toResponse).toList();
+        .map(presenter::toResponse)
+        .toList();
   }
 
 }
