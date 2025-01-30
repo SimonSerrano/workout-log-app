@@ -6,13 +6,12 @@ import { useEffect } from 'react';
 const queryClient = new QueryClient();
 
 export default function Home() {
-
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    if(location.pathname === '/') {
-      navigate({ to: '/log'});
+    if (location.pathname === '/') {
+      navigate({ to: '/log' });
     }
   }, [location, navigate]);
 
@@ -21,5 +20,5 @@ export default function Home() {
       <Outlet />
       <TanStackRouterDevtools />
     </QueryClientProvider>
-  )
+  );
 }

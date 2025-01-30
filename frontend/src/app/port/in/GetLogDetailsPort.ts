@@ -1,5 +1,5 @@
-import WorkoutLog from "../../../domain/log/WorkoutLog";
+import WorkoutLog from '../../../domain/log/WorkoutLog';
 
 export default interface getLogDetailsPort {
-  getLogDetails(uuid: string): Promise<WorkoutLog>
+  getLogDetails(uuid: string): Promise<WorkoutLog>;
 }
