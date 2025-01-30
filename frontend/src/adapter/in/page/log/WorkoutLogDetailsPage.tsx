@@ -1,34 +1,41 @@
-import { useQuery } from "@tanstack/react-query";
-import { useGetLogDetails } from "../../../../app/context/GetLogDetailsContext"
 import { Button, CircularProgress, Grid2, Typography } from "@mui/material";
-import { getRouteApi, useNavigate } from "@tanstack/react-router";
+import { useNavigate, useRouterState } from "@tanstack/react-router";
+import { isWorkoutLog } from "../../../../domain/log/guard";
+import { useEffect, useMemo } from "react";
+
 
 export default function WorkoutLogDetailsPage() {
 
-  const { logId } = getRouteApi('/log/$logId/').useParams();
+  
+  const routerState = useRouterState();
   const navigate = useNavigate();
 
-  const getLogDetails = useGetLogDetails();
+  const log = useMemo(() => {
+    if('log' in routerState.location.state && isWorkoutLog(routerState.location.state.log)) {
+      return routerState.location.state.log;
+    }
 
-  const { isPending, isError, data: log, error } = useQuery({queryKey: ['logs/' + logId], queryFn: () => {
-    return getLogDetails.getLogDetails(logId);
-  }});
+    return null;
+  }, [routerState])
 
-  if(isPending) {
+  useEffect(() => {
+    if(log === null)  {
+      navigate({to: '/log'})
+    }
+  }, [log, navigate]);
+  
+  if(!log) {
     return <CircularProgress />
   }
 
-  if(isError) {
-    console.error(error);
-  }
 
   return <Grid2 container direction="column">
     <Button onClick={() => navigate({to: '/log'})}>Back</Button>
     <Grid2>
-      <Typography>{log?.title}</Typography>
+      <Typography>{log.title}</Typography>
     </Grid2>
     <Grid2>
-      <Typography>{log?.createdAt}</Typography>
+      <Typography>{log.createdAt}</Typography>
     </Grid2>
   </Grid2>
 }

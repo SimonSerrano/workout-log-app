@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useListWorkoutLogs } from "../../../../app/context/ListWorkoutLogsContext";
 import WorkoutLogElement from "./components/WorkoutLogElement";
 import { useNavigate } from "@tanstack/react-router";
+import WorkoutLog from "../../../../domain/log/WorkoutLog";
 
 export default function WorkoutLogPage() {
   const newWorkoutDialogOpen = useSignal<boolean>(false);
@@ -17,6 +18,11 @@ export default function WorkoutLogPage() {
 
   if(error) {
     console.error(error);
+  }
+
+  const handleDetailsClick = (log: WorkoutLog) => {
+    const state: Record<string, WorkoutLog> = {log};
+    navigate({ to: '/log/$logId', params: {logId: log.id}, state})
   }
 
 
@@ -32,7 +38,7 @@ export default function WorkoutLogPage() {
         :
         <WorkoutLogList 
         logs={isError ? [] : logs} 
-        listElementComponent={(log) => <WorkoutLogElement log={log} onDetailsClick={() => navigate({ to: `/log/${log.id}` })} />}/>
+        listElementComponent={(log) => <WorkoutLogElement log={log} onDetailsClick={handleDetailsClick} />}/>
       }
     </Grid2>
   </Grid2>

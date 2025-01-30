@@ -1,17 +1,17 @@
 import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
-import { isRequiredLog } from "../../../../../domain/log/guard";
+import { isWorkoutLog } from "../../../../../domain/log/guard";
 import LogWithEmptyValueError from "../../../../../domain/log/LogWithEmptyValueError";
 import WorkoutLog from "../../../../../domain/log/WorkoutLog";
 
 export interface WorkoutLogElementProps {
   log: WorkoutLog
-  onDetailsClick(): void
+  onDetailsClick(log: WorkoutLog): void
 }
 
 export default function WorkoutLogElement({log, onDetailsClick}: WorkoutLogElementProps ) {
 
 
-  if(!isRequiredLog(log)) {
+  if(!isWorkoutLog(log)) {
     throw new LogWithEmptyValueError();
   }
   return <Card>
@@ -20,7 +20,7 @@ export default function WorkoutLogElement({log, onDetailsClick}: WorkoutLogEleme
       <Typography>{log.createdAt}</Typography>
     </CardContent>
     <CardActions>
-      <Button onClick={onDetailsClick}>Details</Button>
+      <Button onClick={() => onDetailsClick(log)}>Details</Button>
     </CardActions>
   </Card>
 }
