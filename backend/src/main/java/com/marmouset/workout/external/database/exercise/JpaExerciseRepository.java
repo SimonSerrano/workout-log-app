@@ -1,8 +1,9 @@
 package com.marmouset.workout.external.database.exercise;
 
 import java.util.UUID;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.ListCrudRepository;
 
-interface JpaExerciseRepository extends JpaRepository<ExerciseEntity, UUID> {
+interface JpaExerciseRepository extends
+    ListCrudRepository<ExerciseEntity, UUID> {
 
 }

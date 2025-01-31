@@ -1,10 +1,10 @@
 package com.marmouset.workout.external.database.workout;
 
 import java.util.UUID;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.ListCrudRepository;
 
 interface JpaWorkoutLogRepository
-    extends JpaRepository<WorkoutLogEntity, UUID> {
+    extends ListCrudRepository<WorkoutLogEntity, UUID> {
 
 }
 

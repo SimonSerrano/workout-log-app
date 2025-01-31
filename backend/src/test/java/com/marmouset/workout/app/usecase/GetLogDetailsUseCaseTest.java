@@ -10,6 +10,7 @@ import com.marmouset.workout.app.domain.workout.impl.WorkoutLogFactoryImpl;
 import com.marmouset.workout.app.port.out.WorkoutLogPresenter;
 import com.marmouset.workout.app.port.out.WorkoutLogRepository;
 import com.marmouset.workout.app.port.out.dto.WorkoutLogResponse;
+import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.time.Instant;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +37,7 @@ class GetLogDetailsUseCaseTest {
   }
 
   @Test
-  void shouldReturnWorkoutLog() throws WorkoutLogNotFound {
+  void shouldReturnWorkoutLog() throws NotFoundException, WorkoutLogNotFound {
     var log = factory.create(UUID.randomUUID(), "Toto", Instant.now());
     var expected = new WorkoutLogResponse(log.getId(), log.getName(),
         log.getCreatedAt().getEpochSecond());
@@ -47,7 +48,7 @@ class GetLogDetailsUseCaseTest {
   }
 
   @Test
-  void shouldThrowWorkoutLogNotFound() throws WorkoutLogNotFound {
+  void shouldThrowWorkoutLogNotFound() throws NotFoundException {
     var id = UUID.randomUUID();
     when(repository.getLogDetails(id)).thenThrow(new WorkoutLogNotFound(id));
     assertThrows(WorkoutLogNotFound.class, () -> useCase.getDetails(id));

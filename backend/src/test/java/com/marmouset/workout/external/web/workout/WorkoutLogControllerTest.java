@@ -1,24 +1,12 @@
-package com.marmouset.workout.adapter.in;
+package com.marmouset.workout.external.web.workout;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marmouset.workout.app.domain.WorkoutLogNotFound;
@@ -28,12 +16,20 @@ import com.marmouset.workout.app.port.in.GetLogDetails;
 import com.marmouset.workout.app.port.in.ListWorkoutLogs;
 import com.marmouset.workout.app.port.in.dto.CreateWorkoutLogCommand;
 import com.marmouset.workout.app.port.out.dto.WorkoutLogResponse;
-import com.marmouset.workout.external.web.workout.CreateWorkoutLogRequest;
-import com.marmouset.workout.external.web.workout.WorkoutLogController;
-import com.marmouset.workout.external.web.workout.WorkoutLogRequestMapper;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(WorkoutLogController.class)
-@ContextConfiguration(classes = { WorkoutLogController.class, WorkoutLogRequestMapper.class })
+@ContextConfiguration(classes = {WorkoutLogController.class,
+    WorkoutLogRequestMapper.class})
 public class WorkoutLogControllerTest {
 
   @Autowired
@@ -67,7 +63,8 @@ public class WorkoutLogControllerTest {
 
   @Test
   void shouldReturnLogFromService() throws Exception {
-    WorkoutLogResponse returnedLog = new WorkoutLogResponse(UUID.randomUUID(), "Toto", 1738071414L);
+    WorkoutLogResponse returnedLog =
+        new WorkoutLogResponse(UUID.randomUUID(), "Toto", 1738071414L);
     UUID uuid = UUID.randomUUID();
     when(getLogDetailsPort.getDetails(uuid)).thenReturn(returnedLog);
 
@@ -79,7 +76,8 @@ public class WorkoutLogControllerTest {
   @Test
   void shouldReturnNotFoundResponse() throws Exception {
     UUID uuid = UUID.randomUUID();
-    when(getLogDetailsPort.getDetails(uuid)).thenThrow(new WorkoutLogNotFound(uuid));
+    when(getLogDetailsPort.getDetails(uuid)).thenThrow(
+        new WorkoutLogNotFound(uuid));
 
     mockMvc.perform(get("/log/" + uuid.toString()))
         .andExpect(status().isNotFound());
@@ -105,6 +103,7 @@ public class WorkoutLogControllerTest {
   @Test
   void shouldDeleteWorkoutLog() throws Exception {
     UUID uuid = UUID.randomUUID();
-    mockMvc.perform(delete("/log/" + uuid.toString())).andExpect(status().isNoContent());
+    mockMvc.perform(delete("/log/" + uuid.toString()))
+        .andExpect(status().isNoContent());
   }
 }

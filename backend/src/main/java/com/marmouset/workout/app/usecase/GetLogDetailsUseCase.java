@@ -5,6 +5,7 @@ import com.marmouset.workout.app.port.in.GetLogDetails;
 import com.marmouset.workout.app.port.out.WorkoutLogPresenter;
 import com.marmouset.workout.app.port.out.WorkoutLogRepository;
 import com.marmouset.workout.app.port.out.dto.WorkoutLogResponse;
+import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.util.UUID;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,11 @@ class GetLogDetailsUseCase implements GetLogDetails {
 
   @Override
   public WorkoutLogResponse getDetails(UUID uuid) throws WorkoutLogNotFound {
-    return presenter.prepareSuccessfulResponse(
-        workoutLogRepository.getLogDetails(uuid));
+    try {
+      return presenter.prepareSuccessfulResponse(
+          workoutLogRepository.getLogDetails(uuid));
+    } catch (NotFoundException e) {
+      throw new WorkoutLogNotFound(uuid);
+    }
   }
 }

@@ -1,9 +1,9 @@
 package com.marmouset.workout.external.database.workout;
 
-import com.marmouset.workout.app.domain.WorkoutLogNotFound;
 import com.marmouset.workout.app.domain.workout.WorkoutLog;
 import com.marmouset.workout.app.port.out.WorkoutLogRepository;
 import com.marmouset.workout.app.port.out.dto.CreateWorkoutLogRepoRequest;
+import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.util.UUID;
 import org.springframework.stereotype.Repository;
 
@@ -28,11 +28,11 @@ class WorkoutLogRepositoryImpl implements WorkoutLogRepository {
   }
 
   @Override
-  public WorkoutLog getLogDetails(UUID uuid) throws WorkoutLogNotFound {
+  public WorkoutLog getLogDetails(UUID uuid) throws NotFoundException {
     return mapper.toWorkoutLog(
         repository
             .findById(uuid)
-            .orElseThrow(() -> new WorkoutLogNotFound(uuid)));
+            .orElseThrow(NotFoundException::new));
   }
 
   @Override
@@ -47,8 +47,10 @@ class WorkoutLogRepositoryImpl implements WorkoutLogRepository {
   }
 
   @Override
-  public WorkoutLog getLogReference(UUID uuid) {
-    return mapper.toWorkoutLog(repository.getReferenceById(uuid));
+  public WorkoutLog getLogReference(UUID uuid)
+      throws NotFoundException {
+    return mapper.toWorkoutLog(repository.findById(uuid)
+        .orElseThrow(NotFoundException::new));
   }
 
 }
