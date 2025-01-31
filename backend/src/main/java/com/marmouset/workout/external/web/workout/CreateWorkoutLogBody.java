@@ -4,11 +4,11 @@ import jakarta.validation.constraints.NotBlank;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreateWorkoutLogBody {
+class CreateWorkoutLogBody {
   @NotBlank(message = "Title is mandatory")
   private String title;
 
-  public CreateWorkoutLogBody() {
+  CreateWorkoutLogBody() {
 
   }
 

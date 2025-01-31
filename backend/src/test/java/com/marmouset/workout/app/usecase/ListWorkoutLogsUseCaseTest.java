@@ -1,6 +1,7 @@
 package com.marmouset.workout.app.usecase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 import com.marmouset.workout.app.domain.workout.impl.WorkoutLogImpl;
@@ -11,7 +12,6 @@ import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.StreamSupport;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +58,6 @@ class ListWorkoutLogsUseCaseTest {
   @Test
   void shouldReturnEmptyWorkoutLogs() {
     when(repository.getAllLogs()).thenReturn(Collections.emptyList());
-    assertEquals(0,
-        StreamSupport.stream(useCase.list().spliterator(), false)
-            .toList().size());
+    assertTrue(useCase.list().isEmpty());
   }
 }

@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.StreamSupport;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,9 +84,7 @@ class ListTrainedExerciseUseCaseTest {
     when(trainedExerciseRepository.getTrainedExercises(workout))
         .thenReturn(Collections.emptyList());
 
-    assertTrue(
-        StreamSupport.stream(useCase.list(workout.getId()).spliterator(), false)
-            .toList().isEmpty());
+    assertTrue(useCase.list(workout.getId()).isEmpty());
   }
 
   @Test

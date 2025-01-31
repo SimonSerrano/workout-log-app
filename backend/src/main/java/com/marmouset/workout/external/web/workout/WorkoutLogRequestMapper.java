@@ -4,7 +4,7 @@ import com.marmouset.workout.app.port.in.workout.CreateWorkoutLogCommand;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WorkoutLogRequestMapper {
+class WorkoutLogRequestMapper {
 
   public CreateWorkoutLogCommand toCreateWorkoutLogCommand(
       CreateWorkoutLogBody request) {
