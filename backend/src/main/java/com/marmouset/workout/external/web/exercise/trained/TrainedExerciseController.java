@@ -32,7 +32,7 @@ class TrainedExerciseController {
   }
 
   @GetMapping
-  public ResponseEntity<Iterable<TrainedExerciseResponse>> getTrainedExercises(
+  public ResponseEntity<Iterable<TrainedExerciseResponse>> get(
       @PathVariable UUID logId) {
     try {
       return ResponseEntity.ok(listTrainedExercises.list(logId));
@@ -42,7 +42,7 @@ class TrainedExerciseController {
   }
 
   @PostMapping
-  public ResponseEntity<TrainedExerciseResponse> createTrainedExercise(
+  public ResponseEntity<TrainedExerciseResponse> post(
       @PathVariable UUID logId,
       @Valid @RequestBody CreateTrainedExerciseBody body) {
     try {

@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/exercise")
-public class ExerciseController {
+class ExerciseController {
 
-  private final ListExercises listExercisesPort;
+  private final ListExercises listExercises;
 
-  public ExerciseController(ListExercises listExercisesPort) {
-    this.listExercisesPort = listExercisesPort;
+  ExerciseController(ListExercises listExercises) {
+    this.listExercises = listExercises;
   }
 
   @GetMapping
-  public ResponseEntity<Iterable<ExerciseResponse>> getExercises() {
-    return ResponseEntity.ok(listExercisesPort.list());
+  public ResponseEntity<Iterable<ExerciseResponse>> get() {
+    return ResponseEntity.ok(listExercises.list());
   }
 }

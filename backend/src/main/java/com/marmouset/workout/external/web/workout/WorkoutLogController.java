@@ -42,13 +42,13 @@ class WorkoutLogController {
 
 
   @GetMapping
-  public ResponseEntity<Iterable<WorkoutLogResponse>> getLogs() {
+  public ResponseEntity<Iterable<WorkoutLogResponse>> get() {
     return ResponseEntity.ok(listWorkoutLogs.list());
   }
 
 
   @GetMapping(path = "/{logId}")
-  public ResponseEntity<WorkoutLogResponse> getLog(@PathVariable UUID logId) {
+  public ResponseEntity<WorkoutLogResponse> getById(@PathVariable UUID logId) {
     try {
       return ResponseEntity.ok(getLogDetails.get(logId));
     } catch (WorkoutLogNotFoundException e) {
@@ -57,16 +57,15 @@ class WorkoutLogController {
   }
 
   @PostMapping
-  public ResponseEntity<WorkoutLogResponse> createLog(
+  public ResponseEntity<WorkoutLogResponse> post(
       @Valid @RequestBody CreateWorkoutLogBody body) {
     return new ResponseEntity<WorkoutLogResponse>(
-        createWorkoutLog.create(
-            mapper.toCreateWorkoutLogCommand(body)),
+        createWorkoutLog.create(mapper.toCreateWorkoutLogCommand(body)),
         HttpStatus.CREATED);
   }
 
   @DeleteMapping(path = "/{logId}")
-  public ResponseEntity<Void> deleteLog(@PathVariable UUID logId) {
+  public ResponseEntity<Void> delete(@PathVariable UUID logId) {
     deleteWorkoutLog.delete(logId);
     return ResponseEntity.noContent().build();
   }
