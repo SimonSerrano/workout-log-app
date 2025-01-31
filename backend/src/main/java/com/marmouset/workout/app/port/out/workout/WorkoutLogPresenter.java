@@ -1,16 +1,11 @@
 package com.marmouset.workout.app.port.out.workout;
 
 import com.marmouset.workout.app.domain.workout.WorkoutLog;
+import com.marmouset.workout.app.port.out.Presenter;
 
 /**
  * Presenter for WorkoutLog.
  */
-public interface WorkoutLogPresenter {
-  /**
-   * Presents a WorkoutLog to a WorkoutLogResponse.
-   *
-   * @param log the log to present
-   * @return the response
-   */
-  WorkoutLogResponse present(WorkoutLog log);
+public interface WorkoutLogPresenter
+    extends Presenter<WorkoutLog, WorkoutLogResponse> {
 }
