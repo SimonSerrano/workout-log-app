@@ -10,13 +10,13 @@ import java.util.stream.StreamSupport;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class TrainedExerciseRepositoryImpl
+class TrainedExerciseRepositoryImpl
     implements TrainedExerciseRepository {
 
   private final JpaTrainedExerciseRepository trainedExerciseRepository;
   private final TrainedExerciseMapper mapper;
 
-  public TrainedExerciseRepositoryImpl(
+  TrainedExerciseRepositoryImpl(
       JpaTrainedExerciseRepository trainedExerciseRepository,
       TrainedExerciseMapper mapper) {
     this.trainedExerciseRepository = trainedExerciseRepository;
