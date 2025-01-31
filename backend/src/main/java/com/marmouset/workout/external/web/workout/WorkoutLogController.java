@@ -1,7 +1,13 @@
 package com.marmouset.workout.external.web.workout;
 
+import com.marmouset.workout.app.domain.workout.WorkoutLogNotFound;
+import com.marmouset.workout.app.port.in.CreateWorkoutLog;
+import com.marmouset.workout.app.port.in.DeleteWorkoutLog;
+import com.marmouset.workout.app.port.in.GetLogDetails;
+import com.marmouset.workout.app.port.in.ListWorkoutLogs;
+import com.marmouset.workout.app.port.out.dto.WorkoutLogResponse;
+import jakarta.validation.Valid;
 import java.util.UUID;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,15 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.marmouset.workout.app.domain.WorkoutLogNotFound;
-import com.marmouset.workout.app.port.in.CreateWorkoutLog;
-import com.marmouset.workout.app.port.in.DeleteWorkoutLog;
-import com.marmouset.workout.app.port.in.GetLogDetails;
-import com.marmouset.workout.app.port.in.ListWorkoutLogs;
-import com.marmouset.workout.app.port.out.dto.WorkoutLogResponse;
-
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/log")
@@ -31,9 +28,11 @@ public class WorkoutLogController {
   private final DeleteWorkoutLog deleteWorkoutLogPort;
   private final WorkoutLogRequestMapper mapper;
 
-  public WorkoutLogController(ListWorkoutLogs listWorkoutLogsPort, GetLogDetails getLogDetailsPort,
-      CreateWorkoutLog createWorkoutLogPort,
-      com.marmouset.workout.app.port.in.DeleteWorkoutLog deleteWorkoutLogPort, WorkoutLogRequestMapper mapper) {
+  public WorkoutLogController(ListWorkoutLogs listWorkoutLogsPort,
+                              GetLogDetails getLogDetailsPort,
+                              CreateWorkoutLog createWorkoutLogPort,
+                              com.marmouset.workout.app.port.in.DeleteWorkoutLog deleteWorkoutLogPort,
+                              WorkoutLogRequestMapper mapper) {
     this.listWorkoutLogsPort = listWorkoutLogsPort;
     this.getLogDetailsPort = getLogDetailsPort;
     this.createWorkoutLogPort = createWorkoutLogPort;
@@ -56,9 +55,11 @@ public class WorkoutLogController {
   }
 
   @PostMapping
-  public ResponseEntity<WorkoutLogResponse> createLog(@Valid @RequestBody CreateWorkoutLogRequest request) {
+  public ResponseEntity<WorkoutLogResponse> createLog(
+      @Valid @RequestBody CreateWorkoutLogRequest request) {
     return new ResponseEntity<WorkoutLogResponse>(
-        createWorkoutLogPort.createWorkoutLog(mapper.toCreateWorkoutLogCommand(request)),
+        createWorkoutLogPort.createWorkoutLog(
+            mapper.toCreateWorkoutLogCommand(request)),
         HttpStatus.CREATED);
   }
 

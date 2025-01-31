@@ -1,6 +1,6 @@
 package com.marmouset.workout.app.usecase;
 
-import com.marmouset.workout.app.domain.WorkoutLogNotFound;
+import com.marmouset.workout.app.domain.workout.WorkoutLogNotFound;
 import com.marmouset.workout.app.port.in.ListTrainedExercises;
 import com.marmouset.workout.app.port.out.TrainedExercisePresenter;
 import com.marmouset.workout.app.port.out.TrainedExerciseRepository;

@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-import com.marmouset.workout.app.domain.WorkoutLogNotFound;
 import com.marmouset.workout.app.domain.exercise.ExerciseFactory;
 import com.marmouset.workout.app.domain.exercise.TrainedExerciseFactory;
 import com.marmouset.workout.app.domain.exercise.impl.ExerciseFactoryImpl;
 import com.marmouset.workout.app.domain.exercise.impl.TrainedExerciseFactoryImpl;
 import com.marmouset.workout.app.domain.workout.WorkoutLogFactory;
+import com.marmouset.workout.app.domain.workout.WorkoutLogNotFound;
 import com.marmouset.workout.app.domain.workout.impl.WorkoutLogFactoryImpl;
 import com.marmouset.workout.app.port.out.TrainedExercisePresenter;
 import com.marmouset.workout.app.port.out.TrainedExerciseRepository;

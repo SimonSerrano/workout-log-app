@@ -1,5 +1,6 @@
 package com.marmouset.workout.app.usecase;
 
+import com.marmouset.workout.app.domain.exercise.ExerciseNotFound;
 import com.marmouset.workout.app.domain.exercise.TrainedExerciseFactory;
 import com.marmouset.workout.app.port.in.CreateTrainedExercise;
 import com.marmouset.workout.app.port.in.dto.CreateTrainedExerciseCommand;
@@ -9,6 +10,7 @@ import com.marmouset.workout.app.port.out.TrainedExerciseRepository;
 import com.marmouset.workout.app.port.out.WorkoutLogRepository;
 import com.marmouset.workout.app.port.out.dto.CreateTrainedExerciseRepoRequest;
 import com.marmouset.workout.app.port.out.dto.TrainedExerciseResponse;
+import com.marmouset.workout.external.database.exception.NotFoundException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -32,13 +34,19 @@ public class CreateTrainedExerciseUseCase implements CreateTrainedExercise {
   }
 
   @Override
-  public TrainedExerciseResponse create(CreateTrainedExerciseCommand command) {
-    var trained = factory.create(
-        exerciseRepositoryPort.getExerciseReference(command.getExerciseId()));
+  public TrainedExerciseResponse create(CreateTrainedExerciseCommand command)
+      throws ExerciseNotFound {
+    try {
+      var trained = factory.create(
+          exerciseRepositoryPort.getExerciseReference(command.getExerciseId()));
+      return presenter
+          .toResponse(trainedExerciseRepositoryPort
+              .createTrainedExercise(new CreateTrainedExerciseRepoRequest()));
+    } catch (NotFoundException e) {
+      throw new ExerciseNotFound(command.getExerciseId());
+    }
 
-    return presenter
-        .toResponse(trainedExerciseRepositoryPort
-            .createTrainedExercise(new CreateTrainedExerciseRepoRequest()));
+
   }
 
 }

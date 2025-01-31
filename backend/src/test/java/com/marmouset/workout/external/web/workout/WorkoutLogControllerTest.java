@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.marmouset.workout.app.domain.WorkoutLogNotFound;
+import com.marmouset.workout.app.domain.workout.WorkoutLogNotFound;
 import com.marmouset.workout.app.port.in.CreateWorkoutLog;
 import com.marmouset.workout.app.port.in.DeleteWorkoutLog;
 import com.marmouset.workout.app.port.in.GetLogDetails;

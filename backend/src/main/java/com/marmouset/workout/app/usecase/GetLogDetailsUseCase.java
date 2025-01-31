@@ -1,6 +1,6 @@
 package com.marmouset.workout.app.usecase;
 
-import com.marmouset.workout.app.domain.WorkoutLogNotFound;
+import com.marmouset.workout.app.domain.workout.WorkoutLogNotFound;
 import com.marmouset.workout.app.port.in.GetLogDetails;
 import com.marmouset.workout.app.port.out.WorkoutLogPresenter;
 import com.marmouset.workout.app.port.out.WorkoutLogRepository;
