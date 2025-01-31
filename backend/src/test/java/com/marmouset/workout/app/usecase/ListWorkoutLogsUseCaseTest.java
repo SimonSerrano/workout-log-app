@@ -44,7 +44,7 @@ class ListWorkoutLogsUseCaseTest {
     var expected2 = new WorkoutLogResponse(log2.getId(), log2.getName(),
         log2.getCreatedAt().getEpochSecond());
 
-    when(repository.getAllLogs()).thenReturn(List.of(
+    when(repository.read()).thenReturn(List.of(
         log1,
         log2
     ));
@@ -57,7 +57,7 @@ class ListWorkoutLogsUseCaseTest {
 
   @Test
   void shouldReturnEmptyWorkoutLogs() {
-    when(repository.getAllLogs()).thenReturn(Collections.emptyList());
+    when(repository.read()).thenReturn(Collections.emptyList());
     assertTrue(useCase.list().isEmpty());
   }
 }

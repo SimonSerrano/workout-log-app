@@ -70,12 +70,12 @@ class CreateTrainedExerciseUseCaseTest {
         workoutLogFactory.create(UUID.randomUUID(), "Toto", Instant.now());
 
 
-    when(exerciseRepository.getExerciseReference(exercise.id()))
+    when(exerciseRepository.readReference(exercise.id()))
         .thenReturn(exercise);
-    when(workoutLogRepository.getLogReference(workout.getId()))
+    when(workoutLogRepository.readReference(workout.getId()))
         .thenReturn(workout);
     when(trainedExerciseRepository
-        .createTrainedExercise(
+        .create(
             new CreateTrainedExerciseRepoRequest(workout, exercise)))
         .thenReturn(trainedExerciseFactory.create(exercise));
 

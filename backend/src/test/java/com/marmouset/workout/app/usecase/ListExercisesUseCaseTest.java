@@ -43,7 +43,7 @@ class ListExercisesUseCaseTest {
     var expected1 = new ExerciseResponse(exercise1.id(), exercise1.name());
     var expected2 = new ExerciseResponse(exercise2.id(), exercise2.name());
 
-    when(repository.getExercises()).thenReturn(List.of(
+    when(repository.read()).thenReturn(List.of(
         exercise1,
         exercise2
     ));
@@ -56,7 +56,7 @@ class ListExercisesUseCaseTest {
 
   @Test
   void shouldReturnEmpty() {
-    when(repository.getExercises()).thenReturn(Collections.emptyList());
+    when(repository.read()).thenReturn(Collections.emptyList());
     assertTrue(useCase.list().isEmpty());
   }
 }

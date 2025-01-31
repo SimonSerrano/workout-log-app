@@ -25,7 +25,7 @@ class GetLogDetailsUseCase implements GetLogDetails {
       WorkoutLogNotFoundException {
     try {
       return presenter.present(
-          workoutLogRepository.getLogDetails(uuid));
+          workoutLogRepository.read(uuid));
     } catch (NotFoundException e) {
       throw new WorkoutLogNotFoundException(uuid);
     }

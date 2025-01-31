@@ -43,7 +43,7 @@ class GetLogDetailsUseCaseTest {
     var log = factory.create(UUID.randomUUID(), "Toto", Instant.now());
     var expected = new WorkoutLogResponse(log.getId(), log.getName(),
         log.getCreatedAt().getEpochSecond());
-    when(repository.getLogDetails(log.getId())).thenReturn(log);
+    when(repository.read(log.getId())).thenReturn(log);
 
     assertEquals(expected, useCase.get(log.getId()));
   }
@@ -51,7 +51,7 @@ class GetLogDetailsUseCaseTest {
   @Test
   void shouldThrowWorkoutLogNotFound() throws NotFoundException {
     var id = UUID.randomUUID();
-    when(repository.getLogDetails(id)).thenThrow(new NotFoundException());
+    when(repository.read(id)).thenThrow(new NotFoundException());
     assertThrows(WorkoutLogNotFoundException.class,
         () -> useCase.get(id));
   }

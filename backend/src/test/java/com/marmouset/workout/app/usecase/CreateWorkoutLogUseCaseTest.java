@@ -41,7 +41,7 @@ class CreateWorkoutLogUseCaseTest {
   @Test
   void shouldCreateAndReturnWorkoutLog() {
     var created = factory.create(UUID.randomUUID(), "Toto", Instant.now());
-    when(repository.createWorkoutLog(
+    when(repository.create(
         new CreateWorkoutLogRepoRequest(created.getName()))).thenReturn(
         created);
     var expected = new WorkoutLogResponse(created.getId(), created.getName(),

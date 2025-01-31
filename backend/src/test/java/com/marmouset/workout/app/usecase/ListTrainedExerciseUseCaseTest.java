@@ -56,14 +56,14 @@ class ListTrainedExerciseUseCaseTest {
       WorkoutLogNotFoundException {
     var workout =
         workoutLogFactory.create(UUID.randomUUID(), "Toto", Instant.now());
-    when(workoutLogRepository.getLogReference(workout.getId())).thenReturn(
+    when(workoutLogRepository.readReference(workout.getId())).thenReturn(
         workout);
     var exercise1 = exerciseFactory.create(UUID.randomUUID(), "Push up");
     var exercise2 = exerciseFactory.create(UUID.randomUUID(), "Pull up");
     var trained1 = trainedExerciseFactory.create(exercise1);
     var trained2 = trainedExerciseFactory.create(exercise2);
 
-    when(trainedExerciseRepository.getTrainedExercises(workout))
+    when(trainedExerciseRepository.read(workout))
         .thenReturn(List.of(trained1, trained2));
 
     var expected1 = new TrainedExerciseResponse(
@@ -84,10 +84,10 @@ class ListTrainedExerciseUseCaseTest {
       WorkoutLogNotFoundException {
     var workout =
         workoutLogFactory.create(UUID.randomUUID(), "Toto", Instant.now());
-    when(workoutLogRepository.getLogReference(workout.getId()))
+    when(workoutLogRepository.readReference(workout.getId()))
         .thenReturn(workout);
 
-    when(trainedExerciseRepository.getTrainedExercises(workout))
+    when(trainedExerciseRepository.read(workout))
         .thenReturn(Collections.emptyList());
 
     assertTrue(useCase.list(workout.getId()).isEmpty());
@@ -96,7 +96,7 @@ class ListTrainedExerciseUseCaseTest {
   @Test
   void shouldThrowWorkoutLogNotFound() throws NotFoundException {
     var id = UUID.randomUUID();
-    when(workoutLogRepository.getLogReference(id)).thenThrow(
+    when(workoutLogRepository.readReference(id)).thenThrow(
         new NotFoundException());
 
     assertThrows(WorkoutLogNotFoundException.class, () -> useCase.list(id));

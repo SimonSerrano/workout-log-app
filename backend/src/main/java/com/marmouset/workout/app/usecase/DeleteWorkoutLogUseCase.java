@@ -17,7 +17,7 @@ class DeleteWorkoutLogUseCase implements DeleteWorkoutLog {
 
   @Override
   public void delete(UUID uuid) {
-    repository.deleteWorkoutLog(uuid);
+    repository.delete(uuid);
   }
 
 }

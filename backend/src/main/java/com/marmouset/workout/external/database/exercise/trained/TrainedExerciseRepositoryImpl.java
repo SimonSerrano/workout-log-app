@@ -24,7 +24,7 @@ class TrainedExerciseRepositoryImpl
   }
 
   @Override
-  public Iterable<TrainedExercise> getTrainedExercises(WorkoutLog log) {
+  public Iterable<TrainedExercise> read(WorkoutLog log) {
     var entity = new WorkoutLogEntity();
     entity.setId(log.getId());
     return StreamSupport.stream(
@@ -33,7 +33,7 @@ class TrainedExerciseRepositoryImpl
   }
 
   @Override
-  public TrainedExercise createTrainedExercise(
+  public TrainedExercise create(
       CreateTrainedExerciseRepoRequest request) {
     var entity = new TrainedExerciseEntity();
     entity.setExercise(new ExerciseEntity());

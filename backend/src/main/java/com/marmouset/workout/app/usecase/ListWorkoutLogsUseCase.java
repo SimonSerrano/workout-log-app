@@ -30,7 +30,7 @@ public class ListWorkoutLogsUseCase implements ListWorkoutLogs {
 
   @Override
   public List<WorkoutLogResponse> list() {
-    return repository.getAllLogs().stream()
+    return repository.read().stream()
         .map(presenter::present)
         .toList();
   }

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Interface to represent the WorkoutLogRepository.
+ * Interface for the workout log repository.
  */
 public interface WorkoutLogRepository {
   /**
@@ -14,7 +14,7 @@ public interface WorkoutLogRepository {
    *
    * @return a list of WorkoutLogs
    */
-  List<WorkoutLog> getAllLogs();
+  List<WorkoutLog> read();
 
   /**
    * Get a workout log's details.
@@ -23,7 +23,7 @@ public interface WorkoutLogRepository {
    * @return the workout log
    * @throws NotFoundException if the lof is not found
    */
-  WorkoutLog getLogDetails(UUID uuid) throws NotFoundException;
+  WorkoutLog read(UUID uuid) throws NotFoundException;
 
   /**
    * Creates a workout log.
@@ -31,14 +31,14 @@ public interface WorkoutLogRepository {
    * @param request the dto to create such log
    * @return the created workout log
    */
-  WorkoutLog createWorkoutLog(CreateWorkoutLogRepoRequest request);
+  WorkoutLog create(CreateWorkoutLogRepoRequest request);
 
   /**
    * Deletes a workout log.
    *
    * @param uuid the id of the log
    */
-  void deleteWorkoutLog(UUID uuid);
+  void delete(UUID uuid);
 
   /**
    * Get a log object with only the uuid populated.
@@ -47,5 +47,5 @@ public interface WorkoutLogRepository {
    * @return the workout log
    * @throws NotFoundException if the log is not found
    */
-  WorkoutLog getLogReference(UUID uuid) throws NotFoundException;
+  WorkoutLog readReference(UUID uuid) throws NotFoundException;
 }

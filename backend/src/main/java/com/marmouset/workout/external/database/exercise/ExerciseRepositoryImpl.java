@@ -4,6 +4,7 @@ import com.marmouset.workout.app.domain.exercise.Exercise;
 import com.marmouset.workout.app.port.out.exercise.CreateExerciseRepoRequest;
 import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.stereotype.Repository;
 
@@ -18,24 +19,24 @@ class ExerciseRepositoryImpl implements ExerciseRepository {
     this.exerciseRepository = exerciseRepository;
     this.mapper = mapper;
 
-    createExercise(new CreateExerciseRepoRequest("Push up"));
-    createExercise(new CreateExerciseRepoRequest("Pull up"));
+    create(new CreateExerciseRepoRequest("Push up"));
+    create(new CreateExerciseRepoRequest("Pull up"));
   }
 
   @Override
-  public Iterable<Exercise> getExercises() {
+  public List<Exercise> read() {
     return exerciseRepository.findAll().stream().map(mapper::toExercise)
         .toList();
   }
 
   @Override
-  public Exercise getExerciseReference(UUID id) throws NotFoundException {
+  public Exercise readReference(UUID id) throws NotFoundException {
     return mapper.toExercise(exerciseRepository.findById(id).orElseThrow(
         NotFoundException::new));
   }
 
   @Override
-  public Exercise createExercise(CreateExerciseRepoRequest request) {
+  public Exercise create(CreateExerciseRepoRequest request) {
     var exercise = new ExerciseEntity(request.name());
     return mapper.toExercise(exerciseRepository.save(exercise));
   }

@@ -19,17 +19,17 @@ class WorkoutLogRepositoryImpl implements WorkoutLogRepository {
     this.repository = repository;
     this.mapper = mapper;
 
-    createWorkoutLog(new CreateWorkoutLogRepoRequest("Toto"));
-    createWorkoutLog(new CreateWorkoutLogRepoRequest("Titi"));
+    create(new CreateWorkoutLogRepoRequest("Toto"));
+    create(new CreateWorkoutLogRepoRequest("Titi"));
   }
 
   @Override
-  public List<WorkoutLog> getAllLogs() {
+  public List<WorkoutLog> read() {
     return repository.findAll().stream().map(mapper::toWorkoutLog).toList();
   }
 
   @Override
-  public WorkoutLog getLogDetails(UUID uuid) throws NotFoundException {
+  public WorkoutLog read(UUID uuid) throws NotFoundException {
     return mapper.toWorkoutLog(
         repository
             .findById(uuid)
@@ -37,18 +37,18 @@ class WorkoutLogRepositoryImpl implements WorkoutLogRepository {
   }
 
   @Override
-  public WorkoutLog createWorkoutLog(CreateWorkoutLogRepoRequest request) {
+  public WorkoutLog create(CreateWorkoutLogRepoRequest request) {
     var workoutLog = new WorkoutLogEntity(request.name());
     return mapper.toWorkoutLog(repository.save(workoutLog));
   }
 
   @Override
-  public void deleteWorkoutLog(UUID uuid) {
+  public void delete(UUID uuid) {
     repository.deleteById(uuid);
   }
 
   @Override
-  public WorkoutLog getLogReference(UUID uuid)
+  public WorkoutLog readReference(UUID uuid)
       throws NotFoundException {
     return mapper.toWorkoutLog(repository.findById(uuid)
         .orElseThrow(NotFoundException::new));

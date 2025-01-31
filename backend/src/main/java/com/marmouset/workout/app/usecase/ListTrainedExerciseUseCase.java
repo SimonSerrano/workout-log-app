@@ -9,7 +9,6 @@ import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.StreamSupport;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -32,10 +31,9 @@ class ListTrainedExerciseUseCase implements ListTrainedExercises {
   public List<TrainedExerciseResponse> list(UUID logId)
       throws WorkoutLogNotFoundException {
     try {
-      var workout = workoutLogRepository.getLogReference(logId);
-      return StreamSupport
-          .stream(trainedExerciseRepository.getTrainedExercises(workout)
-              .spliterator(), false)
+      var workout = workoutLogRepository.readReference(logId);
+      return trainedExerciseRepository.read(workout)
+          .stream()
           .map(presenter::present)
           .toList();
     } catch (NotFoundException e) {
