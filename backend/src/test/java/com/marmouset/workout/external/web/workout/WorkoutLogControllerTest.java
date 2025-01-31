@@ -57,8 +57,8 @@ public class WorkoutLogControllerTest {
     mockMvc.perform(get("/log"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.length()").value(2))
-        .andExpect(jsonPath("$[0].title").value("Toto"))
-        .andExpect(jsonPath("$[1].title").value("Titi"));
+        .andExpect(jsonPath("$[0].name").value("Toto"))
+        .andExpect(jsonPath("$[1].name").value("Titi"));
   }
 
   @Test
@@ -70,7 +70,7 @@ public class WorkoutLogControllerTest {
 
     mockMvc.perform(get("/log/" + uuid.toString()))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.title").value("Toto"));
+        .andExpect(jsonPath("$.name").value("Toto"));
   }
 
   @Test
