@@ -14,6 +14,7 @@ import java.time.Instant;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
@@ -23,7 +24,7 @@ class CreateWorkoutLogUseCaseTest {
   @MockitoBean
   private WorkoutLogRepository repository;
 
-  @MockitoBean
+  @Autowired
   private WorkoutLogPresenter presenter;
 
 
@@ -45,7 +46,6 @@ class CreateWorkoutLogUseCaseTest {
         created);
     var expected = new WorkoutLogResponse(created.getId(), created.getName(),
         created.getCreatedAt().getEpochSecond());
-    when(presenter.present(created)).thenReturn(expected);
     var result = useCase.createWorkoutLog(
         new CreateWorkoutLogCommand(created.getName()));
     assertEquals(expected, result);
