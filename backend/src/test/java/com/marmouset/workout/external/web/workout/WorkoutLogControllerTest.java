@@ -30,29 +30,29 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest(WorkoutLogController.class)
 @ContextConfiguration(classes = {WorkoutLogController.class,
     WorkoutLogRequestMapper.class})
-public class WorkoutLogControllerTest {
+class WorkoutLogControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
 
   @MockitoBean
-  private ListWorkoutLogs listWorkoutLogsPort;
+  private ListWorkoutLogs listWorkoutLogs;
 
   @MockitoBean
-  private GetLogDetails getLogDetailsPort;
+  private GetLogDetails getLogDetails;
 
   @MockitoBean
-  private CreateWorkoutLog createWorkoutLogPort;
+  private CreateWorkoutLog createWorkoutLog;
 
   @MockitoBean
-  private DeleteWorkoutLog deleteWorkoutLogPort;
+  private DeleteWorkoutLog deleteWorkoutLog;
 
   @Test
   void shouldReturnLogsFromService() throws Exception {
     List<WorkoutLogResponse> returnedLogs = Arrays.asList(
         new WorkoutLogResponse(UUID.randomUUID(), "Toto", 1738071414L),
         new WorkoutLogResponse(UUID.randomUUID(), "Titi", 1738071414L));
-    when(listWorkoutLogsPort.listWorkouts()).thenReturn(returnedLogs);
+    when(listWorkoutLogs.listWorkouts()).thenReturn(returnedLogs);
 
     mockMvc.perform(get("/log"))
         .andExpect(status().isOk())
@@ -66,9 +66,9 @@ public class WorkoutLogControllerTest {
     WorkoutLogResponse returnedLog =
         new WorkoutLogResponse(UUID.randomUUID(), "Toto", 1738071414L);
     UUID uuid = UUID.randomUUID();
-    when(getLogDetailsPort.getDetails(uuid)).thenReturn(returnedLog);
+    when(getLogDetails.get(uuid)).thenReturn(returnedLog);
 
-    mockMvc.perform(get("/log/" + uuid.toString()))
+    mockMvc.perform(get("/log/" + uuid))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.name").value("Toto"));
   }
@@ -76,19 +76,19 @@ public class WorkoutLogControllerTest {
   @Test
   void shouldReturnNotFoundResponse() throws Exception {
     UUID uuid = UUID.randomUUID();
-    when(getLogDetailsPort.getDetails(uuid)).thenThrow(
+    when(getLogDetails.get(uuid)).thenThrow(
         new WorkoutLogNotFoundException(uuid));
 
-    mockMvc.perform(get("/log/" + uuid.toString()))
+    mockMvc.perform(get("/log/" + uuid))
         .andExpect(status().isNotFound());
   }
 
   @Test
-  void shouldCreateANewWorkoutLog() throws Exception {
+  void shouldCreateNewWorkoutLog() throws Exception {
     var command = new CreateWorkoutLogCommand("Toto");
     var log = new WorkoutLogResponse(UUID.randomUUID(), "Toto", 1738071414L);
-    when(createWorkoutLogPort.createWorkoutLog(command)).thenReturn(log);
-    var request = new CreateWorkoutLogRequest();
+    when(createWorkoutLog.createWorkoutLog(command)).thenReturn(log);
+    var request = new CreateWorkoutLogBody();
     request.setTitle("Toto");
 
     mockMvc
@@ -103,7 +103,7 @@ public class WorkoutLogControllerTest {
   @Test
   void shouldDeleteWorkoutLog() throws Exception {
     UUID uuid = UUID.randomUUID();
-    mockMvc.perform(delete("/log/" + uuid.toString()))
+    mockMvc.perform(delete("/log/" + uuid))
         .andExpect(status().isNoContent());
   }
 }

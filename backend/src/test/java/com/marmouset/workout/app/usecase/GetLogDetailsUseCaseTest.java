@@ -45,7 +45,7 @@ class GetLogDetailsUseCaseTest {
         log.getCreatedAt().getEpochSecond());
     when(repository.getLogDetails(log.getId())).thenReturn(log);
 
-    assertEquals(expected, useCase.getDetails(log.getId()));
+    assertEquals(expected, useCase.get(log.getId()));
   }
 
   @Test
@@ -53,6 +53,6 @@ class GetLogDetailsUseCaseTest {
     var id = UUID.randomUUID();
     when(repository.getLogDetails(id)).thenThrow(new NotFoundException());
     assertThrows(WorkoutLogNotFoundException.class,
-        () -> useCase.getDetails(id));
+        () -> useCase.get(id));
   }
 }

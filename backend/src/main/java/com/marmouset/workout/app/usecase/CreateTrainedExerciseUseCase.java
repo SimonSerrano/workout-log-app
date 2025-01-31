@@ -1,7 +1,6 @@
 package com.marmouset.workout.app.usecase;
 
 import com.marmouset.workout.app.domain.exercise.ExerciseNotFoundException;
-import com.marmouset.workout.app.domain.exercise.TrainedExerciseFactory;
 import com.marmouset.workout.app.domain.workout.WorkoutLog;
 import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import com.marmouset.workout.app.port.in.exercise.CreateTrainedExercise;
@@ -20,18 +19,16 @@ class CreateTrainedExerciseUseCase implements CreateTrainedExercise {
   private final TrainedExerciseRepository trainedExerciseRepository;
   private final WorkoutLogRepository workoutLogRepository;
   private final ExerciseRepository exerciseRepository;
-  private final TrainedExerciseFactory factory;
   private final TrainedExercisePresenter presenter;
 
   CreateTrainedExerciseUseCase(
       TrainedExerciseRepository trainedExerciseRepository,
       WorkoutLogRepository workoutLogRepository,
       ExerciseRepository exerciseRepository,
-      TrainedExerciseFactory factory, TrainedExercisePresenter presenter) {
+      TrainedExercisePresenter presenter) {
     this.trainedExerciseRepository = trainedExerciseRepository;
     this.workoutLogRepository = workoutLogRepository;
     this.exerciseRepository = exerciseRepository;
-    this.factory = factory;
     this.presenter = presenter;
   }
 

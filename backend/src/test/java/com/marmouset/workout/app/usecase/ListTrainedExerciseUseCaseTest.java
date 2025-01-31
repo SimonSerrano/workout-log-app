@@ -7,11 +7,8 @@ import static org.mockito.Mockito.when;
 
 import com.marmouset.workout.app.domain.exercise.ExerciseFactory;
 import com.marmouset.workout.app.domain.exercise.TrainedExerciseFactory;
-import com.marmouset.workout.app.domain.exercise.impl.ExerciseFactoryImpl;
-import com.marmouset.workout.app.domain.exercise.impl.TrainedExerciseFactoryImpl;
 import com.marmouset.workout.app.domain.workout.WorkoutLogFactory;
 import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
-import com.marmouset.workout.app.domain.workout.impl.WorkoutLogFactoryImpl;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
@@ -39,8 +36,11 @@ class ListTrainedExerciseUseCaseTest {
   @Autowired
   private TrainedExercisePresenter presenter;
   private ListTrainedExerciseUseCase useCase;
+  @Autowired
   private TrainedExerciseFactory trainedExerciseFactory;
+  @Autowired
   private WorkoutLogFactory workoutLogFactory;
+  @Autowired
   private ExerciseFactory exerciseFactory;
 
 
@@ -48,9 +48,6 @@ class ListTrainedExerciseUseCaseTest {
   void setUp() {
     useCase = new ListTrainedExerciseUseCase(trainedExerciseRepository,
         workoutLogRepository, presenter);
-    trainedExerciseFactory = new TrainedExerciseFactoryImpl();
-    workoutLogFactory = new WorkoutLogFactoryImpl();
-    exerciseFactory = new ExerciseFactoryImpl();
   }
 
   @Test

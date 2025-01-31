@@ -1,15 +1,14 @@
 package com.marmouset.workout.external.web.workout;
 
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.stereotype.Component;
 
-import jakarta.validation.constraints.NotBlank;
-
 @Component
-public class CreateWorkoutLogRequest {
+public class CreateWorkoutLogBody {
   @NotBlank(message = "Title is mandatory")
   private String title;
 
-  public CreateWorkoutLogRequest() {
+  public CreateWorkoutLogBody() {
 
   }
 

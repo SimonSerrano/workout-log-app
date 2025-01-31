@@ -20,35 +20,37 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/log")
-public class WorkoutLogController {
+class WorkoutLogController {
 
-  private final ListWorkoutLogs listWorkoutLogsPort;
-  private final GetLogDetails getLogDetailsPort;
-  private final CreateWorkoutLog createWorkoutLogPort;
-  private final DeleteWorkoutLog deleteWorkoutLogPort;
+  private final ListWorkoutLogs listWorkoutLogs;
+  private final GetLogDetails getLogDetails;
+  private final CreateWorkoutLog createWorkoutLog;
+  private final DeleteWorkoutLog deleteWorkoutLog;
   private final WorkoutLogRequestMapper mapper;
 
-  public WorkoutLogController(ListWorkoutLogs listWorkoutLogsPort,
-                              GetLogDetails getLogDetailsPort,
-                              CreateWorkoutLog createWorkoutLogPort,
-                              DeleteWorkoutLog deleteWorkoutLogPort,
-                              WorkoutLogRequestMapper mapper) {
-    this.listWorkoutLogsPort = listWorkoutLogsPort;
-    this.getLogDetailsPort = getLogDetailsPort;
-    this.createWorkoutLogPort = createWorkoutLogPort;
-    this.deleteWorkoutLogPort = deleteWorkoutLogPort;
+  WorkoutLogController(ListWorkoutLogs listWorkoutLogs,
+                       GetLogDetails getLogDetails,
+                       CreateWorkoutLog createWorkoutLog,
+                       DeleteWorkoutLog deleteWorkoutLog,
+                       WorkoutLogRequestMapper mapper) {
+    this.listWorkoutLogs = listWorkoutLogs;
+    this.getLogDetails = getLogDetails;
+    this.createWorkoutLog = createWorkoutLog;
+    this.deleteWorkoutLog = deleteWorkoutLog;
     this.mapper = mapper;
   }
 
+
   @GetMapping
   public ResponseEntity<Iterable<WorkoutLogResponse>> getLogs() {
-    return ResponseEntity.ok(listWorkoutLogsPort.listWorkouts());
+    return ResponseEntity.ok(listWorkoutLogs.listWorkouts());
   }
+
 
   @GetMapping(path = "/{logId}")
   public ResponseEntity<WorkoutLogResponse> getLog(@PathVariable UUID logId) {
     try {
-      return ResponseEntity.ok(getLogDetailsPort.getDetails(logId));
+      return ResponseEntity.ok(getLogDetails.get(logId));
     } catch (WorkoutLogNotFoundException e) {
       return ResponseEntity.notFound().build();
     }
@@ -56,16 +58,16 @@ public class WorkoutLogController {
 
   @PostMapping
   public ResponseEntity<WorkoutLogResponse> createLog(
-      @Valid @RequestBody CreateWorkoutLogRequest request) {
+      @Valid @RequestBody CreateWorkoutLogBody body) {
     return new ResponseEntity<WorkoutLogResponse>(
-        createWorkoutLogPort.createWorkoutLog(
-            mapper.toCreateWorkoutLogCommand(request)),
+        createWorkoutLog.createWorkoutLog(
+            mapper.toCreateWorkoutLogCommand(body)),
         HttpStatus.CREATED);
   }
-
+  
   @DeleteMapping(path = "/{logId}")
   public ResponseEntity<Void> deleteLog(@PathVariable UUID logId) {
-    deleteWorkoutLogPort.deleteWorkoutLog(logId);
+    deleteWorkoutLog.deleteWorkoutLog(logId);
     return ResponseEntity.noContent().build();
   }
 }

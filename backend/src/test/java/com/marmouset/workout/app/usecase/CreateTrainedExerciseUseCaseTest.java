@@ -52,7 +52,6 @@ class CreateTrainedExerciseUseCaseTest {
         trainedExerciseRepository,
         workoutLogRepository,
         exerciseRepository,
-        trainedExerciseFactory,
         presenter);
   }
 

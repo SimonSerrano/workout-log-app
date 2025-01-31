@@ -44,11 +44,11 @@ class TrainedExerciseController {
   @PostMapping
   public ResponseEntity<TrainedExerciseResponse> createTrainedExercise(
       @PathVariable UUID logId,
-      @Valid @RequestBody CreateTrainedExerciseRequest request) {
+      @Valid @RequestBody CreateTrainedExerciseBody body) {
     try {
       return new ResponseEntity<>(
           createTrainedExercise.create(
-              new CreateTrainedExerciseCommand(logId, request.getExerciseId())),
+              new CreateTrainedExerciseCommand(logId, body.getExerciseId())),
           HttpStatus.CREATED);
     } catch (ExerciseNotFoundException | WorkoutLogNotFoundException e) {
       return ResponseEntity.badRequest().build();

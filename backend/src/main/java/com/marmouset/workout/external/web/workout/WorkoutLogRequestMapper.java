@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class WorkoutLogRequestMapper {
 
   public CreateWorkoutLogCommand toCreateWorkoutLogCommand(
-      CreateWorkoutLogRequest request) {
+      CreateWorkoutLogBody request) {
     return new CreateWorkoutLogCommand(request.getTitle());
   }
 
