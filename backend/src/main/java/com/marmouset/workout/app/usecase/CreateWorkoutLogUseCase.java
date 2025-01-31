@@ -1,11 +1,11 @@
 package com.marmouset.workout.app.usecase;
 
-import com.marmouset.workout.app.port.in.CreateWorkoutLog;
-import com.marmouset.workout.app.port.in.dto.CreateWorkoutLogCommand;
-import com.marmouset.workout.app.port.out.WorkoutLogPresenter;
-import com.marmouset.workout.app.port.out.WorkoutLogRepository;
-import com.marmouset.workout.app.port.out.dto.CreateWorkoutLogRepoRequest;
-import com.marmouset.workout.app.port.out.dto.WorkoutLogResponse;
+import com.marmouset.workout.app.port.in.workout.CreateWorkoutLog;
+import com.marmouset.workout.app.port.in.workout.CreateWorkoutLogCommand;
+import com.marmouset.workout.app.port.out.workout.CreateWorkoutLogRepoRequest;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogPresenter;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogResponse;
 import org.springframework.stereotype.Component;
 
 @Component

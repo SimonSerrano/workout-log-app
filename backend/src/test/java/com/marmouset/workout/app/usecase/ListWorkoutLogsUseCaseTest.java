@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import com.marmouset.workout.app.domain.workout.impl.WorkoutLogImpl;
-import com.marmouset.workout.app.port.out.WorkoutLogPresenter;
-import com.marmouset.workout.app.port.out.WorkoutLogRepository;
-import com.marmouset.workout.app.port.out.dto.WorkoutLogResponse;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogPresenter;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogResponse;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.List;

@@ -1,9 +1,9 @@
 package com.marmouset.workout.app.usecase;
 
-import com.marmouset.workout.app.port.in.ListExercises;
-import com.marmouset.workout.app.port.out.ExercisePresenter;
-import com.marmouset.workout.app.port.out.ExerciseRepository;
-import com.marmouset.workout.app.port.out.dto.ExerciseResponse;
+import com.marmouset.workout.app.port.in.exercise.ListExercises;
+import com.marmouset.workout.app.port.out.exercise.ExercisePresenter;
+import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
+import com.marmouset.workout.app.port.out.exercise.ExerciseResponse;
 import java.util.stream.StreamSupport;
 import org.springframework.stereotype.Component;
 

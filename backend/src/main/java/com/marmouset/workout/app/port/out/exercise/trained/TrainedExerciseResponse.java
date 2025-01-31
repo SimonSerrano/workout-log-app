@@ -1,4 +1,4 @@
-package com.marmouset.workout.app.port.out.dto;
+package com.marmouset.workout.app.port.out.exercise.trained;
 
 import com.marmouset.workout.app.domain.exercise.Exercise;
 import com.marmouset.workout.app.domain.set.ExerciseSet;

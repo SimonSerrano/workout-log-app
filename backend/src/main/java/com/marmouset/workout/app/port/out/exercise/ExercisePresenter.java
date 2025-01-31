@@ -1,7 +1,6 @@
-package com.marmouset.workout.app.port.out;
+package com.marmouset.workout.app.port.out.exercise;
 
 import com.marmouset.workout.app.domain.exercise.Exercise;
-import com.marmouset.workout.app.port.out.dto.ExerciseResponse;
 
 public interface ExercisePresenter {
   ExerciseResponse prepareResponse(Exercise exercise);

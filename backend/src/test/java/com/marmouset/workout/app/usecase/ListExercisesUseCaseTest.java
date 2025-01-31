@@ -5,9 +5,9 @@ import static org.mockito.Mockito.when;
 
 import com.marmouset.workout.app.domain.exercise.ExerciseFactory;
 import com.marmouset.workout.app.domain.exercise.impl.ExerciseFactoryImpl;
-import com.marmouset.workout.app.port.out.ExercisePresenter;
-import com.marmouset.workout.app.port.out.ExerciseRepository;
-import com.marmouset.workout.app.port.out.dto.ExerciseResponse;
+import com.marmouset.workout.app.port.out.exercise.ExercisePresenter;
+import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
+import com.marmouset.workout.app.port.out.exercise.ExerciseResponse;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;

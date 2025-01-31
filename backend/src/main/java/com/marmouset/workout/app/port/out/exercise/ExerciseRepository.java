@@ -1,7 +1,6 @@
-package com.marmouset.workout.app.port.out;
+package com.marmouset.workout.app.port.out.exercise;
 
 import com.marmouset.workout.app.domain.exercise.Exercise;
-import com.marmouset.workout.app.port.out.dto.CreateExerciseRepoRequest;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.util.UUID;
 

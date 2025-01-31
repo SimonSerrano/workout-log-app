@@ -10,12 +10,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marmouset.workout.app.domain.workout.WorkoutLogNotFound;
-import com.marmouset.workout.app.port.in.CreateWorkoutLog;
-import com.marmouset.workout.app.port.in.DeleteWorkoutLog;
-import com.marmouset.workout.app.port.in.GetLogDetails;
-import com.marmouset.workout.app.port.in.ListWorkoutLogs;
-import com.marmouset.workout.app.port.in.dto.CreateWorkoutLogCommand;
-import com.marmouset.workout.app.port.out.dto.WorkoutLogResponse;
+import com.marmouset.workout.app.port.in.workout.CreateWorkoutLog;
+import com.marmouset.workout.app.port.in.workout.CreateWorkoutLogCommand;
+import com.marmouset.workout.app.port.in.workout.DeleteWorkoutLog;
+import com.marmouset.workout.app.port.in.workout.GetLogDetails;
+import com.marmouset.workout.app.port.in.workout.ListWorkoutLogs;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogResponse;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;

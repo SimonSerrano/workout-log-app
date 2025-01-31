@@ -1,8 +1,8 @@
 package com.marmouset.workout.external.database.exercise;
 
 import com.marmouset.workout.app.domain.exercise.Exercise;
-import com.marmouset.workout.app.port.out.ExerciseRepository;
-import com.marmouset.workout.app.port.out.dto.CreateExerciseRepoRequest;
+import com.marmouset.workout.app.port.out.exercise.CreateExerciseRepoRequest;
+import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.util.UUID;
 import org.springframework.stereotype.Repository;

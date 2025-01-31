@@ -1,4 +1,4 @@
-package com.marmouset.workout.app.port.in;
+package com.marmouset.workout.app.port.in.workout;
 
 import java.util.UUID;
 

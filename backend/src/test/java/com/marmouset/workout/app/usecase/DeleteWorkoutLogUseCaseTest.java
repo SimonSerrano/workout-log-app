@@ -3,7 +3,7 @@ package com.marmouset.workout.app.usecase;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.marmouset.workout.app.port.out.WorkoutLogRepository;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

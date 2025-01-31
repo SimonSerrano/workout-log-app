@@ -1,8 +1,8 @@
 package com.marmouset.workout.external.web.exercise;
 
 import com.marmouset.workout.app.domain.exercise.Exercise;
-import com.marmouset.workout.app.port.out.ExercisePresenter;
-import com.marmouset.workout.app.port.out.dto.ExerciseResponse;
+import com.marmouset.workout.app.port.out.exercise.ExercisePresenter;
+import com.marmouset.workout.app.port.out.exercise.ExerciseResponse;
 
 public class ExercisePresenterImpl implements ExercisePresenter {
 

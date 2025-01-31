@@ -1,10 +1,10 @@
 package com.marmouset.workout.app.usecase;
 
 import com.marmouset.workout.app.domain.workout.WorkoutLogNotFound;
-import com.marmouset.workout.app.port.in.GetLogDetails;
-import com.marmouset.workout.app.port.out.WorkoutLogPresenter;
-import com.marmouset.workout.app.port.out.WorkoutLogRepository;
-import com.marmouset.workout.app.port.out.dto.WorkoutLogResponse;
+import com.marmouset.workout.app.port.in.workout.GetLogDetails;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogPresenter;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogResponse;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.util.UUID;
 import org.springframework.stereotype.Component;

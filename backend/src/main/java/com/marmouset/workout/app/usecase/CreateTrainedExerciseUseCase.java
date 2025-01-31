@@ -2,14 +2,14 @@ package com.marmouset.workout.app.usecase;
 
 import com.marmouset.workout.app.domain.exercise.ExerciseNotFound;
 import com.marmouset.workout.app.domain.exercise.TrainedExerciseFactory;
-import com.marmouset.workout.app.port.in.CreateTrainedExercise;
-import com.marmouset.workout.app.port.in.dto.CreateTrainedExerciseCommand;
-import com.marmouset.workout.app.port.out.ExerciseRepository;
-import com.marmouset.workout.app.port.out.TrainedExercisePresenter;
-import com.marmouset.workout.app.port.out.TrainedExerciseRepository;
-import com.marmouset.workout.app.port.out.WorkoutLogRepository;
-import com.marmouset.workout.app.port.out.dto.CreateTrainedExerciseRepoRequest;
-import com.marmouset.workout.app.port.out.dto.TrainedExerciseResponse;
+import com.marmouset.workout.app.port.in.exercise.CreateTrainedExercise;
+import com.marmouset.workout.app.port.in.exercise.CreateTrainedExerciseCommand;
+import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
+import com.marmouset.workout.app.port.out.exercise.trained.CreateTrainedExerciseRepoRequest;
+import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresenter;
+import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
+import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import org.springframework.stereotype.Component;
 

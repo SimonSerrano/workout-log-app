@@ -12,10 +12,10 @@ import com.marmouset.workout.app.domain.exercise.impl.TrainedExerciseFactoryImpl
 import com.marmouset.workout.app.domain.workout.WorkoutLogFactory;
 import com.marmouset.workout.app.domain.workout.WorkoutLogNotFound;
 import com.marmouset.workout.app.domain.workout.impl.WorkoutLogFactoryImpl;
-import com.marmouset.workout.app.port.out.TrainedExercisePresenter;
-import com.marmouset.workout.app.port.out.TrainedExerciseRepository;
-import com.marmouset.workout.app.port.out.WorkoutLogRepository;
-import com.marmouset.workout.app.port.out.dto.TrainedExerciseResponse;
+import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresenter;
+import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
+import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.time.Instant;
 import java.util.ArrayList;

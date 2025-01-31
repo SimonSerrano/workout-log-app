@@ -5,11 +5,11 @@ import static org.mockito.Mockito.when;
 
 import com.marmouset.workout.app.domain.workout.WorkoutLogFactory;
 import com.marmouset.workout.app.domain.workout.impl.WorkoutLogFactoryImpl;
-import com.marmouset.workout.app.port.in.dto.CreateWorkoutLogCommand;
-import com.marmouset.workout.app.port.out.WorkoutLogPresenter;
-import com.marmouset.workout.app.port.out.WorkoutLogRepository;
-import com.marmouset.workout.app.port.out.dto.CreateWorkoutLogRepoRequest;
-import com.marmouset.workout.app.port.out.dto.WorkoutLogResponse;
+import com.marmouset.workout.app.port.in.workout.CreateWorkoutLogCommand;
+import com.marmouset.workout.app.port.out.workout.CreateWorkoutLogRepoRequest;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogPresenter;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogResponse;
 import java.time.Instant;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;

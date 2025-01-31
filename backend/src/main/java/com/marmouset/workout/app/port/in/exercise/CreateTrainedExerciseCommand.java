@@ -1,4 +1,4 @@
-package com.marmouset.workout.app.port.in.dto;
+package com.marmouset.workout.app.port.in.exercise;
 
 import java.util.UUID;
 

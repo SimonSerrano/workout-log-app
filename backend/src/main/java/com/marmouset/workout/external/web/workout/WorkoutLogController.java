@@ -1,11 +1,11 @@
 package com.marmouset.workout.external.web.workout;
 
 import com.marmouset.workout.app.domain.workout.WorkoutLogNotFound;
-import com.marmouset.workout.app.port.in.CreateWorkoutLog;
-import com.marmouset.workout.app.port.in.DeleteWorkoutLog;
-import com.marmouset.workout.app.port.in.GetLogDetails;
-import com.marmouset.workout.app.port.in.ListWorkoutLogs;
-import com.marmouset.workout.app.port.out.dto.WorkoutLogResponse;
+import com.marmouset.workout.app.port.in.workout.CreateWorkoutLog;
+import com.marmouset.workout.app.port.in.workout.DeleteWorkoutLog;
+import com.marmouset.workout.app.port.in.workout.GetLogDetails;
+import com.marmouset.workout.app.port.in.workout.ListWorkoutLogs;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogResponse;
 import jakarta.validation.Valid;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
@@ -31,7 +31,7 @@ public class WorkoutLogController {
   public WorkoutLogController(ListWorkoutLogs listWorkoutLogsPort,
                               GetLogDetails getLogDetailsPort,
                               CreateWorkoutLog createWorkoutLogPort,
-                              com.marmouset.workout.app.port.in.DeleteWorkoutLog deleteWorkoutLogPort,
+                              DeleteWorkoutLog deleteWorkoutLogPort,
                               WorkoutLogRequestMapper mapper) {
     this.listWorkoutLogsPort = listWorkoutLogsPort;
     this.getLogDetailsPort = getLogDetailsPort;
