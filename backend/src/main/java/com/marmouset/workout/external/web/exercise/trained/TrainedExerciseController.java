@@ -1,5 +1,7 @@
 package com.marmouset.workout.external.web.exercise.trained;
 
+import com.marmouset.workout.app.domain.exercise.ExerciseNotFound;
+import com.marmouset.workout.app.domain.workout.WorkoutLogNotFound;
 import com.marmouset.workout.app.port.in.exercise.CreateTrainedExercise;
 import com.marmouset.workout.app.port.in.exercise.CreateTrainedExerciseCommand;
 import com.marmouset.workout.app.port.in.exercise.ListTrainedExercises;
@@ -17,12 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/log/{logId}/trained")
-public class TrainedExerciseController {
+class TrainedExerciseController {
 
   private final ListTrainedExercises listTrainedExercises;
   private final CreateTrainedExercise createTrainedExercise;
 
-  public TrainedExerciseController(
+  TrainedExerciseController(
       ListTrainedExercises list,
       CreateTrainedExercise create) {
     this.listTrainedExercises = list;
@@ -32,16 +34,24 @@ public class TrainedExerciseController {
   @GetMapping
   public ResponseEntity<Iterable<TrainedExerciseResponse>> getTrainedExercises(
       @PathVariable UUID logId) {
-    return ResponseEntity.ok(listTrainedExercises.list(logId));
+    try {
+      return ResponseEntity.ok(listTrainedExercises.list(logId));
+    } catch (WorkoutLogNotFound e) {
+      return ResponseEntity.badRequest().build();
+    }
   }
 
   @PostMapping
   public ResponseEntity<TrainedExerciseResponse> createTrainedExercise(
       @PathVariable UUID logId,
       @Valid @RequestBody CreateTrainedExerciseRequest request) {
-    return new ResponseEntity<TrainedExerciseResponse>(
-        createTrainedExercise.create(
-            new CreateTrainedExerciseCommand(logId, request.getExerciseId())),
-        HttpStatus.CREATED);
+    try {
+      return new ResponseEntity<>(
+          createTrainedExercise.create(
+              new CreateTrainedExerciseCommand(logId, request.getExerciseId())),
+          HttpStatus.CREATED);
+    } catch (ExerciseNotFound e) {
+      return ResponseEntity.badRequest().build();
+    }
   }
 }
