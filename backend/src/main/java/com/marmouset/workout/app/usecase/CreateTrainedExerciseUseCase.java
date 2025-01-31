@@ -14,21 +14,21 @@ import com.marmouset.workout.external.database.exception.NotFoundException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreateTrainedExerciseUseCase implements CreateTrainedExercise {
-  private final TrainedExerciseRepository trainedExerciseRepositoryPort;
-  private final WorkoutLogRepository workoutLogRepositoryPort;
-  private final ExerciseRepository exerciseRepositoryPort;
+class CreateTrainedExerciseUseCase implements CreateTrainedExercise {
+  private final TrainedExerciseRepository trainedExerciseRepository;
+  private final WorkoutLogRepository workoutLogRepository;
+  private final ExerciseRepository exerciseRepository;
   private final TrainedExerciseFactory factory;
   private final TrainedExercisePresenter presenter;
 
-  public CreateTrainedExerciseUseCase(
-      TrainedExerciseRepository trainedExerciseRepositoryPort,
-      WorkoutLogRepository workoutLogRepositoryPort,
-      ExerciseRepository exerciseRepositoryPort,
+  CreateTrainedExerciseUseCase(
+      TrainedExerciseRepository trainedExerciseRepository,
+      WorkoutLogRepository workoutLogRepository,
+      ExerciseRepository exerciseRepository,
       TrainedExerciseFactory factory, TrainedExercisePresenter presenter) {
-    this.trainedExerciseRepositoryPort = trainedExerciseRepositoryPort;
-    this.workoutLogRepositoryPort = workoutLogRepositoryPort;
-    this.exerciseRepositoryPort = exerciseRepositoryPort;
+    this.trainedExerciseRepository = trainedExerciseRepository;
+    this.workoutLogRepository = workoutLogRepository;
+    this.exerciseRepository = exerciseRepository;
     this.factory = factory;
     this.presenter = presenter;
   }
@@ -38,9 +38,9 @@ public class CreateTrainedExerciseUseCase implements CreateTrainedExercise {
       throws ExerciseNotFound {
     try {
       var trained = factory.create(
-          exerciseRepositoryPort.getExerciseReference(command.getExerciseId()));
+          exerciseRepository.getExerciseReference(command.getExerciseId()));
       return presenter
-          .toResponse(trainedExerciseRepositoryPort
+          .toResponse(trainedExerciseRepository
               .createTrainedExercise(new CreateTrainedExerciseRepoRequest()));
     } catch (NotFoundException e) {
       throw new ExerciseNotFound(command.getExerciseId());
