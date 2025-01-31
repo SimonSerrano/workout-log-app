@@ -1,11 +1,21 @@
 package com.marmouset.workout.external.database;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Version;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Entity for the database that adds id and date time events.
+ */
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
 
@@ -22,12 +32,18 @@ public abstract class AbstractEntity implements Serializable {
   @Column(nullable = false)
   private LocalDateTime updatedAt;
 
+  /**
+   * Sets the createdAt and updatedAt.
+   */
   @PrePersist
   protected void onCreate() {
     this.createdAt = LocalDateTime.now();
     this.updatedAt = LocalDateTime.now();
   }
 
+  /**
+   * Updates the updatedAt.
+   */
   @PreUpdate
   protected void onUpdate() {
     this.updatedAt = LocalDateTime.now();
@@ -37,12 +53,21 @@ public abstract class AbstractEntity implements Serializable {
     return id;
   }
 
+
+  public void setId(UUID id) {
+    this.id = id;
+  }
+
   public Integer getVersion() {
     return version;
   }
 
   public LocalDateTime getCreatedAt() {
     return createdAt;
+  }
+  
+  public void setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
   }
 
   public LocalDateTime getUpdatedAt() {
@@ -51,10 +76,12 @@ public abstract class AbstractEntity implements Serializable {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o)
+    if (this == o) {
       return true;
-    if (o == null || getClass() != o.getClass())
+    }
+    if (o == null || getClass() != o.getClass()) {
       return false;
+    }
     AbstractEntity that = (AbstractEntity) o;
     return Objects.equals(id, that.id);
   }
@@ -62,23 +89,5 @@ public abstract class AbstractEntity implements Serializable {
   @Override
   public int hashCode() {
     return Objects.hash(id);
-  }
-
-  /**
-   * This method should only be used for tests
-   * 
-   * @param id
-   */
-  public void setId(UUID id) {
-    this.id = id;
-  }
-
-  /**
-   * This method should only be used for tests
-   * 
-   * @param createdAt
-   */
-  public void setCreatedAt(LocalDateTime createdAt) {
-    this.createdAt = createdAt;
   }
 }
