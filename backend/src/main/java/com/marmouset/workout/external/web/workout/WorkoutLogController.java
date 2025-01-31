@@ -2,6 +2,7 @@ package com.marmouset.workout.external.web.workout;
 
 import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import com.marmouset.workout.app.port.in.workout.CreateWorkoutLog;
+import com.marmouset.workout.app.port.in.workout.CreateWorkoutLogCommand;
 import com.marmouset.workout.app.port.in.workout.DeleteWorkoutLog;
 import com.marmouset.workout.app.port.in.workout.GetLogDetails;
 import com.marmouset.workout.app.port.in.workout.ListWorkoutLogs;
@@ -26,18 +27,15 @@ class WorkoutLogController {
   private final GetLogDetails getLogDetails;
   private final CreateWorkoutLog createWorkoutLog;
   private final DeleteWorkoutLog deleteWorkoutLog;
-  private final WorkoutLogRequestMapper mapper;
 
   WorkoutLogController(ListWorkoutLogs listWorkoutLogs,
                        GetLogDetails getLogDetails,
                        CreateWorkoutLog createWorkoutLog,
-                       DeleteWorkoutLog deleteWorkoutLog,
-                       WorkoutLogRequestMapper mapper) {
+                       DeleteWorkoutLog deleteWorkoutLog) {
     this.listWorkoutLogs = listWorkoutLogs;
     this.getLogDetails = getLogDetails;
     this.createWorkoutLog = createWorkoutLog;
     this.deleteWorkoutLog = deleteWorkoutLog;
-    this.mapper = mapper;
   }
 
 
@@ -60,7 +58,7 @@ class WorkoutLogController {
   public ResponseEntity<WorkoutLogResponse> post(
       @Valid @RequestBody CreateWorkoutLogBody body) {
     return new ResponseEntity<WorkoutLogResponse>(
-        createWorkoutLog.create(mapper.toCreateWorkoutLogCommand(body)),
+        createWorkoutLog.create(new CreateWorkoutLogCommand(body.getTitle())),
         HttpStatus.CREATED);
   }
 
