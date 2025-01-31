@@ -25,6 +25,7 @@ import java.util.UUID;
 import java.util.stream.StreamSupport;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
@@ -35,7 +36,7 @@ class ListTrainedExerciseUseCaseTest {
   private TrainedExerciseRepository trainedExerciseRepository;
   @MockitoBean
   private WorkoutLogRepository workoutLogRepository;
-  @MockitoBean
+  @Autowired
   private TrainedExercisePresenter presenter;
   private ListTrainedExerciseUseCase useCase;
   private TrainedExerciseFactory trainedExerciseFactory;
