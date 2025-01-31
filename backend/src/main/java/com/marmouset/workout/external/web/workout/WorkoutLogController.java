@@ -1,6 +1,6 @@
 package com.marmouset.workout.external.web.workout;
 
-import com.marmouset.workout.app.domain.workout.WorkoutLogNotFound;
+import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import com.marmouset.workout.app.port.in.workout.CreateWorkoutLog;
 import com.marmouset.workout.app.port.in.workout.DeleteWorkoutLog;
 import com.marmouset.workout.app.port.in.workout.GetLogDetails;
@@ -49,7 +49,7 @@ public class WorkoutLogController {
   public ResponseEntity<WorkoutLogResponse> getLog(@PathVariable UUID logId) {
     try {
       return ResponseEntity.ok(getLogDetailsPort.getDetails(logId));
-    } catch (WorkoutLogNotFound e) {
+    } catch (WorkoutLogNotFoundException e) {
       return ResponseEntity.notFound().build();
     }
   }

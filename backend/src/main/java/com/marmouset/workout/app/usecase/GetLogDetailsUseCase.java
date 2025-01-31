@@ -1,6 +1,6 @@
 package com.marmouset.workout.app.usecase;
 
-import com.marmouset.workout.app.domain.workout.WorkoutLogNotFound;
+import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import com.marmouset.workout.app.port.in.workout.GetLogDetails;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogPresenter;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
@@ -21,12 +21,13 @@ class GetLogDetailsUseCase implements GetLogDetails {
   }
 
   @Override
-  public WorkoutLogResponse getDetails(UUID uuid) throws WorkoutLogNotFound {
+  public WorkoutLogResponse getDetails(UUID uuid) throws
+      WorkoutLogNotFoundException {
     try {
       return presenter.present(
           workoutLogRepository.getLogDetails(uuid));
     } catch (NotFoundException e) {
-      throw new WorkoutLogNotFound(uuid);
+      throw new WorkoutLogNotFoundException(uuid);
     }
   }
 }

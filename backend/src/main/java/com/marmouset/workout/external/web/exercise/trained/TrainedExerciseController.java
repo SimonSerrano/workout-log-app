@@ -1,7 +1,7 @@
 package com.marmouset.workout.external.web.exercise.trained;
 
 import com.marmouset.workout.app.domain.exercise.ExerciseNotFound;
-import com.marmouset.workout.app.domain.workout.WorkoutLogNotFound;
+import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import com.marmouset.workout.app.port.in.exercise.CreateTrainedExercise;
 import com.marmouset.workout.app.port.in.exercise.CreateTrainedExerciseCommand;
 import com.marmouset.workout.app.port.in.exercise.ListTrainedExercises;
@@ -36,7 +36,7 @@ class TrainedExerciseController {
       @PathVariable UUID logId) {
     try {
       return ResponseEntity.ok(listTrainedExercises.list(logId));
-    } catch (WorkoutLogNotFound e) {
+    } catch (WorkoutLogNotFoundException e) {
       return ResponseEntity.badRequest().build();
     }
   }

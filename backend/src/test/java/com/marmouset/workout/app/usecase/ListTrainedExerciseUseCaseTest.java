@@ -10,7 +10,7 @@ import com.marmouset.workout.app.domain.exercise.TrainedExerciseFactory;
 import com.marmouset.workout.app.domain.exercise.impl.ExerciseFactoryImpl;
 import com.marmouset.workout.app.domain.exercise.impl.TrainedExerciseFactoryImpl;
 import com.marmouset.workout.app.domain.workout.WorkoutLogFactory;
-import com.marmouset.workout.app.domain.workout.WorkoutLogNotFound;
+import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import com.marmouset.workout.app.domain.workout.impl.WorkoutLogFactoryImpl;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
@@ -54,7 +54,8 @@ class ListTrainedExerciseUseCaseTest {
   }
 
   @Test
-  void shouldReturnList() throws NotFoundException, WorkoutLogNotFound {
+  void shouldReturnList() throws NotFoundException,
+      WorkoutLogNotFoundException {
     var workout =
         workoutLogFactory.create(UUID.randomUUID(), "Toto", Instant.now());
     when(workoutLogRepository.getLogReference(workout.getId())).thenReturn(
@@ -77,7 +78,8 @@ class ListTrainedExerciseUseCaseTest {
   }
 
   @Test
-  void shouldReturnEmpty() throws NotFoundException, WorkoutLogNotFound {
+  void shouldReturnEmpty() throws NotFoundException,
+      WorkoutLogNotFoundException {
     var workout =
         workoutLogFactory.create(UUID.randomUUID(), "Toto", Instant.now());
     when(workoutLogRepository.getLogReference(workout.getId()))
@@ -97,6 +99,6 @@ class ListTrainedExerciseUseCaseTest {
     when(workoutLogRepository.getLogReference(id)).thenThrow(
         new NotFoundException());
 
-    assertThrows(WorkoutLogNotFound.class, () -> useCase.list(id));
+    assertThrows(WorkoutLogNotFoundException.class, () -> useCase.list(id));
   }
 }

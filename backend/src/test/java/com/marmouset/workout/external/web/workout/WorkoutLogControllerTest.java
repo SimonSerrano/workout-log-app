@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.marmouset.workout.app.domain.workout.WorkoutLogNotFound;
+import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import com.marmouset.workout.app.port.in.workout.CreateWorkoutLog;
 import com.marmouset.workout.app.port.in.workout.CreateWorkoutLogCommand;
 import com.marmouset.workout.app.port.in.workout.DeleteWorkoutLog;
@@ -77,7 +77,7 @@ public class WorkoutLogControllerTest {
   void shouldReturnNotFoundResponse() throws Exception {
     UUID uuid = UUID.randomUUID();
     when(getLogDetailsPort.getDetails(uuid)).thenThrow(
-        new WorkoutLogNotFound(uuid));
+        new WorkoutLogNotFoundException(uuid));
 
     mockMvc.perform(get("/log/" + uuid.toString()))
         .andExpect(status().isNotFound());

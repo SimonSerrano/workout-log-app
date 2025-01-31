@@ -2,9 +2,9 @@ package com.marmouset.workout.app.domain.workout;
 
 import java.util.UUID;
 
-public class WorkoutLogNotFound extends Exception {
+public class WorkoutLogNotFoundException extends Exception {
 
-  public WorkoutLogNotFound(UUID id) {
+  public WorkoutLogNotFoundException(UUID id) {
     super("Workout log with id " + id + " is not found");
   }
 

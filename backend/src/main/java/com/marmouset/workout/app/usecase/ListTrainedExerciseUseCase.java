@@ -1,6 +1,6 @@
 package com.marmouset.workout.app.usecase;
 
-import com.marmouset.workout.app.domain.workout.WorkoutLogNotFound;
+import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import com.marmouset.workout.app.port.in.exercise.ListTrainedExercises;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
@@ -29,7 +29,7 @@ class ListTrainedExerciseUseCase implements ListTrainedExercises {
 
   @Override
   public Iterable<TrainedExerciseResponse> list(UUID logId)
-      throws WorkoutLogNotFound {
+      throws WorkoutLogNotFoundException {
     try {
       var workout = workoutLogRepository.getLogReference(logId);
       return StreamSupport
@@ -38,7 +38,7 @@ class ListTrainedExerciseUseCase implements ListTrainedExercises {
           .map(presenter::present)
           .toList();
     } catch (NotFoundException e) {
-      throw new WorkoutLogNotFound(logId);
+      throw new WorkoutLogNotFoundException(logId);
     }
   }
 
