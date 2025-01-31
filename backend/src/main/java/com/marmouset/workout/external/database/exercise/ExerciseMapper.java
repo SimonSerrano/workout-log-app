@@ -2,19 +2,29 @@ package com.marmouset.workout.external.database.exercise;
 
 import com.marmouset.workout.app.domain.exercise.Exercise;
 import com.marmouset.workout.app.domain.exercise.ExerciseFactory;
+import com.marmouset.workout.external.database.AbstractMapper;
 import org.springframework.stereotype.Component;
 
 
 @Component
-class ExerciseMapper {
+class ExerciseMapper extends
+    AbstractMapper<ExerciseFactory, ExerciseEntity, Exercise> {
 
-  private final ExerciseFactory factory;
-
-  ExerciseMapper(ExerciseFactory factory) {
-    this.factory = factory;
+  /**
+   * Creates this mapper.
+   *
+   * @param factory the factory to create O
+   */
+  public ExerciseMapper(ExerciseFactory factory) {
+    super(factory);
   }
 
   public Exercise toExercise(ExerciseEntity entity) {
-    return factory.create(entity.getId(), entity.getName());
+    return map(entity);
+  }
+
+  @Override
+  protected Exercise map(ExerciseEntity toMap) {
+    return factory.create(toMap.getId(), toMap.getName());
   }
 }
