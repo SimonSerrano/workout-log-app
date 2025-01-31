@@ -6,7 +6,7 @@ import com.marmouset.workout.app.port.out.exercise.trained.CreateTrainedExercise
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
 import com.marmouset.workout.external.database.exercise.ExerciseEntity;
 import com.marmouset.workout.external.database.workout.WorkoutLogEntity;
-import java.util.stream.StreamSupport;
+import java.util.List;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -24,11 +24,10 @@ class TrainedExerciseRepositoryImpl
   }
 
   @Override
-  public Iterable<TrainedExercise> read(WorkoutLog log) {
+  public List<TrainedExercise> read(WorkoutLog log) {
     var entity = new WorkoutLogEntity();
     entity.setId(log.getId());
-    return StreamSupport.stream(
-            trainedExerciseRepository.findByLog(entity).spliterator(), false)
+    return trainedExerciseRepository.findByLog(entity).stream()
         .map(mapper::toTrainedExercise).toList();
   }
 

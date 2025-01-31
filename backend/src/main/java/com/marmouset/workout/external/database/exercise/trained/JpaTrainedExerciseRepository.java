@@ -1,11 +1,11 @@
 package com.marmouset.workout.external.database.exercise.trained;
 
-import java.util.UUID;
-
-import org.springframework.data.repository.CrudRepository;
-
 import com.marmouset.workout.external.database.workout.WorkoutLogEntity;
+import java.util.List;
+import java.util.UUID;
+import org.springframework.data.repository.ListCrudRepository;
 
-public interface JpaTrainedExerciseRepository extends CrudRepository<TrainedExerciseEntity, UUID> {
-  Iterable<TrainedExerciseEntity> findByLog(WorkoutLogEntity log);
+interface JpaTrainedExerciseRepository extends
+    ListCrudRepository<TrainedExerciseEntity, UUID> {
+  List<TrainedExerciseEntity> findByLog(WorkoutLogEntity log);
 }
