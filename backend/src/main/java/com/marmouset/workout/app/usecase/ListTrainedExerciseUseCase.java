@@ -35,7 +35,7 @@ class ListTrainedExerciseUseCase implements ListTrainedExercises {
       return StreamSupport
           .stream(trainedExerciseRepository.getTrainedExercises(workout)
               .spliterator(), false)
-          .map(presenter::toResponse)
+          .map(presenter::present)
           .toList();
     } catch (NotFoundException e) {
       throw new WorkoutLogNotFound(logId);

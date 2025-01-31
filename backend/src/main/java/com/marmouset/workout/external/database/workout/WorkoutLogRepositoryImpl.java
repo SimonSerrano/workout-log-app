@@ -4,6 +4,7 @@ import com.marmouset.workout.app.domain.workout.WorkoutLog;
 import com.marmouset.workout.app.port.out.workout.CreateWorkoutLogRepoRequest;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +24,7 @@ class WorkoutLogRepositoryImpl implements WorkoutLogRepository {
   }
 
   @Override
-  public Iterable<WorkoutLog> getAllLogs() {
+  public List<WorkoutLog> getAllLogs() {
     return repository.findAll().stream().map(mapper::toWorkoutLog).toList();
   }
 

@@ -24,7 +24,7 @@ class CreateWorkoutLogUseCase implements CreateWorkoutLog {
   public WorkoutLogResponse createWorkoutLog(CreateWorkoutLogCommand command) {
     var log = workoutLogRepository
         .createWorkoutLog(new CreateWorkoutLogRepoRequest(command.getName()));
-    return presenter.prepareSuccessfulResponse(log);
+    return presenter.present(log);
   }
 
 }

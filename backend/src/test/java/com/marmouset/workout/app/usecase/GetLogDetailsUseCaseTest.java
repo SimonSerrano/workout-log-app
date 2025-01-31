@@ -42,7 +42,7 @@ class GetLogDetailsUseCaseTest {
     var expected = new WorkoutLogResponse(log.getId(), log.getName(),
         log.getCreatedAt().getEpochSecond());
     when(repository.getLogDetails(log.getId())).thenReturn(log);
-    when(presenter.prepareSuccessfulResponse(log)).thenReturn(expected);
+    when(presenter.present(log)).thenReturn(expected);
 
     assertEquals(expected, useCase.getDetails(log.getId()));
   }

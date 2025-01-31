@@ -23,7 +23,7 @@ class GetLogDetailsUseCase implements GetLogDetails {
   @Override
   public WorkoutLogResponse getDetails(UUID uuid) throws WorkoutLogNotFound {
     try {
-      return presenter.prepareSuccessfulResponse(
+      return presenter.present(
           workoutLogRepository.getLogDetails(uuid));
     } catch (NotFoundException e) {
       throw new WorkoutLogNotFound(uuid);

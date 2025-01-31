@@ -4,7 +4,6 @@ import com.marmouset.workout.app.port.in.workout.ListWorkoutLogs;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogPresenter;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogResponse;
-import java.util.stream.StreamSupport;
 import org.springframework.stereotype.Component;
 
 /**
@@ -30,9 +29,8 @@ public class ListWorkoutLogsUseCase implements ListWorkoutLogs {
 
   @Override
   public Iterable<WorkoutLogResponse> listWorkouts() {
-    return StreamSupport
-        .stream(repository.getAllLogs().spliterator(), false)
-        .map(presenter::prepareSuccessfulResponse)
+    return repository.getAllLogs().stream()
+        .map(presenter::present)
         .toList();
   }
 }

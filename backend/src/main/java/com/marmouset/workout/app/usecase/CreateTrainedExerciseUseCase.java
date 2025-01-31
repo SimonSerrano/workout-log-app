@@ -40,7 +40,7 @@ class CreateTrainedExerciseUseCase implements CreateTrainedExercise {
       var trained = factory.create(
           exerciseRepository.getExerciseReference(command.getExerciseId()));
       return presenter
-          .toResponse(trainedExerciseRepository
+          .present(trainedExerciseRepository
               .createTrainedExercise(new CreateTrainedExerciseRepoRequest()));
     } catch (NotFoundException e) {
       throw new ExerciseNotFound(command.getExerciseId());

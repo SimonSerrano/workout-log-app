@@ -14,6 +14,7 @@ import java.util.UUID;
 import java.util.stream.StreamSupport;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
@@ -23,7 +24,7 @@ class ListWorkoutLogsUseCaseTest {
   @MockitoBean
   private WorkoutLogRepository repository;
 
-  @MockitoBean
+  @Autowired
   private WorkoutLogPresenter presenter;
 
   private ListWorkoutLogsUseCase useCase;
@@ -40,15 +41,14 @@ class ListWorkoutLogsUseCaseTest {
 
     var expected1 = new WorkoutLogResponse(log1.getId(), log1.getName(),
         log1.getCreatedAt().getEpochSecond());
-    var expected2 = new WorkoutLogResponse(log1.getId(), log1.getName(),
-        log1.getCreatedAt().getEpochSecond());
+    var expected2 = new WorkoutLogResponse(log2.getId(), log2.getName(),
+        log2.getCreatedAt().getEpochSecond());
 
     when(repository.getAllLogs()).thenReturn(List.of(
         log1,
         log2
     ));
-    when(presenter.prepareSuccessfulResponse(log1)).thenReturn(expected1);
-    when(presenter.prepareSuccessfulResponse(log1)).thenReturn(expected2);
+
 
     var result = useCase.listWorkouts().iterator();
     assertEquals(expected1, result.next());

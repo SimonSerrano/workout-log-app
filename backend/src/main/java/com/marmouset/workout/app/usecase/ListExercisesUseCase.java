@@ -32,7 +32,7 @@ public class ListExercisesUseCase implements ListExercises {
   public Iterable<ExerciseResponse> listExercises() {
     return StreamSupport
         .stream(exerciseRepositoryPort.getExercises().spliterator(), false)
-        .map(presenter::prepareResponse)
+        .map(presenter::present)
         .toList();
   }
 

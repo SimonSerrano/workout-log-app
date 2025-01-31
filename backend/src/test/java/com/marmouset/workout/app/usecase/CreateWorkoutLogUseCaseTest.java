@@ -45,7 +45,7 @@ class CreateWorkoutLogUseCaseTest {
         created);
     var expected = new WorkoutLogResponse(created.getId(), created.getName(),
         created.getCreatedAt().getEpochSecond());
-    when(presenter.prepareSuccessfulResponse(created)).thenReturn(expected);
+    when(presenter.present(created)).thenReturn(expected);
     var result = useCase.createWorkoutLog(
         new CreateWorkoutLogCommand(created.getName()));
     assertEquals(expected, result);
