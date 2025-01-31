@@ -19,6 +19,6 @@ public class ExerciseController {
 
   @GetMapping
   public ResponseEntity<Iterable<ExerciseResponse>> getExercises() {
-    return ResponseEntity.ok(listExercisesPort.listExercises());
+    return ResponseEntity.ok(listExercisesPort.list());
   }
 }

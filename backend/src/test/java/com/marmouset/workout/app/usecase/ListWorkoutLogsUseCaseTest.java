@@ -50,7 +50,7 @@ class ListWorkoutLogsUseCaseTest {
     ));
 
 
-    var result = useCase.listWorkouts().iterator();
+    var result = useCase.list().iterator();
     assertEquals(expected1, result.next());
     assertEquals(expected2, result.next());
   }
@@ -59,7 +59,7 @@ class ListWorkoutLogsUseCaseTest {
   void shouldReturnEmptyWorkoutLogs() {
     when(repository.getAllLogs()).thenReturn(Collections.emptyList());
     assertEquals(0,
-        StreamSupport.stream(useCase.listWorkouts().spliterator(), false)
+        StreamSupport.stream(useCase.list().spliterator(), false)
             .toList().size());
   }
 }

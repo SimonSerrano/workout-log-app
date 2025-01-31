@@ -28,7 +28,7 @@ public class ListWorkoutLogsUseCase implements ListWorkoutLogs {
 
 
   @Override
-  public Iterable<WorkoutLogResponse> listWorkouts() {
+  public Iterable<WorkoutLogResponse> list() {
     return repository.getAllLogs().stream()
         .map(presenter::present)
         .toList();

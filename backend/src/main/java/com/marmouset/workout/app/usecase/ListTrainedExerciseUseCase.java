@@ -7,6 +7,7 @@ import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseReposi
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.StreamSupport;
 import org.springframework.stereotype.Component;
@@ -28,7 +29,7 @@ class ListTrainedExerciseUseCase implements ListTrainedExercises {
   }
 
   @Override
-  public Iterable<TrainedExerciseResponse> list(UUID logId)
+  public List<TrainedExerciseResponse> list(UUID logId)
       throws WorkoutLogNotFoundException {
     try {
       var workout = workoutLogRepository.getLogReference(logId);

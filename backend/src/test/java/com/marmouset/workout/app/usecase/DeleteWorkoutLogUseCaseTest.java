@@ -26,7 +26,7 @@ class DeleteWorkoutLogUseCaseTest {
   @Test
   void shouldCallRepository() {
     var id = UUID.randomUUID();
-    useCase.deleteWorkoutLog(id);
+    useCase.delete(id);
     verify(repository, times(1)).deleteWorkoutLog(id);
   }
 }

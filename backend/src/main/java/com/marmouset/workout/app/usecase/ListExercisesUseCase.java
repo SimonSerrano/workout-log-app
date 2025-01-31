@@ -4,6 +4,7 @@ import com.marmouset.workout.app.port.in.exercise.ListExercises;
 import com.marmouset.workout.app.port.out.exercise.ExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.ExerciseResponse;
+import java.util.List;
 import java.util.stream.StreamSupport;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +30,7 @@ public class ListExercisesUseCase implements ListExercises {
   }
 
   @Override
-  public Iterable<ExerciseResponse> listExercises() {
+  public List<ExerciseResponse> list() {
     return StreamSupport
         .stream(exerciseRepositoryPort.getExercises().spliterator(), false)
         .map(presenter::present)

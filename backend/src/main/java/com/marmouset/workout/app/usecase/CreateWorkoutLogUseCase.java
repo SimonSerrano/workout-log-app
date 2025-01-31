@@ -21,7 +21,7 @@ class CreateWorkoutLogUseCase implements CreateWorkoutLog {
   }
 
   @Override
-  public WorkoutLogResponse createWorkoutLog(CreateWorkoutLogCommand command) {
+  public WorkoutLogResponse create(CreateWorkoutLogCommand command) {
     var log = workoutLogRepository
         .createWorkoutLog(new CreateWorkoutLogRepoRequest(command.getName()));
     return presenter.present(log);

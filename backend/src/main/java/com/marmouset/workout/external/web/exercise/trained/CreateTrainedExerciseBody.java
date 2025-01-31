@@ -4,7 +4,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreateTrainedExerciseBody {
+class CreateTrainedExerciseBody {
   @org.hibernate.validator.constraints.UUID
   private UUID exerciseId;
 

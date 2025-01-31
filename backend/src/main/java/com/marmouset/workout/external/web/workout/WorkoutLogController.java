@@ -43,7 +43,7 @@ class WorkoutLogController {
 
   @GetMapping
   public ResponseEntity<Iterable<WorkoutLogResponse>> getLogs() {
-    return ResponseEntity.ok(listWorkoutLogs.listWorkouts());
+    return ResponseEntity.ok(listWorkoutLogs.list());
   }
 
 
@@ -60,14 +60,14 @@ class WorkoutLogController {
   public ResponseEntity<WorkoutLogResponse> createLog(
       @Valid @RequestBody CreateWorkoutLogBody body) {
     return new ResponseEntity<WorkoutLogResponse>(
-        createWorkoutLog.createWorkoutLog(
+        createWorkoutLog.create(
             mapper.toCreateWorkoutLogCommand(body)),
         HttpStatus.CREATED);
   }
-  
+
   @DeleteMapping(path = "/{logId}")
   public ResponseEntity<Void> deleteLog(@PathVariable UUID logId) {
-    deleteWorkoutLog.deleteWorkoutLog(logId);
+    deleteWorkoutLog.delete(logId);
     return ResponseEntity.noContent().build();
   }
 }

@@ -48,7 +48,7 @@ class ListExercisesUseCaseTest {
         exercise2
     ));
 
-    var result = useCase.listExercises().iterator();
+    var result = useCase.list().iterator();
     assertEquals(expected1, result.next());
     assertEquals(expected2, result.next());
 
@@ -59,7 +59,7 @@ class ListExercisesUseCaseTest {
     when(repository.getExercises()).thenReturn(Collections.emptyList());
 
     assertEquals(0,
-        StreamSupport.stream(useCase.listExercises().spliterator(), false)
+        StreamSupport.stream(useCase.list().spliterator(), false)
             .toList().size());
   }
 }

@@ -52,7 +52,7 @@ class WorkoutLogControllerTest {
     List<WorkoutLogResponse> returnedLogs = Arrays.asList(
         new WorkoutLogResponse(UUID.randomUUID(), "Toto", 1738071414L),
         new WorkoutLogResponse(UUID.randomUUID(), "Titi", 1738071414L));
-    when(listWorkoutLogs.listWorkouts()).thenReturn(returnedLogs);
+    when(listWorkoutLogs.list()).thenReturn(returnedLogs);
 
     mockMvc.perform(get("/log"))
         .andExpect(status().isOk())
@@ -87,7 +87,7 @@ class WorkoutLogControllerTest {
   void shouldCreateNewWorkoutLog() throws Exception {
     var command = new CreateWorkoutLogCommand("Toto");
     var log = new WorkoutLogResponse(UUID.randomUUID(), "Toto", 1738071414L);
-    when(createWorkoutLog.createWorkoutLog(command)).thenReturn(log);
+    when(createWorkoutLog.create(command)).thenReturn(log);
     var request = new CreateWorkoutLogBody();
     request.setTitle("Toto");
 
