@@ -23,6 +23,6 @@ class ExerciseSetMapper
 
   @Override
   protected ExerciseSet map(ExerciseSetEntity toMap) {
-    return factory.create(toMap.getReps());
+    return factory.create(toMap.getId(), toMap.getReps());
   }
 }

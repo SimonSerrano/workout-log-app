@@ -9,13 +9,13 @@ import com.marmouset.workout.app.domain.exercise.ExerciseFactory;
 import com.marmouset.workout.app.domain.exercise.TrainedExerciseFactory;
 import com.marmouset.workout.app.domain.workout.WorkoutLogFactory;
 import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
+import com.marmouset.workout.app.port.out.exercise.ExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -33,7 +33,9 @@ class ListTrainedExerciseUseCaseTest {
   @MockitoBean
   private WorkoutLogRepository workoutLogRepository;
   @Autowired
-  private TrainedExercisePresenter presenter;
+  private TrainedExercisePresenter trainedExercisePresenter;
+  @Autowired
+  private ExercisePresenter exercisePresenter;
   private ListTrainedExerciseUseCase useCase;
   @Autowired
   private TrainedExerciseFactory trainedExerciseFactory;
@@ -46,7 +48,7 @@ class ListTrainedExerciseUseCaseTest {
   @BeforeEach
   void setUp() {
     useCase = new ListTrainedExerciseUseCase(trainedExerciseRepository,
-        workoutLogRepository, presenter);
+        workoutLogRepository, trainedExercisePresenter);
   }
 
   @Test
@@ -64,8 +66,12 @@ class ListTrainedExerciseUseCaseTest {
     when(trainedExerciseRepository.getTrainedExercises(workout))
         .thenReturn(List.of(trained1, trained2));
 
-    var expected1 = new TrainedExerciseResponse(exercise1, new ArrayList<>());
-    var expected2 = new TrainedExerciseResponse(exercise2, new ArrayList<>());
+    var expected1 = new TrainedExerciseResponse(
+        exercisePresenter.present(exercise1),
+        Collections.emptyList());
+    var expected2 = new TrainedExerciseResponse(
+        exercisePresenter.present(exercise2),
+        Collections.emptyList());
 
     var result = useCase.list(workout.getId()).iterator();
     assertEquals(expected1, result.next());

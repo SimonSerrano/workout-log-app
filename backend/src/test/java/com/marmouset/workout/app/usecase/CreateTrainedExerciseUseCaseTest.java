@@ -9,11 +9,13 @@ import com.marmouset.workout.app.domain.exercise.TrainedExerciseFactory;
 import com.marmouset.workout.app.domain.workout.WorkoutLogFactory;
 import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import com.marmouset.workout.app.port.in.exercise.CreateTrainedExerciseCommand;
+import com.marmouset.workout.app.port.out.exercise.ExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.trained.CreateTrainedExerciseRepoRequest;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
+import com.marmouset.workout.app.port.out.set.ExerciseSetPresenter;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.time.Instant;
@@ -35,7 +37,11 @@ class CreateTrainedExerciseUseCaseTest {
   @MockitoBean
   private ExerciseRepository exerciseRepository;
   @Autowired
-  private TrainedExercisePresenter presenter;
+  private TrainedExercisePresenter trainedExercisePresenter;
+  @Autowired
+  private ExercisePresenter exercisePresenter;
+  @Autowired
+  private ExerciseSetPresenter exerciseSetPresenter;
 
   @Autowired
   private ExerciseFactory exerciseFactory;
@@ -52,7 +58,7 @@ class CreateTrainedExerciseUseCaseTest {
         trainedExerciseRepository,
         workoutLogRepository,
         exerciseRepository,
-        presenter);
+        trainedExercisePresenter);
   }
 
   @Test
@@ -73,8 +79,9 @@ class CreateTrainedExerciseUseCaseTest {
             new CreateTrainedExerciseRepoRequest(workout, exercise)))
         .thenReturn(trainedExerciseFactory.create(exercise));
 
-    var expected =
-        new TrainedExerciseResponse(exercise, Collections.emptyList());
+    var expected = new TrainedExerciseResponse(
+        exercisePresenter.present(exercise),
+        Collections.emptyList());
 
     assertEquals(expected, useCase.create(
         new CreateTrainedExerciseCommand(workout.getId(), exercise.id())));
