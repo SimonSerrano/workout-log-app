@@ -1,22 +1,27 @@
 package com.marmouset.workout.app.usecase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 import com.marmouset.workout.app.domain.exercise.ExerciseFactory;
-import com.marmouset.workout.app.domain.exercise.ExerciseNotFound;
+import com.marmouset.workout.app.domain.exercise.ExerciseNotFoundException;
 import com.marmouset.workout.app.domain.exercise.TrainedExerciseFactory;
-import com.marmouset.workout.app.domain.exercise.impl.ExerciseFactoryImpl;
-import com.marmouset.workout.app.domain.exercise.impl.TrainedExerciseFactoryImpl;
+import com.marmouset.workout.app.domain.workout.WorkoutLogFactory;
+import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import com.marmouset.workout.app.port.in.exercise.CreateTrainedExerciseCommand;
 import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
+import com.marmouset.workout.app.port.out.exercise.trained.CreateTrainedExerciseRepoRequest;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
+import com.marmouset.workout.external.database.exception.NotFoundException;
+import java.time.Instant;
 import java.util.Collections;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
@@ -29,18 +34,20 @@ class CreateTrainedExerciseUseCaseTest {
   private WorkoutLogRepository workoutLogRepository;
   @MockitoBean
   private ExerciseRepository exerciseRepository;
-  private TrainedExerciseFactory trainedExerciseFactory;
-  @MockitoBean
+  @Autowired
   private TrainedExercisePresenter presenter;
 
+  @Autowired
   private ExerciseFactory exerciseFactory;
+  @Autowired
+  private TrainedExerciseFactory trainedExerciseFactory;
+  @Autowired
+  private WorkoutLogFactory workoutLogFactory;
 
   private CreateTrainedExerciseUseCase useCase;
 
   @BeforeEach
   void setUp() {
-    exerciseFactory = new ExerciseFactoryImpl();
-    trainedExerciseFactory = new TrainedExerciseFactoryImpl();
     useCase = new CreateTrainedExerciseUseCase(
         trainedExerciseRepository,
         workoutLogRepository,
@@ -50,12 +57,27 @@ class CreateTrainedExerciseUseCaseTest {
   }
 
   @Test
-  void shouldReturnCreatedTrainedExercise() throws ExerciseNotFound {
+  void shouldReturnCreatedTrainedExercise()
+      throws ExerciseNotFoundException, NotFoundException,
+      WorkoutLogNotFoundException {
     var exercise = exerciseFactory.create(UUID.randomUUID(), "Pull ups");
+    var workout =
+        workoutLogFactory.create(UUID.randomUUID(), "Toto", Instant.now());
+
+
+    when(exerciseRepository.getExerciseReference(exercise.id()))
+        .thenReturn(exercise);
+    when(workoutLogRepository.getLogReference(workout.getId()))
+        .thenReturn(workout);
+    when(trainedExerciseRepository
+        .createTrainedExercise(
+            new CreateTrainedExerciseRepoRequest(workout, exercise)))
+        .thenReturn(trainedExerciseFactory.create(exercise));
+
     var expected =
         new TrainedExerciseResponse(exercise, Collections.emptyList());
 
     assertEquals(expected, useCase.create(
-        new CreateTrainedExerciseCommand(UUID.randomUUID(), exercise.id())));
+        new CreateTrainedExerciseCommand(workout.getId(), exercise.id())));
   }
 }

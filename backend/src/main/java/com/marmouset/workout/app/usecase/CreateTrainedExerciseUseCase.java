@@ -1,7 +1,9 @@
 package com.marmouset.workout.app.usecase;
 
-import com.marmouset.workout.app.domain.exercise.ExerciseNotFound;
+import com.marmouset.workout.app.domain.exercise.ExerciseNotFoundException;
 import com.marmouset.workout.app.domain.exercise.TrainedExerciseFactory;
+import com.marmouset.workout.app.domain.workout.WorkoutLog;
+import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import com.marmouset.workout.app.port.in.exercise.CreateTrainedExercise;
 import com.marmouset.workout.app.port.in.exercise.CreateTrainedExerciseCommand;
 import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
@@ -35,15 +37,23 @@ class CreateTrainedExerciseUseCase implements CreateTrainedExercise {
 
   @Override
   public TrainedExerciseResponse create(CreateTrainedExerciseCommand command)
-      throws ExerciseNotFound {
+      throws ExerciseNotFoundException, WorkoutLogNotFoundException {
+    WorkoutLog workout;
     try {
-      var trained = factory.create(
-          exerciseRepository.getExerciseReference(command.getExerciseId()));
-      return presenter
-          .present(trainedExerciseRepository
-              .createTrainedExercise(new CreateTrainedExerciseRepoRequest()));
+      workout = workoutLogRepository.getLogReference(command.getLogId());
     } catch (NotFoundException e) {
-      throw new ExerciseNotFound(command.getExerciseId());
+      throw new WorkoutLogNotFoundException(command.getLogId());
+    }
+
+    try {
+      var exercise =
+          exerciseRepository.getExerciseReference(command.getExerciseId());
+
+      return presenter.present(
+          trainedExerciseRepository.createTrainedExercise(
+              new CreateTrainedExerciseRepoRequest(workout, exercise)));
+    } catch (NotFoundException e) {
+      throw new ExerciseNotFoundException(command.getExerciseId());
     }
 
 

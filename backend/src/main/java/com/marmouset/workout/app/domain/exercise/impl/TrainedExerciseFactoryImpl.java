@@ -6,7 +6,7 @@ import com.marmouset.workout.app.domain.exercise.TrainedExerciseFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * Factory to instantiate trained exercises
+ * Factory to instantiate trained exercises.
  */
 @Component
 public class TrainedExerciseFactoryImpl implements TrainedExerciseFactory {
