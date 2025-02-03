@@ -39,7 +39,7 @@
 <h3 align="center">Workout Log</h3>
 
   <p align="center">
-    Create your own workout logs. Define the exercises your practices for how many sets and how many reps. Enjoy the progression !
+    Create your own workout logs. Define the exercises you practiced for how many sets and how many reps. Enjoy the progression !
     <br />
     <a href="https://github.com/SimonSerrano/workout-log-app"><strong>Explore the docs »</strong></a>
     <br />
@@ -87,7 +87,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Create your own workout logs. Define the exercises your practices for how many sets and how many reps. Enjoy the progression !
+Create your own workout logs. Define the exercises you practiced for how many sets and how many reps. Enjoy the progression !
 
 This project aims to provide an application where athletes can write down their workout logs in a streamlined manner. The goal is to highlight progress and where progress can be made.
 
