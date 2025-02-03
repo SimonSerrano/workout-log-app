@@ -37,7 +37,7 @@
   - [ ] api
   - [ ] ui
 - [ ] As an **athlete**, I want to **select exercises from a list** so I do not **have to input the exercise name regularly**
-  - [ ] api
+  - [x] api
   - [ ] ui
 
 ## Sets
