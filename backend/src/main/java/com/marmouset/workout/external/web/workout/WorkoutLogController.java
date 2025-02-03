@@ -79,9 +79,9 @@ class WorkoutLogController {
       @PathVariable UUID logId,
       @Valid @RequestBody CreateOrUpdateWorkoutLogBody body) {
     try {
-      return ResponseEntity.ok(
-          updateWorkoutLog.update(
-              new UpdateWorkoutLogCommand(logId, body.getName())));
+      var response = updateWorkoutLog
+          .update(new UpdateWorkoutLogCommand(logId, body.getName()));
+      return ResponseEntity.ok(response);
     } catch (WorkoutLogNotFoundException e) {
       return ResponseEntity.notFound().build();
     }

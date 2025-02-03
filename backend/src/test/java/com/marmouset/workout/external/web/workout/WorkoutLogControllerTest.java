@@ -122,21 +122,21 @@ class WorkoutLogControllerTest {
   void shouldUpdateWorkoutLogName() throws Exception {
 
     var body = new CreateOrUpdateWorkoutLogBody().setName("New name");
-
+    UUID uuid = UUID.randomUUID();
     var log =
-        new WorkoutLogResponse(UUID.randomUUID(), body.getName(), 1738071414L);
+        new WorkoutLogResponse(uuid, body.getName(), 1738071414L);
 
 
     when(update.update(
         new UpdateWorkoutLogCommand(log.id(), body.getName()))).thenReturn(log);
 
-    UUID uuid = UUID.randomUUID();
-    mockMvc.perform(patch("/log/" + uuid)
+
+    mockMvc.perform(patch("/log/" + log.id())
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(body))
         )
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.id").value(log.id()))
+        .andExpect(jsonPath("$.id").value(log.id().toString()))
         .andExpect(jsonPath("$.name").value(log.name()))
         .andExpect(
             jsonPath("$.createdAtTimestamp").value(log.createdAtTimestamp()));
