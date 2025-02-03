@@ -1,19 +1,20 @@
 package com.marmouset.workout.external.database.exercise.trained;
 
-import java.util.List;
-
 import com.marmouset.workout.external.database.AbstractEntity;
 import com.marmouset.workout.external.database.exercise.ExerciseEntity;
 import com.marmouset.workout.external.database.set.ExerciseSetEntity;
 import com.marmouset.workout.external.database.workout.WorkoutLogEntity;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.util.List;
 
+/**
+ * This class represents a trained exercise in the database.
+ */
 @Entity
 @Table(name = "trained_exercises")
 public class TrainedExerciseEntity extends AbstractEntity {
@@ -26,12 +27,12 @@ public class TrainedExerciseEntity extends AbstractEntity {
   @ManyToOne
   private WorkoutLogEntity log;
 
-  public TrainedExerciseEntity() {
+  TrainedExerciseEntity() {
   }
 
-  public TrainedExerciseEntity(ExerciseEntity exercise, List<ExerciseSetEntity> practices) {
+  TrainedExerciseEntity(ExerciseEntity exercise, List<ExerciseSetEntity> sets) {
     this.exercise = exercise;
-    this.sets = practices;
+    this.sets = sets;
   }
 
   public ExerciseEntity getExercise() {
@@ -46,8 +47,8 @@ public class TrainedExerciseEntity extends AbstractEntity {
     return sets;
   }
 
-  public void setPractices(List<ExerciseSetEntity> practices) {
-    this.sets = practices;
+  public void setSets(List<ExerciseSetEntity> sets) {
+    this.sets = sets;
   }
 
   public WorkoutLogEntity getLog() {

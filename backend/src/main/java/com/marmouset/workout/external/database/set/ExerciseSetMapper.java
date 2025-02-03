@@ -5,8 +5,11 @@ import com.marmouset.workout.app.domain.set.ExerciseSetFactory;
 import com.marmouset.workout.external.database.AbstractMapper;
 import org.springframework.stereotype.Component;
 
+/**
+ * This class maps an exercise set entity to an exercise set.
+ */
 @Component
-class ExerciseSetMapper
+public class ExerciseSetMapper
     extends AbstractMapper<ExerciseSetFactory, ExerciseSetEntity, ExerciseSet> {
   /**
    * Creates this mapper.
@@ -17,7 +20,13 @@ class ExerciseSetMapper
     super(factory);
   }
 
-  public ExerciseSet toTrainedExercise(ExerciseSetEntity entity) {
+  /**
+   * Maps an entity to a business object.
+   *
+   * @param entity the entity to map
+   * @return the business object
+   */
+  public ExerciseSet toExerciseSet(ExerciseSetEntity entity) {
     return map(entity);
   }
 

@@ -60,16 +60,18 @@ class ListTrainedExerciseUseCaseTest {
         workout);
     var exercise1 = exerciseFactory.create(UUID.randomUUID(), "Push up");
     var exercise2 = exerciseFactory.create(UUID.randomUUID(), "Pull up");
-    var trained1 = trainedExerciseFactory.create(exercise1);
-    var trained2 = trainedExerciseFactory.create(exercise2);
+    var trained1 = trainedExerciseFactory.create(UUID.randomUUID(), exercise1);
+    var trained2 = trainedExerciseFactory.create(UUID.randomUUID(), exercise2);
 
     when(trainedExerciseRepository.read(workout))
         .thenReturn(List.of(trained1, trained2));
 
     var expected1 = new TrainedExerciseResponse(
+        trained1.getId(),
         exercisePresenter.present(exercise1),
         Collections.emptyList());
     var expected2 = new TrainedExerciseResponse(
+        trained2.getId(),
         exercisePresenter.present(exercise2),
         Collections.emptyList());
 

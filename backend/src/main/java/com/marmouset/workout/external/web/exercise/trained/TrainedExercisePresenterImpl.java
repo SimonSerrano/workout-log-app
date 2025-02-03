@@ -22,6 +22,7 @@ class TrainedExercisePresenterImpl implements TrainedExercisePresenter {
   @Override
   public TrainedExerciseResponse present(TrainedExercise exercise) {
     return new TrainedExerciseResponse(
+        exercise.getId(),
         exercisePresenter.present(exercise.getExercise()),
         exercise.getSets().stream().map(exerciseSetPresenter::present)
             .toList());

@@ -4,7 +4,9 @@ import com.marmouset.workout.app.domain.exercise.Exercise;
 import com.marmouset.workout.app.domain.exercise.TrainedExercise;
 import com.marmouset.workout.app.domain.set.ExerciseSet;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Those are the exercises which have been trained.
@@ -12,17 +14,24 @@ import java.util.List;
  */
 public class TrainedExerciseImpl implements TrainedExercise {
 
+  private final UUID id;
   private final List<ExerciseSet> sets;
   private Exercise exercise;
 
   /**
    * Constructor.
    */
-  TrainedExerciseImpl(Exercise exercise) {
+  TrainedExerciseImpl(UUID id, Exercise exercise) {
+    this.id = id;
     sets = new ArrayList<>();
     this.exercise = exercise;
   }
 
+
+  @Override
+  public UUID getId() {
+    return id;
+  }
 
   @Override
   public Exercise getExercise() {
@@ -47,8 +56,42 @@ public class TrainedExerciseImpl implements TrainedExercise {
   }
 
   @Override
+  public TrainedExercise addAllSets(Collection<ExerciseSet> sets) {
+    this.sets.addAll(sets);
+    return this;
+  }
+
+  @Override
   public TrainedExercise removeSet(ExerciseSet set) {
     sets.remove(set);
     return this;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    TrainedExerciseImpl that = (TrainedExerciseImpl) o;
+
+    if (!id.equals(that.id)) {
+      return false;
+    }
+    if (!sets.equals(that.sets)) {
+      return false;
+    }
+    return exercise.equals(that.exercise);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = id.hashCode();
+    result = 31 * result + sets.hashCode();
+    result = 31 * result + exercise.hashCode();
+    return result;
   }
 }

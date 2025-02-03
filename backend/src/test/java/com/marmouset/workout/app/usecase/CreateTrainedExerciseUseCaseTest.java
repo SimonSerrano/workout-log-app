@@ -65,25 +65,28 @@ class CreateTrainedExerciseUseCaseTest {
   void shouldReturnCreatedTrainedExercise()
       throws ExerciseNotFoundException, NotFoundException,
       WorkoutLogNotFoundException {
-    var exercise = exerciseFactory.create(UUID.randomUUID(), "Pull ups");
     var workout =
         workoutLogFactory.create(UUID.randomUUID(), "Toto", Instant.now());
+    var trainedExercise = trainedExerciseFactory.create(UUID.randomUUID(),
+        exerciseFactory.create(UUID.randomUUID(), "Pull ups"));
 
-
-    when(exerciseRepository.readReference(exercise.id()))
-        .thenReturn(exercise);
+    when(exerciseRepository.readReference(trainedExercise.getExercise().id()))
+        .thenReturn(trainedExercise.getExercise());
     when(workoutLogRepository.readReference(workout.getId()))
         .thenReturn(workout);
     when(trainedExerciseRepository
         .create(
-            new CreateTrainedExerciseRepoRequest(workout, exercise)))
-        .thenReturn(trainedExerciseFactory.create(exercise));
+            new CreateTrainedExerciseRepoRequest(workout,
+                trainedExercise.getExercise())))
+        .thenReturn(trainedExercise);
 
     var expected = new TrainedExerciseResponse(
-        exercisePresenter.present(exercise),
+        trainedExercise.getId(),
+        exercisePresenter.present(trainedExercise.getExercise()),
         Collections.emptyList());
 
     assertEquals(expected, useCase.create(
-        new CreateTrainedExerciseCommand(workout.getId(), exercise.id())));
+        new CreateTrainedExerciseCommand(workout.getId(),
+            trainedExercise.getExercise().id())));
   }
 }

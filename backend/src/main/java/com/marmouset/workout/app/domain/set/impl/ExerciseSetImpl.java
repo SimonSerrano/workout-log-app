@@ -37,4 +37,28 @@ public class ExerciseSetImpl implements ExerciseSet {
     this.reps = reps;
     return this;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    ExerciseSetImpl that = (ExerciseSetImpl) o;
+
+    if (reps != that.reps) {
+      return false;
+    }
+    return id.equals(that.id);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = id.hashCode();
+    result = 31 * result + reps;
+    return result;
+  }
 }

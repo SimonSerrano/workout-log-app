@@ -6,8 +6,11 @@ import com.marmouset.workout.external.database.AbstractMapper;
 import org.springframework.stereotype.Component;
 
 
+/**
+ * This class maps an exercise entity to an exercise.
+ */
 @Component
-class ExerciseMapper extends
+public class ExerciseMapper extends
     AbstractMapper<ExerciseFactory, ExerciseEntity, Exercise> {
 
   /**
@@ -19,6 +22,12 @@ class ExerciseMapper extends
     super(factory);
   }
 
+  /**
+   * Maps an entity to a business object.
+   *
+   * @param entity the entity to map
+   * @return the business object
+   */
   public Exercise toExercise(ExerciseEntity entity) {
     return map(entity);
   }
