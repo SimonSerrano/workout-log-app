@@ -1,4 +1,4 @@
-package com.marmouset.workout.app.usecase;
+package com.marmouset.workout.app.usecase.exercise;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

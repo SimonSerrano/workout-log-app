@@ -1,4 +1,4 @@
-package com.marmouset.workout.app.usecase;
+package com.marmouset.workout.app.usecase.workout;
 
 import com.marmouset.workout.app.port.in.workout.ListWorkoutLogs;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogPresenter;

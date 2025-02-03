@@ -1,4 +1,4 @@
-package com.marmouset.workout.app.usecase;
+package com.marmouset.workout.app.usecase.exercise;
 
 import com.marmouset.workout.app.port.in.exercise.ListExercises;
 import com.marmouset.workout.app.port.out.exercise.ExercisePresenter;

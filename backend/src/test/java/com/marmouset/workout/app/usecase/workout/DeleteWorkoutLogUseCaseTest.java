@@ -1,4 +1,4 @@
-package com.marmouset.workout.app.usecase;
+package com.marmouset.workout.app.usecase.workout;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
