@@ -9,10 +9,12 @@ import java.util.UUID;
  * Response for the trained exercise.
  *
  * @param id       the id
+ * @param logId    the workout log id
  * @param exercise the trained exercise
  * @param sets     the sets for that exercise
  */
-public record TrainedExerciseResponse(UUID id, ExerciseResponse exercise,
+public record TrainedExerciseResponse(Long id, UUID logId,
+                                      ExerciseResponse exercise,
                                       List<ExerciseSetResponse> sets) {
 
 

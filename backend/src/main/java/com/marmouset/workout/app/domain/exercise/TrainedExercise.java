@@ -15,7 +15,14 @@ public interface TrainedExercise {
    *
    * @return the id
    */
-  UUID getId();
+  Long getId();
+
+  /**
+   * Get the log id.
+   *
+   * @return the log id
+   */
+  UUID getLogId();
 
   /**
    * Get the trained exercise.
@@ -48,7 +55,7 @@ public interface TrainedExercise {
   TrainedExercise addSet(ExerciseSet set);
 
   /**
-   * Adds all sets
+   * Adds all sets.
    *
    * @param sets the sets to add
    * @return this

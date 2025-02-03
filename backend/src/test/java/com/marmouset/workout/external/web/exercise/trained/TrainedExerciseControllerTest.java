@@ -11,6 +11,7 @@ import com.marmouset.workout.app.port.out.exercise.ExerciseResponse;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
 import com.marmouset.workout.app.port.out.set.ExerciseSetResponse;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +35,19 @@ class TrainedExerciseControllerTest {
 
   @Test
   void shouldReturnListOfTrainedExercises() throws Exception {
-    var trained1 = new TrainedExerciseResponse(UUID.randomUUID(),
+    var logId = UUID.randomUUID();
+
+    var trained1 = new TrainedExerciseResponse(
+        new Random().nextLong(),
+        logId,
         new ExerciseResponse(UUID.randomUUID(), "Pull up"),
         createSetTriplet(4, 4, 5));
-    var trained2 = new TrainedExerciseResponse(UUID.randomUUID(),
+    var trained2 = new TrainedExerciseResponse(
+        new Random().nextLong(),
+        logId,
         new ExerciseResponse(UUID.randomUUID(), "Push up"),
         createSetTriplet(6, 6, 8));
 
-    var logId = UUID.randomUUID();
 
     when(listTrainedExercises.list(logId)).thenReturn(
         List.of(trained1, trained2));

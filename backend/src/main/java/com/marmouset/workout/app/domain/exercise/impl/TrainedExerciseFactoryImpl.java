@@ -9,8 +9,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 class TrainedExerciseFactoryImpl implements TrainedExerciseFactory {
+
   @Override
-  public TrainedExercise create(UUID id, Exercise exercise) {
-    return new TrainedExerciseImpl(id, exercise);
+  public TrainedExercise create(Long id, UUID logId, Exercise exercise) {
+    return new TrainedExerciseImpl(id, logId, exercise);
   }
 }

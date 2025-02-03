@@ -18,6 +18,7 @@ import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -60,18 +61,24 @@ class ListTrainedExerciseUseCaseTest {
         workout);
     var exercise1 = exerciseFactory.create(UUID.randomUUID(), "Push up");
     var exercise2 = exerciseFactory.create(UUID.randomUUID(), "Pull up");
-    var trained1 = trainedExerciseFactory.create(UUID.randomUUID(), exercise1);
-    var trained2 = trainedExerciseFactory.create(UUID.randomUUID(), exercise2);
+    var trained1 =
+        trainedExerciseFactory.create(
+            new Random().nextLong(), workout.getId(), exercise1);
+    var trained2 =
+        trainedExerciseFactory.create(
+            new Random().nextLong(), workout.getId(), exercise2);
 
     when(trainedExerciseRepository.read(workout))
         .thenReturn(List.of(trained1, trained2));
 
     var expected1 = new TrainedExerciseResponse(
         trained1.getId(),
+        trained1.getLogId(),
         exercisePresenter.present(exercise1),
         Collections.emptyList());
     var expected2 = new TrainedExerciseResponse(
         trained2.getId(),
+        trained2.getLogId(),
         exercisePresenter.present(exercise2),
         Collections.emptyList());
 

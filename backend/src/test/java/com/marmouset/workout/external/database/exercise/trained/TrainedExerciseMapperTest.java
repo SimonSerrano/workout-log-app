@@ -56,7 +56,10 @@ class TrainedExerciseMapperTest {
     exerciseEntity.setId(UUID.randomUUID());
     exerciseEntity.setName("Pull ups");
     var trainedEntity = new TrainedExerciseEntity();
-    trainedEntity.setId(UUID.randomUUID());
+    trainedEntity.setId(
+        new TrainedExercisePrimaryKey()
+            .setWorkoutLogId(UUID.randomUUID())
+            .setTrainedExerciseId(1L));
     trainedEntity.setSets(List.of(setEntity1, setEntity2));
     trainedEntity.setExercise(exerciseEntity);
 
@@ -68,7 +71,10 @@ class TrainedExerciseMapperTest {
     var set2 =
         exerciseSetFactory.create(setEntity2.getId(), setEntity2.getReps());
     var expected =
-        trainedExerciseFactory.create(trainedEntity.getId(), exercise);
+        trainedExerciseFactory.create(
+            trainedEntity.getId().getTrainedExerciseId(),
+            trainedEntity.getId().getWorkoutLogId(),
+            exercise);
     expected.addSet(set1);
     expected.addSet(set2);
 

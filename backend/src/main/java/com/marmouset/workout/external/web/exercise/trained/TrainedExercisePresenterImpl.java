@@ -23,6 +23,7 @@ class TrainedExercisePresenterImpl implements TrainedExercisePresenter {
   public TrainedExerciseResponse present(TrainedExercise exercise) {
     return new TrainedExerciseResponse(
         exercise.getId(),
+        exercise.getLogId(),
         exercisePresenter.present(exercise.getExercise()),
         exercise.getSets().stream().map(exerciseSetPresenter::present)
             .toList());

@@ -1,11 +1,13 @@
 package com.marmouset.workout.external.database.exercise.trained;
 
-import com.marmouset.workout.external.database.UuidBasedAbstractEntity;
+import com.marmouset.workout.external.database.AbstractEntity;
 import com.marmouset.workout.external.database.exercise.ExerciseEntity;
 import com.marmouset.workout.external.database.set.ExerciseSetEntity;
 import com.marmouset.workout.external.database.workout.WorkoutLogEntity;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -16,7 +18,11 @@ import java.util.List;
  */
 @Entity
 @Table(name = "trained_exercises")
-public class TrainedExerciseEntity extends UuidBasedAbstractEntity {
+public class TrainedExerciseEntity extends AbstractEntity {
+
+  @EmbeddedId
+  private TrainedExercisePrimaryKey id;
+
   @OneToOne
   private ExerciseEntity exercise;
 
@@ -24,6 +30,7 @@ public class TrainedExerciseEntity extends UuidBasedAbstractEntity {
   private List<ExerciseSetEntity> sets;
 
   @OneToOne
+  @JoinColumn(insertable = false, updatable = false)
   private WorkoutLogEntity log;
 
   TrainedExerciseEntity() {
@@ -58,4 +65,13 @@ public class TrainedExerciseEntity extends UuidBasedAbstractEntity {
     this.log = log;
   }
 
+  public TrainedExercisePrimaryKey getId() {
+    return id;
+  }
+
+  public TrainedExerciseEntity setId(
+      TrainedExercisePrimaryKey id) {
+    this.id = id;
+    return this;
+  }
 }

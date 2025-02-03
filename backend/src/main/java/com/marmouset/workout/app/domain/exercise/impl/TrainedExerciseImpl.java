@@ -14,23 +14,31 @@ import java.util.UUID;
  */
 public class TrainedExerciseImpl implements TrainedExercise {
 
-  private final UUID id;
+  private final Long id;
   private final List<ExerciseSet> sets;
+  private final UUID logId;
   private Exercise exercise;
+
 
   /**
    * Constructor.
    */
-  TrainedExerciseImpl(UUID id, Exercise exercise) {
+  TrainedExerciseImpl(Long id, UUID logId, Exercise exercise) {
     this.id = id;
+    this.logId = logId;
     sets = new ArrayList<>();
     this.exercise = exercise;
   }
 
 
   @Override
-  public UUID getId() {
+  public Long getId() {
     return id;
+  }
+
+  @Override
+  public UUID getLogId() {
+    return logId;
   }
 
   @Override

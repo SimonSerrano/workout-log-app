@@ -20,6 +20,7 @@ import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.time.Instant;
 import java.util.Collections;
+import java.util.Random;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -67,8 +68,9 @@ class CreateTrainedExerciseUseCaseTest {
       WorkoutLogNotFoundException {
     var workout =
         workoutLogFactory.create(UUID.randomUUID(), "Toto", Instant.now());
-    var trainedExercise = trainedExerciseFactory.create(UUID.randomUUID(),
-        exerciseFactory.create(UUID.randomUUID(), "Pull ups"));
+    var trainedExercise =
+        trainedExerciseFactory.create(new Random().nextLong(), workout.getId(),
+            exerciseFactory.create(UUID.randomUUID(), "Pull ups"));
 
     when(exerciseRepository.readReference(trainedExercise.getExercise().id()))
         .thenReturn(trainedExercise.getExercise());
@@ -82,6 +84,7 @@ class CreateTrainedExerciseUseCaseTest {
 
     var expected = new TrainedExerciseResponse(
         trainedExercise.getId(),
+        trainedExercise.getLogId(),
         exercisePresenter.present(trainedExercise.getExercise()),
         Collections.emptyList());
 
