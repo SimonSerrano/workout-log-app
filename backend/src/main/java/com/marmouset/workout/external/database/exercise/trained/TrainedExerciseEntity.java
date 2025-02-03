@@ -1,12 +1,11 @@
 package com.marmouset.workout.external.database.exercise.trained;
 
-import com.marmouset.workout.external.database.AbstractEntity;
+import com.marmouset.workout.external.database.UuidBasedAbstractEntity;
 import com.marmouset.workout.external.database.exercise.ExerciseEntity;
 import com.marmouset.workout.external.database.set.ExerciseSetEntity;
 import com.marmouset.workout.external.database.workout.WorkoutLogEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -17,14 +16,14 @@ import java.util.List;
  */
 @Entity
 @Table(name = "trained_exercises")
-public class TrainedExerciseEntity extends AbstractEntity {
+public class TrainedExerciseEntity extends UuidBasedAbstractEntity {
   @OneToOne
   private ExerciseEntity exercise;
 
   @OneToMany(cascade = CascadeType.ALL)
   private List<ExerciseSetEntity> sets;
 
-  @ManyToOne
+  @OneToOne
   private WorkoutLogEntity log;
 
   TrainedExerciseEntity() {

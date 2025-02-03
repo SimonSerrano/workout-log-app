@@ -1,20 +1,22 @@
 package com.marmouset.workout.external.database.set;
 
-import com.marmouset.workout.external.database.AbstractEntity;
+import com.marmouset.workout.external.database.UuidBasedAbstractEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
+/**
+ * Class representing an exercise set entity in the db.
+ */
 @Entity
 @Table(name = "sets")
-public class ExerciseSetEntity extends AbstractEntity {
+public class ExerciseSetEntity extends UuidBasedAbstractEntity {
 
   private int reps;
 
+  /**
+   * Creates an exercise set entity.
+   */
   public ExerciseSetEntity() {
-  }
-
-  public ExerciseSetEntity(int reps) {
-    this.reps = reps;
   }
 
   public int getReps() {

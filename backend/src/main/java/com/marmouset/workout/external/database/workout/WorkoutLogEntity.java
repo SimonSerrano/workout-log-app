@@ -1,6 +1,6 @@
 package com.marmouset.workout.external.database.workout;
 
-import com.marmouset.workout.external.database.AbstractEntity;
+import com.marmouset.workout.external.database.UuidBasedAbstractEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "logs")
-public class WorkoutLogEntity extends AbstractEntity {
+public class WorkoutLogEntity extends UuidBasedAbstractEntity {
 
   private String name;
 
