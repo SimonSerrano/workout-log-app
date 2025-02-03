@@ -41,11 +41,20 @@ public interface WorkoutLogRepository {
   void delete(UUID uuid);
 
   /**
-   * Get a log object with only the uuid populated.
+   * Get a log object with only the id populated.
    *
    * @param uuid the id of the log
    * @return the workout log
    * @throws NotFoundException if the log is not found
    */
   WorkoutLog readReference(UUID uuid) throws NotFoundException;
+
+  /**
+   * Updates a workout log.
+   *
+   * @param request the request to update a log
+   * @return the update log
+   */
+  WorkoutLog update(UpdateWorkoutLogRepoRequest request)
+      throws NotFoundException;
 }

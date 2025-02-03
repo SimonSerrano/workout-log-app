@@ -24,7 +24,7 @@ public class ExerciseEntity extends AbstractEntity {
   /**
    * Constructs an ExerciseEntity.
    *
-   * @param name the title of the exercise
+   * @param name the name of the exercise
    */
   public ExerciseEntity(String name) {
     this.name = name;

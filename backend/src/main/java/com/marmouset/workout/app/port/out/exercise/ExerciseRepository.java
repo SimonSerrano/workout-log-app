@@ -17,7 +17,7 @@ public interface ExerciseRepository {
   List<Exercise> read();
 
   /**
-   * Read an exercise only with its uuid populated.
+   * Read an exercise only with its id populated.
    *
    * @param id the id
    * @return the exercise

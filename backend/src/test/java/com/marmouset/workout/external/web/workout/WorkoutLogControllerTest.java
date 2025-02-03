@@ -1,8 +1,11 @@
 package com.marmouset.workout.external.web.workout;
 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -15,6 +18,8 @@ import com.marmouset.workout.app.port.in.workout.CreateWorkoutLogCommand;
 import com.marmouset.workout.app.port.in.workout.DeleteWorkoutLog;
 import com.marmouset.workout.app.port.in.workout.GetLogDetails;
 import com.marmouset.workout.app.port.in.workout.ListWorkoutLogs;
+import com.marmouset.workout.app.port.in.workout.UpdateWorkoutLog;
+import com.marmouset.workout.app.port.in.workout.UpdateWorkoutLogCommand;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogResponse;
 import java.util.Arrays;
 import java.util.List;
@@ -33,23 +38,26 @@ class WorkoutLogControllerTest {
   private MockMvc mockMvc;
 
   @MockitoBean
-  private ListWorkoutLogs listWorkoutLogs;
+  private ListWorkoutLogs list;
 
   @MockitoBean
-  private GetLogDetails getLogDetails;
+  private GetLogDetails get;
 
   @MockitoBean
-  private CreateWorkoutLog createWorkoutLog;
+  private CreateWorkoutLog create;
 
   @MockitoBean
-  private DeleteWorkoutLog deleteWorkoutLog;
+  private DeleteWorkoutLog delete;
+
+  @MockitoBean
+  private UpdateWorkoutLog update;
 
   @Test
-  void shouldReturnLogsFromService() throws Exception {
+  void shouldReturnLogs() throws Exception {
     List<WorkoutLogResponse> returnedLogs = Arrays.asList(
         new WorkoutLogResponse(UUID.randomUUID(), "Toto", 1738071414L),
         new WorkoutLogResponse(UUID.randomUUID(), "Titi", 1738071414L));
-    when(listWorkoutLogs.list()).thenReturn(returnedLogs);
+    when(list.list()).thenReturn(returnedLogs);
 
     mockMvc.perform(get("/log"))
         .andExpect(status().isOk())
@@ -59,11 +67,11 @@ class WorkoutLogControllerTest {
   }
 
   @Test
-  void shouldReturnLogFromService() throws Exception {
+  void shouldReturnLogDetails() throws Exception {
     WorkoutLogResponse returnedLog =
         new WorkoutLogResponse(UUID.randomUUID(), "Toto", 1738071414L);
     UUID uuid = UUID.randomUUID();
-    when(getLogDetails.get(uuid)).thenReturn(returnedLog);
+    when(get.get(uuid)).thenReturn(returnedLog);
 
     mockMvc.perform(get("/log/" + uuid))
         .andExpect(status().isOk())
@@ -71,9 +79,10 @@ class WorkoutLogControllerTest {
   }
 
   @Test
-  void shouldReturnNotFoundResponse() throws Exception {
+  void shouldReturnNotFoundResponseWhenGettingDetailsOfAnUnknownWorkout()
+      throws Exception {
     UUID uuid = UUID.randomUUID();
-    when(getLogDetails.get(uuid)).thenThrow(
+    when(get.get(uuid)).thenThrow(
         new WorkoutLogNotFoundException(uuid));
 
     mockMvc.perform(get("/log/" + uuid))
@@ -84,17 +93,20 @@ class WorkoutLogControllerTest {
   void shouldCreateNewWorkoutLog() throws Exception {
     var command = new CreateWorkoutLogCommand("Toto");
     var log = new WorkoutLogResponse(UUID.randomUUID(), "Toto", 1738071414L);
-    when(createWorkoutLog.create(command)).thenReturn(log);
-    var request = new CreateWorkoutLogBody();
-    request.setTitle("Toto");
+    when(create.create(command)).thenReturn(log);
+    var body = new CreateOrUpdateWorkoutLogBody("Toto");
 
     mockMvc
         .perform(
             post("/log")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(request)))
+                .content(new ObjectMapper().writeValueAsString(body)))
         .andDo(print())
-        .andExpect(status().isCreated());
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.id").value(log.id().toString()))
+        .andExpect(jsonPath("$.name").value(log.name()))
+        .andExpect(
+            jsonPath("$.createdAtTimestamp").value(log.createdAtTimestamp()));
   }
 
   @Test
@@ -102,5 +114,30 @@ class WorkoutLogControllerTest {
     UUID uuid = UUID.randomUUID();
     mockMvc.perform(delete("/log/" + uuid))
         .andExpect(status().isNoContent());
+    verify(delete, times(1)).delete(uuid);
+  }
+
+  @Test
+  void shouldUpdateWorkoutLogName() throws Exception {
+
+    var body = new CreateOrUpdateWorkoutLogBody("New name");
+
+    var log =
+        new WorkoutLogResponse(UUID.randomUUID(), body.name(), 1738071414L);
+
+
+    when(update.update(
+        new UpdateWorkoutLogCommand(log.id(), body.name()))).thenReturn(log);
+
+    UUID uuid = UUID.randomUUID();
+    mockMvc.perform(patch("/log/" + uuid)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(new ObjectMapper().writeValueAsString(body))
+        )
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value(log.id()))
+        .andExpect(jsonPath("$.name").value(log.name()))
+        .andExpect(
+            jsonPath("$.createdAtTimestamp").value(log.createdAtTimestamp()));
   }
 }
