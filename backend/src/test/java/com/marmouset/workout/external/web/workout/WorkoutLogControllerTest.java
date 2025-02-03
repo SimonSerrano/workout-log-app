@@ -94,7 +94,8 @@ class WorkoutLogControllerTest {
     var command = new CreateWorkoutLogCommand("Toto");
     var log = new WorkoutLogResponse(UUID.randomUUID(), "Toto", 1738071414L);
     when(create.create(command)).thenReturn(log);
-    var body = new CreateOrUpdateWorkoutLogBody("Toto");
+    var body = new CreateOrUpdateWorkoutLogBody().setName("Toto");
+
 
     mockMvc
         .perform(
@@ -120,14 +121,14 @@ class WorkoutLogControllerTest {
   @Test
   void shouldUpdateWorkoutLogName() throws Exception {
 
-    var body = new CreateOrUpdateWorkoutLogBody("New name");
+    var body = new CreateOrUpdateWorkoutLogBody().setName("New name");
 
     var log =
-        new WorkoutLogResponse(UUID.randomUUID(), body.name(), 1738071414L);
+        new WorkoutLogResponse(UUID.randomUUID(), body.getName(), 1738071414L);
 
 
     when(update.update(
-        new UpdateWorkoutLogCommand(log.id(), body.name()))).thenReturn(log);
+        new UpdateWorkoutLogCommand(log.id(), body.getName()))).thenReturn(log);
 
     UUID uuid = UUID.randomUUID();
     mockMvc.perform(patch("/log/" + uuid)

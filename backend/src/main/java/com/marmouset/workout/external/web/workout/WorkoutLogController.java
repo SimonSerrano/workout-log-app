@@ -64,7 +64,7 @@ class WorkoutLogController {
   public ResponseEntity<WorkoutLogResponse> post(
       @Valid @RequestBody CreateOrUpdateWorkoutLogBody body) {
     return new ResponseEntity<WorkoutLogResponse>(
-        createWorkoutLog.create(new CreateWorkoutLogCommand(body.name())),
+        createWorkoutLog.create(new CreateWorkoutLogCommand(body.getName())),
         HttpStatus.CREATED);
   }
 
@@ -81,7 +81,7 @@ class WorkoutLogController {
     try {
       return ResponseEntity.ok(
           updateWorkoutLog.update(
-              new UpdateWorkoutLogCommand(logId, body.name())));
+              new UpdateWorkoutLogCommand(logId, body.getName())));
     } catch (WorkoutLogNotFoundException e) {
       return ResponseEntity.notFound().build();
     }
