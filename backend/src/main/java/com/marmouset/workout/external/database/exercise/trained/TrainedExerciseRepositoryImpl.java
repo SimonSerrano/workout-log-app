@@ -3,6 +3,7 @@ package com.marmouset.workout.external.database.exercise.trained;
 import com.marmouset.workout.app.domain.exercise.TrainedExercise;
 import com.marmouset.workout.app.domain.workout.WorkoutLog;
 import com.marmouset.workout.app.port.out.exercise.trained.CreateTrainedExerciseRepoRequest;
+import com.marmouset.workout.app.port.out.exercise.trained.DeleteTrainedExerciseRepoRequest;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
 import com.marmouset.workout.external.database.exercise.ExerciseEntity;
 import com.marmouset.workout.external.database.workout.WorkoutLogEntity;
@@ -38,6 +39,14 @@ class TrainedExerciseRepositoryImpl
     entity.setExercise(new ExerciseEntity());
     entity.setLog(new WorkoutLogEntity());
     return mapper.toTrainedExercise(trainedExerciseRepository.save(entity));
+  }
+
+  @Override
+  public void delete(DeleteTrainedExerciseRepoRequest request) {
+    trainedExerciseRepository.deleteById(
+        new TrainedExercisePrimaryKey()
+            .setWorkoutLogId(request.logId())
+            .setTrainedExerciseId(request.trainedId()));
   }
 
 }

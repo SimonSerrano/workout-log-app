@@ -9,7 +9,8 @@ public interface DeleteTrainedExercise {
   /**
    * Deletes a trained exercise.
    *
-   * @param id the id of the exercise to delete
+   * @param logId     the id of the workout log
+   * @param trainedId the id of the exercise to delete
    */
-  void delete(UUID id);
+  void delete(UUID logId, Long trainedId);
 }

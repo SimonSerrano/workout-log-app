@@ -75,13 +75,14 @@ class TrainedExerciseControllerTest {
   @Test
   void shouldDeleteTrainedExercise() throws Exception {
     var logId = UUID.randomUUID();
-    var trainedId = UUID.randomUUID();
+    var trainedId = 9L;
 
     mockMvc
         .perform(MockMvcRequestBuilders.delete(
             "/log/" + logId + "/trained/" + trainedId))
         .andExpect(MockMvcResultMatchers.status().isNoContent());
-    verify(deleteTrainedExercise, times(1)).delete(trainedId);
+    verify(deleteTrainedExercise, times(1))
+        .delete(logId, trainedId);
   }
 
   private List<ExerciseSetResponse> createSetTriplet(int first, int second,

@@ -24,4 +24,12 @@ public interface TrainedExerciseRepository {
    * @return the trained exercise
    */
   TrainedExercise create(CreateTrainedExerciseRepoRequest request);
+
+  /**
+   * Delete a trained exercise.
+   *
+   * @param request the request containing required data to delete the exercise
+   */
+  void delete(
+      DeleteTrainedExerciseRepoRequest request);
 }
