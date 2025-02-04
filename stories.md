@@ -31,10 +31,10 @@
   - [ ] api
   - [ ] ui
 - [ ] As an **athlete**, I want to **delete an exercise** so I can **correct a wrong input**
-  - [ ] api
+  - [x] api
   - [ ] ui
 - [ ] As an **athlete**, I want to **list all my exercises in a workout** so I can **recall what my workout was made of**
-  - [ ] api
+  - [x] api
   - [ ] ui
 - [ ] As an **athlete**, I want to **select exercises from a list** so I do not **have to input the exercise name regularly**
   - [x] api
