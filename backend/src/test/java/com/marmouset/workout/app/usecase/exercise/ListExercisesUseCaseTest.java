@@ -40,8 +40,10 @@ class ListExercisesUseCaseTest {
   void shouldReturnListOfExercises() {
     var exercise1 = factory.create(UUID.randomUUID(), "Pull up");
     var exercise2 = factory.create(UUID.randomUUID(), "Push up");
-    var expected1 = new ExerciseResponse(exercise1.id(), exercise1.name());
-    var expected2 = new ExerciseResponse(exercise2.id(), exercise2.name());
+    var expected1 =
+        new ExerciseResponse(exercise1.id(), exercise1.name());
+    var expected2 =
+        new ExerciseResponse(exercise2.id(), exercise2.name());
 
     when(repository.read()).thenReturn(List.of(
         exercise1,

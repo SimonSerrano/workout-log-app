@@ -11,6 +11,7 @@ import com.marmouset.workout.app.domain.workout.WorkoutLog;
  * @param exercise the exercise to associate with
  */
 public record CreateTrainedExerciseRepoRequest(
-    WorkoutLog log, Exercise exercise) {
+    WorkoutLog log,
+    Exercise exercise) {
 
 }

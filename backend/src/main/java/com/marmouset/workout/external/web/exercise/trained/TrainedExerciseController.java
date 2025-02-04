@@ -49,7 +49,7 @@ class TrainedExerciseController {
   @PostMapping
   public ResponseEntity<TrainedExerciseResponse> post(
       @PathVariable UUID logId,
-      @Valid @RequestBody CreateTrainedExerciseBody body) {
+      @Valid @RequestBody CreateOrUpdateTrainedExerciseBody body) {
     try {
       return new ResponseEntity<>(
           createTrainedExercise.create(

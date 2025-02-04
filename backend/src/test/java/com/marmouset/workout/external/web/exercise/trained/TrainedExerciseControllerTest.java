@@ -9,6 +9,8 @@ import com.marmouset.workout.app.port.in.exercise.CreateTrainedExercise;
 import com.marmouset.workout.app.port.in.exercise.CreateTrainedExerciseCommand;
 import com.marmouset.workout.app.port.in.exercise.DeleteTrainedExercise;
 import com.marmouset.workout.app.port.in.exercise.ListTrainedExercises;
+import com.marmouset.workout.app.port.in.exercise.UpdateTrainedExercise;
+import com.marmouset.workout.app.port.in.exercise.UpdatedTrainedExerciseCommand;
 import com.marmouset.workout.app.port.out.exercise.ExerciseResponse;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
 import com.marmouset.workout.app.port.out.set.ExerciseSetResponse;
@@ -37,6 +39,8 @@ class TrainedExerciseControllerTest {
   private CreateTrainedExercise createTrainedExercise;
   @MockitoBean
   private DeleteTrainedExercise deleteTrainedExercise;
+  @MockitoBean
+  private UpdateTrainedExercise updateTrainedExercise;
 
   @Test
   void shouldReturnListOfTrainedExercises() throws Exception {
@@ -94,7 +98,8 @@ class TrainedExerciseControllerTest {
   void shouldCreateTrainedExercise() throws Exception {
     var logId = UUID.randomUUID();
     var exerciseId = UUID.randomUUID();
-    var body = new CreateTrainedExerciseBody().setExerciseId(exerciseId);
+    var body =
+        new CreateOrUpdateTrainedExerciseBody().setExerciseId(exerciseId);
     var response = new TrainedExerciseResponse(8L, logId,
         new ExerciseResponse(exerciseId, "Pull up"),
         Collections.emptyList());
@@ -155,6 +160,40 @@ class TrainedExerciseControllerTest {
                 .writeValueAsString(Map.of("exerciseId", "toto"))))
         .andExpect(MockMvcResultMatchers
             .status().isBadRequest());
+  }
+
+
+  @Test
+  void shouldUpdateAndExerciseAndReturnOk()
+      throws Exception {
+    var logId = UUID.randomUUID();
+    var exerciseId = UUID.randomUUID();
+    var trainedId = 8L;
+    var body =
+        new CreateOrUpdateTrainedExerciseBody().setExerciseId(exerciseId);
+    var response = new TrainedExerciseResponse(8L, logId,
+        new ExerciseResponse(exerciseId, "Pull up"),
+        Collections.emptyList());
+    when(updateTrainedExercise.update(
+        new UpdatedTrainedExerciseCommand(trainedId, logId, exerciseId)))
+        .thenReturn(response);
+
+    mockMvc.perform(MockMvcRequestBuilders
+            .post("/log/" + logId + "/trained/" + trainedId)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(new ObjectMapper().writeValueAsString(body))
+        )
+        .andExpect(MockMvcResultMatchers.status().isCreated())
+        .andExpect(MockMvcResultMatchers
+            .jsonPath("$.logId").value(logId.toString()))
+        .andExpect(MockMvcResultMatchers
+            .jsonPath("$.id").value(response.id()))
+        .andExpect(MockMvcResultMatchers
+            .jsonPath("$.exercise.id").value(exerciseId.toString()))
+        .andExpect(MockMvcResultMatchers
+            .jsonPath("$.exercise.name").value(response.exercise().name()))
+        .andExpect(MockMvcResultMatchers
+            .jsonPath("$.sets.length()").value(response.sets().size()));
   }
 
   private List<ExerciseSetResponse> createSetTriplet(int first, int second,

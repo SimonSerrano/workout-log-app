@@ -2,6 +2,7 @@ package com.marmouset.workout.app.port.out.exercise.trained;
 
 import com.marmouset.workout.app.domain.exercise.TrainedExercise;
 import com.marmouset.workout.app.domain.workout.WorkoutLog;
+import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.util.List;
 
 /**
@@ -32,4 +33,14 @@ public interface TrainedExerciseRepository {
    */
   void delete(
       DeleteTrainedExerciseRepoRequest request);
+
+  /**
+   * Update a trained exercise.
+   *
+   * @param request the request containing required data to update
+   * @return the updated exercise
+   * @throws NotFoundException if the trained exercise is not found
+   */
+  TrainedExercise update(UpdateTrainedExerciseRepoRequest request)
+      throws NotFoundException;
 }

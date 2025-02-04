@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 @Component
-class CreateTrainedExerciseBody {
+class CreateOrUpdateTrainedExerciseBody {
   @Valid
   private UUID exerciseId;
 
@@ -13,7 +13,7 @@ class CreateTrainedExerciseBody {
     return exerciseId;
   }
 
-  public CreateTrainedExerciseBody setExerciseId(UUID exerciseId) {
+  public CreateOrUpdateTrainedExerciseBody setExerciseId(UUID exerciseId) {
     this.exerciseId = exerciseId;
     return this;
   }
