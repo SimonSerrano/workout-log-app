@@ -37,20 +37,20 @@ class CreateTrainedExerciseUseCase implements CreateTrainedExercise {
       throws ExerciseNotFoundException, WorkoutLogNotFoundException {
     WorkoutLog workout;
     try {
-      workout = workoutLogRepository.readReference(command.getLogId());
+      workout = workoutLogRepository.readReference(command.logId());
     } catch (NotFoundException e) {
-      throw new WorkoutLogNotFoundException(command.getLogId());
+      throw new WorkoutLogNotFoundException(command.logId());
     }
 
     try {
       var exercise =
-          exerciseRepository.readReference(command.getExerciseId());
+          exerciseRepository.readReference(command.exerciseId());
 
       return presenter.present(
           trainedExerciseRepository.create(
               new CreateTrainedExerciseRepoRequest(workout, exercise)));
     } catch (NotFoundException e) {
-      throw new ExerciseNotFoundException(command.getExerciseId());
+      throw new ExerciseNotFoundException(command.exerciseId());
     }
 
 

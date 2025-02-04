@@ -4,18 +4,23 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marmouset.workout.app.port.in.exercise.CreateTrainedExercise;
+import com.marmouset.workout.app.port.in.exercise.CreateTrainedExerciseCommand;
 import com.marmouset.workout.app.port.in.exercise.DeleteTrainedExercise;
 import com.marmouset.workout.app.port.in.exercise.ListTrainedExercises;
 import com.marmouset.workout.app.port.out.exercise.ExerciseResponse;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
 import com.marmouset.workout.app.port.out.set.ExerciseSetResponse;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -83,6 +88,73 @@ class TrainedExerciseControllerTest {
         .andExpect(MockMvcResultMatchers.status().isNoContent());
     verify(deleteTrainedExercise, times(1))
         .delete(logId, trainedId);
+  }
+
+  @Test
+  void shouldCreateTrainedExercise() throws Exception {
+    var logId = UUID.randomUUID();
+    var exerciseId = UUID.randomUUID();
+    var body = new CreateTrainedExerciseBody().setExerciseId(exerciseId);
+    var response = new TrainedExerciseResponse(8L, logId,
+        new ExerciseResponse(exerciseId, "Pull up"),
+        Collections.emptyList());
+    when(createTrainedExercise.create(
+        new CreateTrainedExerciseCommand(logId, exerciseId)))
+        .thenReturn(response);
+
+    mockMvc.perform(MockMvcRequestBuilders
+            .post("/log/" + logId + "/trained")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(new ObjectMapper().writeValueAsString(body))
+        )
+        .andExpect(MockMvcResultMatchers.status().isCreated())
+        .andExpect(MockMvcResultMatchers
+            .jsonPath("$.logId").value(logId.toString()))
+        .andExpect(MockMvcResultMatchers
+            .jsonPath("$.id").value(response.id()))
+        .andExpect(MockMvcResultMatchers
+            .jsonPath("$.exercise.id").value(exerciseId.toString()))
+        .andExpect(MockMvcResultMatchers
+            .jsonPath("$.exercise.name").value(response.exercise().name()))
+        .andExpect(MockMvcResultMatchers
+            .jsonPath("$.sets.length()").value(response.sets().size()));
+  }
+
+  @Test
+  void shouldReturnBadRequestWhenLogIdIsInvalidOnGet() throws Exception {
+    mockMvc.perform(MockMvcRequestBuilders
+            .get("/log/toto/trained"))
+        .andExpect(MockMvcResultMatchers
+            .status().isBadRequest());
+
+  }
+
+  @Test
+  void shouldReturnBadRequestWhenLogIsInvalidOnDelete() throws Exception {
+    mockMvc.perform(MockMvcRequestBuilders
+            .delete("/log/toto/trained/8"))
+        .andExpect(MockMvcResultMatchers
+            .status().isBadRequest());
+  }
+
+  @Test
+  void shouldReturnBadRequestWhenTrainedIdIsInvalidOnDelete() throws Exception {
+    mockMvc.perform(MockMvcRequestBuilders
+            .delete("/log/" + UUID.randomUUID() + "/trained/toto"))
+        .andExpect(MockMvcResultMatchers
+            .status().isBadRequest());
+  }
+
+  @Test
+  void shouldReturnBadRequestWhenExerciseIdIsInvalidInBodyOnPost()
+      throws Exception {
+    mockMvc.perform(MockMvcRequestBuilders
+            .post("/log/" + UUID.randomUUID() + "/trained")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(new ObjectMapper()
+                .writeValueAsString(Map.of("exerciseId", "toto"))))
+        .andExpect(MockMvcResultMatchers
+            .status().isBadRequest());
   }
 
   private List<ExerciseSetResponse> createSetTriplet(int first, int second,
