@@ -6,6 +6,7 @@ import WorkoutLogResponse from './dto/WorkoutLogResponse';
 
 export default class WorkoutLogClientImpl 
   extends AbstractClient implements WorkoutLogClient {
+ 
     
   protected getPath(): string {
     return '/log';
@@ -44,5 +45,15 @@ export default class WorkoutLogClientImpl
     }
 
     return response.json();
+  }
+
+  async delete(uuid: string): Promise<void> {
+    const response = await fetch(`${this.url}/${uuid}`, {
+      method: 'DELETE',
+    });
+
+    if(response.status !== 204) {
+      throw new LogFetchError();
+    }
   }
 }

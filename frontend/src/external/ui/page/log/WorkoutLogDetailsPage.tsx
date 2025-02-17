@@ -1,11 +1,14 @@
-import { Button, CircularProgress, Grid2, Typography } from '@mui/material';
+import { CircularProgress, Grid2, Typography } from '@mui/material';
 import { useNavigate, useRouterState } from '@tanstack/react-router';
 import { isWorkoutLog } from '../../../../app/domain/log/guard';
 import { useEffect, useMemo } from 'react';
+import { useDeleteWorkoutLog } from '../../context/DeleteWorkoutLogContext';
+import WorkoutButtonBar from './components/WorkoutButtonBar';
 
 export default function WorkoutLogDetailsPage() {
   const routerState = useRouterState();
   const navigate = useNavigate();
+  const deleteWorkoutLog = useDeleteWorkoutLog();
 
   const log = useMemo(() => {
     if (
@@ -28,9 +31,18 @@ export default function WorkoutLogDetailsPage() {
     return <CircularProgress />;
   }
 
+  const handleDelete = async () => {
+    deleteWorkoutLog.delete(log.id);
+    navigate({to: '/log',});
+  };
+
   return (
     <Grid2 container direction="column">
-      <Button onClick={() => navigate({ to: '/log', })}>Back</Button>
+      <Grid2>
+        <WorkoutButtonBar 
+          onBackClick={() => navigate({ to: '/log', })} 
+          onDeleteClick={handleDelete}/>
+      </Grid2>
       <Grid2>
         <Typography>{log.name}</Typography>
       </Grid2>
