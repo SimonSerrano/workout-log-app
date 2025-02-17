@@ -45,10 +45,8 @@ public interface WorkoutLogRepository {
    *
    * @param uuid the id of the logContainer
    * @return the workout logContainer
-   * @throws NotFoundException if the logContainer is not found
    */
-  WorkoutLogEntityContainer readReference(UUID uuid)
-      throws NotFoundException;
+  WorkoutLogEntityContainer readReference(UUID uuid) throws NotFoundException;
 
   /**
    * Updates a workout logContainer.

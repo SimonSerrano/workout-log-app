@@ -5,6 +5,7 @@ import com.marmouset.workout.app.port.out.exercise.CreateExerciseRepoRequest;
 import com.marmouset.workout.app.port.out.exercise.ExerciseEntityContainer;
 import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.stereotype.Repository;
@@ -33,8 +34,12 @@ class ExerciseRepositoryImpl implements ExerciseRepository {
   @Override
   public ExerciseEntityContainer readReference(UUID id)
       throws NotFoundException {
-    return new ExerciseEntityContainerImpl(
-        exerciseRepository.findById(id).orElseThrow(NotFoundException::new));
+    try {
+      return new ExerciseEntityContainerImpl(
+          exerciseRepository.getReferenceById(id));
+    } catch (EntityNotFoundException e) {
+      throw new NotFoundException();
+    }
   }
 
   @Override

@@ -6,6 +6,7 @@ import com.marmouset.workout.app.port.out.workout.UpdateWorkoutLogRepoRequest;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogEntityContainer;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.stereotype.Repository;
@@ -51,10 +52,13 @@ class WorkoutLogRepositoryImpl implements WorkoutLogRepository {
 
   @Override
   public WorkoutLogEntityContainer readReference(
-      UUID uuid)
-      throws NotFoundException {
-    return new WorkoutLogEntityContainerImpl(repository.findById(uuid)
-        .orElseThrow(NotFoundException::new));
+      UUID uuid) throws NotFoundException {
+    try {
+      return new WorkoutLogEntityContainerImpl(
+          repository.getReferenceById(uuid));
+    } catch (EntityNotFoundException e) {
+      throw new NotFoundException();
+    }
   }
 
   @Override
