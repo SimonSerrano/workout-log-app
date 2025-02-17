@@ -9,7 +9,7 @@ public interface ExerciseSetFactory {
   /**
    * Creates an ExerciseSet.
    *
-   * @param id
+   * @param id   the id of the set
    * @param reps the number of reps in that set
    * @return a new ExerciseSet
    */
