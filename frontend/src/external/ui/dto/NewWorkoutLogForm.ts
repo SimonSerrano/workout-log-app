@@ -1,3 +1,3 @@
 export default interface NewWorkoutLogForm {
-  title: string;
+  name: string;
 }

@@ -1,17 +1,17 @@
 import WorkoutLog from '../domain/log/WorkoutLog';
-import ListWorkoutLogsPort from '../port/in/ListWorkoutLogsPort';
+import ListWorkoutLogs from '../port/in/ListWorkoutLogs';
 import WorkoutLogResponseMapper 
   from '../port/out/mapper/WorkoutLogResponseMapper';
-import WorkoutLogClientPort from '../port/out/WorkoutLogClientPort';
+import WorkoutLogClient from '../port/out/WorkoutLogClient';
 
-export default class ListWorkoutLogsUseCase implements ListWorkoutLogsPort {
+export default class ListWorkoutLogsUseCase implements ListWorkoutLogs {
   constructor(
-    private readonly logClient: WorkoutLogClientPort,
+    private readonly logClient: WorkoutLogClient,
     private readonly mapper: WorkoutLogResponseMapper
   ) {}
 
-  async listWorkouts(): Promise<WorkoutLog[]> {
-    const workouts = await this.logClient.listWorkouts();
+  async list(): Promise<WorkoutLog[]> {
+    const workouts = await this.logClient.list();
     return workouts.map(this.mapper.toWorkoutLog.bind(this.mapper));
   }
 }

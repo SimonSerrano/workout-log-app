@@ -1,19 +1,19 @@
 import WorkoutLog from '../domain/log/WorkoutLog';
-import CreateWorkoutLogPort from '../port/in/CreateWorkoutLogPort';
+import CreateWorkoutLog from '../port/in/CreateWorkoutLog';
 import NewWorkoutLogForm from '../../external/ui/dto/NewWorkoutLogForm';
 import WorkoutLogResponseMapper 
   from '../port/out/mapper/WorkoutLogResponseMapper';
-import WorkoutLogClientPort from '../port/out/WorkoutLogClientPort';
+import WorkoutLogClient from '../port/out/WorkoutLogClient';
 
-export default class CreateWorkoutLogUseCase implements CreateWorkoutLogPort {
+export default class CreateWorkoutLogUseCase implements CreateWorkoutLog {
   
   constructor(
-    private readonly client: WorkoutLogClientPort, 
+    private readonly client: WorkoutLogClient, 
     private readonly mapper: WorkoutLogResponseMapper
   ){}
   
-  async createNewWorkoutLog(newLog: NewWorkoutLogForm): Promise<WorkoutLog> {
-    const response = await this.client.createWorkoutLog(newLog);
+  async create(newLog: NewWorkoutLogForm): Promise<WorkoutLog> {
+    const response = await this.client.create(newLog);
     return this.mapper.toWorkoutLog(response);
   }
 

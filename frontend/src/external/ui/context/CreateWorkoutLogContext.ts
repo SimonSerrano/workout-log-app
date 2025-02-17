@@ -1,9 +1,9 @@
 import { createContext, useContext } from 'react';
-import CreateWorkoutLogPort from '../../../app/port/in/CreateWorkoutLogPort';
+import CreateWorkoutLog from '../../../app/port/in/CreateWorkoutLog';
 
-export const CreateWorkoutLogContext = createContext<CreateWorkoutLogPort>({
-  createNewWorkoutLog: async (newLog) => {
-    return {id: '', name: newLog.title, createdAt: '',};
+export const CreateWorkoutLogContext = createContext<CreateWorkoutLog>({
+  create: async (newLog) => {
+    return {id: '', name: newLog.name, createdAt: '',};
   },
 });
 

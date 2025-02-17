@@ -1,3 +1,3 @@
 export default interface NewWorkoutLog {
-  title: string;
+  name: string;
 }

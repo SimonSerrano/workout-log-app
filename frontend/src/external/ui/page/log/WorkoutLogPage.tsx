@@ -25,7 +25,7 @@ export default function WorkoutLogPage() {
     error,
   } = useQuery({
     queryKey: ['logs',],
-    queryFn: listWorkoutLogs.listWorkouts.bind(listWorkoutLogs),
+    queryFn: listWorkoutLogs.list.bind(listWorkoutLogs),
   });
 
   if (error) {
@@ -39,7 +39,7 @@ export default function WorkoutLogPage() {
 
   const handleOnSubmitNewWorkout = 
   async (log: NewWorkoutLogForm): Promise<void> => {
-    const returnedWorkoutLog = await createWorkoutLog.createNewWorkoutLog(log);
+    const returnedWorkoutLog = await createWorkoutLog.create(log);
     const state: Record<string, WorkoutLog> = { log: returnedWorkoutLog, };
     navigate({ 
       to: '/log/$logId', 

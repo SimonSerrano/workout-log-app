@@ -11,7 +11,7 @@ interface NewWorkoutLogDialogProps {
 export default function NewWorkoutLogDialog(props: NewWorkoutLogDialogProps) {
   const form = useForm<NewWorkoutLogForm>({
     defaultValues: {
-      title: '',
+      name: '',
     },
     onSubmit: ({value,}) => props.onSubmit(value),
   });
@@ -33,7 +33,7 @@ export default function NewWorkoutLogDialog(props: NewWorkoutLogDialogProps) {
         >
           <Grid2>
             <form.Field 
-              name="title"
+              name="name"
               validators={{
                 onChange: ({value,}) => {
                   if(!value) {

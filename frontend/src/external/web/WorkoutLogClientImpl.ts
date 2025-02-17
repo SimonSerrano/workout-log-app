@@ -1,17 +1,17 @@
 import NewWorkoutLog from '../../app/port/out/dto/NewWorkoutLog';
-import WorkoutLogClientPort from '../../app/port/out/WorkoutLogClientPort';
+import WorkoutLogClient from '../../app/port/out/WorkoutLogClient';
 import LogFetchError from '../../app/domain/log/LogFetchError';
 import AbstractClient from './AbstractClient';
 import WorkoutLogResponse from './dto/WorkoutLogResponse';
 
-export default class WorkoutLogClient 
-  extends AbstractClient implements WorkoutLogClientPort {
+export default class WorkoutLogClientImpl 
+  extends AbstractClient implements WorkoutLogClient {
     
   protected getPath(): string {
     return '/log';
   }
   
-  async listWorkouts(): Promise<WorkoutLogResponse[]> {
+  async list(): Promise<WorkoutLogResponse[]> {
     const response = await fetch(this.url);
     if (!response.ok) {
       throw new LogFetchError();
@@ -20,7 +20,7 @@ export default class WorkoutLogClient
     return response.json();
   }
 
-  async getWorkoutLogDetails(uuid: string): Promise<WorkoutLogResponse> {
+  async getWorkout(uuid: string): Promise<WorkoutLogResponse> {
     const response = await fetch(`${this.url}/${uuid}`);
     if (!response.ok) {
       throw new LogFetchError();
@@ -30,7 +30,7 @@ export default class WorkoutLogClient
   }
 
 
-  async createWorkoutLog(log: NewWorkoutLog): Promise<WorkoutLogResponse> {
+  async create(log: NewWorkoutLog): Promise<WorkoutLogResponse> {
     const response = await fetch(this.url, {
       method: 'POST',
       headers: {
