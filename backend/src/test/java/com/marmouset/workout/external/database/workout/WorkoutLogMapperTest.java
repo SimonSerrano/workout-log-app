@@ -25,12 +25,14 @@ class WorkoutLogMapperTest {
 
   @Test
   void shouldReturnMappedWorkoutLog() {
-    var entity = new WorkoutLogEntity();
+    var entity = new WorkoutLogEntityImpl();
     entity.setName("Leg workout");
     entity.setId(UUID.randomUUID());
     entity.setCreatedAt(LocalDateTime.now());
 
-    var expected = factory.create(entity.getId(), entity.getName(),
+    var expected = factory.create(
+        entity.getId(),
+        entity.getName(),
         entity.getCreatedAt().toInstant(ZoneOffset.UTC));
 
     assertEquals(expected, mapper.toWorkoutLog(entity));

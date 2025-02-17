@@ -1,7 +1,6 @@
 package com.marmouset.workout.app.usecase.exercise.trained;
 
 import com.marmouset.workout.app.domain.exercise.ExerciseNotFoundException;
-import com.marmouset.workout.app.domain.workout.WorkoutLog;
 import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import com.marmouset.workout.app.port.in.exercise.CreateTrainedExercise;
 import com.marmouset.workout.app.port.in.exercise.CreateTrainedExerciseCommand;
@@ -10,6 +9,7 @@ import com.marmouset.workout.app.port.out.exercise.trained.CreateTrainedExercise
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogEntityContainer;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import org.springframework.stereotype.Component;
@@ -35,9 +35,9 @@ class CreateTrainedExerciseUseCase implements CreateTrainedExercise {
   @Override
   public TrainedExerciseResponse create(CreateTrainedExerciseCommand command)
       throws ExerciseNotFoundException, WorkoutLogNotFoundException {
-    WorkoutLog workout;
+    WorkoutLogEntityContainer workoutRef;
     try {
-      workout = workoutLogRepository.readReference(command.logId());
+      workoutRef = workoutLogRepository.readReference(command.logId());
     } catch (NotFoundException e) {
       throw new WorkoutLogNotFoundException(command.logId());
     }
@@ -48,7 +48,7 @@ class CreateTrainedExerciseUseCase implements CreateTrainedExercise {
 
       return presenter.present(
           trainedExerciseRepository.create(
-              new CreateTrainedExerciseRepoRequest(workout, exercise)));
+              new CreateTrainedExerciseRepoRequest(workoutRef, exercise)));
     } catch (NotFoundException e) {
       throw new ExerciseNotFoundException(command.exerciseId());
     }

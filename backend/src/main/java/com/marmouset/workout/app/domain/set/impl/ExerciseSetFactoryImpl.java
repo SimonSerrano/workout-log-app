@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 /**
- * Creates exercise set implementations.
+ * Creates exerciseContainer set implementations.
  */
 @Component
 public class ExerciseSetFactoryImpl implements ExerciseSetFactory {

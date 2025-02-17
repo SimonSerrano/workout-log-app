@@ -9,12 +9,16 @@ import com.marmouset.workout.app.domain.exercise.TrainedExerciseFactory;
 import com.marmouset.workout.app.domain.workout.WorkoutLogFactory;
 import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import com.marmouset.workout.app.port.in.exercise.UpdatedTrainedExerciseCommand;
+import com.marmouset.workout.app.port.out.exercise.ExerciseEntity;
+import com.marmouset.workout.app.port.out.exercise.ExerciseEntityContainer;
 import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.ExerciseResponse;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
 import com.marmouset.workout.app.port.out.exercise.trained.UpdateTrainedExerciseRepoRequest;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogEntity;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogEntityContainer;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.time.Instant;
@@ -71,13 +75,28 @@ class UpdateTrainedExerciseUseCaseTest {
             new ExerciseResponse(exercise.id(), exercise.name()),
             Collections.emptyList());
 
+    WorkoutLogEntityContainer workoutContainer =
+        () -> (WorkoutLogEntity) workout::getId;
+    ExerciseEntityContainer exerciseContainer = () -> new ExerciseEntity() {
+      @Override
+      public String getName() {
+        return exercise.name();
+      }
+
+      @Override
+      public UUID getId() {
+        return exercise.id();
+      }
+    };
+
     when(workoutLogRepository.readReference(expected.logId()))
-        .thenReturn(workout);
+        .thenReturn(workoutContainer);
     when(exerciseRepository.readReference(exercise.id()))
-        .thenReturn(exercise);
+        .thenReturn(exerciseContainer);
     when(trainedExerciseRepository
         .update(
-            new UpdateTrainedExerciseRepoRequest(trainedId, workout, exercise)))
+            new UpdateTrainedExerciseRepoRequest(trainedId, workout.getId(),
+                exerciseContainer)))
         .thenReturn(trainedExerciseFactory
             .create(trainedId, workout.getId(), exercise));
 

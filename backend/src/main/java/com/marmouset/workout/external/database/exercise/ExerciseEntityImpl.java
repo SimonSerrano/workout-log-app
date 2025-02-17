@@ -1,5 +1,6 @@
 package com.marmouset.workout.external.database.exercise;
 
+import com.marmouset.workout.app.port.out.exercise.ExerciseEntity;
 import com.marmouset.workout.external.database.UuidBasedAbstractEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +11,8 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "exercises")
-public class ExerciseEntity extends UuidBasedAbstractEntity {
+public class ExerciseEntityImpl
+    extends UuidBasedAbstractEntity implements ExerciseEntity {
 
   @Column(unique = true)
   private String name;
@@ -18,15 +20,15 @@ public class ExerciseEntity extends UuidBasedAbstractEntity {
   /**
    * Constructs an ExerciseEntity.
    */
-  public ExerciseEntity() {
+  public ExerciseEntityImpl() {
   }
 
   /**
    * Constructs an ExerciseEntity.
    *
-   * @param name the name of the exercise
+   * @param name the name of the exerciseContainer
    */
-  public ExerciseEntity(String name) {
+  public ExerciseEntityImpl(String name) {
     this.name = name;
   }
 

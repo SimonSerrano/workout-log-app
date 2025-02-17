@@ -10,7 +10,7 @@ public interface CreateWorkoutLog {
    * Creates workout logs.
    *
    * @param command the command
-   * @return the workout log response
+   * @return the workout logContainer response
    */
   WorkoutLogResponse create(CreateWorkoutLogCommand command);
 }

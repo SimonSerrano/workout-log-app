@@ -5,14 +5,14 @@ import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
 
 /**
- * Interface for updating a trained exercise.
+ * Interface for updating a trained exerciseContainer.
  */
 public interface UpdateTrainedExercise {
   /**
-   * Update a trained exercise.
+   * Update a trained exerciseContainer.
    *
    * @param command the command containing the new information
-   * @return the new trained exercise
+   * @return the new trained exerciseContainer
    */
   TrainedExerciseResponse update(UpdatedTrainedExerciseCommand command)
       throws WorkoutLogNotFoundException, ExerciseNotFoundException;

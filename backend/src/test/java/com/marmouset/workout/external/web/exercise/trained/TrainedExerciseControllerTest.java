@@ -62,7 +62,8 @@ class TrainedExerciseControllerTest {
         List.of(trained1, trained2));
 
     mockMvc
-        .perform(MockMvcRequestBuilders.get("/log/" + logId + "/trained"))
+        .perform(
+            MockMvcRequestBuilders.get("/log/" + logId + "/trained"))
         .andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers
             .jsonPath("$.length()").value(2))
@@ -120,7 +121,8 @@ class TrainedExerciseControllerTest {
         .andExpect(MockMvcResultMatchers
             .jsonPath("$.exercise.id").value(exerciseId.toString()))
         .andExpect(MockMvcResultMatchers
-            .jsonPath("$.exercise.name").value(response.exercise().name()))
+            .jsonPath("$.exercise.name")
+            .value(response.exercise().name()))
         .andExpect(MockMvcResultMatchers
             .jsonPath("$.sets.length()").value(response.sets().size()));
   }
@@ -179,7 +181,7 @@ class TrainedExerciseControllerTest {
         .thenReturn(response);
 
     mockMvc.perform(MockMvcRequestBuilders
-            .post("/log/" + logId + "/trained/" + trainedId)
+            .patch("/log/" + logId + "/trained/" + trainedId)
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(body))
         )
@@ -191,7 +193,8 @@ class TrainedExerciseControllerTest {
         .andExpect(MockMvcResultMatchers
             .jsonPath("$.exercise.id").value(exerciseId.toString()))
         .andExpect(MockMvcResultMatchers
-            .jsonPath("$.exercise.name").value(response.exercise().name()))
+            .jsonPath("$.exercise.name")
+            .value(response.exercise().name()))
         .andExpect(MockMvcResultMatchers
             .jsonPath("$.sets.length()").value(response.sets().size()));
   }

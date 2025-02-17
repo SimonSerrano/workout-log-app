@@ -1,20 +1,17 @@
 package com.marmouset.workout.external.database.exercise.trained;
 
 import com.marmouset.workout.app.domain.exercise.TrainedExercise;
-import com.marmouset.workout.app.domain.workout.WorkoutLog;
 import com.marmouset.workout.app.port.out.exercise.trained.CreateTrainedExerciseRepoRequest;
 import com.marmouset.workout.app.port.out.exercise.trained.DeleteTrainedExerciseRepoRequest;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.trained.UpdateTrainedExerciseRepoRequest;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogEntityContainer;
 import com.marmouset.workout.external.database.exception.NotFoundException;
-import com.marmouset.workout.external.database.exercise.ExerciseEntity;
-import com.marmouset.workout.external.database.workout.WorkoutLogEntity;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 
 @Repository
-class TrainedExerciseRepositoryImpl
-    implements TrainedExerciseRepository {
+class TrainedExerciseRepositoryImpl implements TrainedExerciseRepository {
 
   private final JpaTrainedExerciseRepository trainedExerciseRepository;
   private final TrainedExerciseMapper mapper;
@@ -27,23 +24,17 @@ class TrainedExerciseRepositoryImpl
   }
 
   @Override
-  public List<TrainedExercise> read(WorkoutLog log) {
-    var entity = new WorkoutLogEntity();
-    entity.setId(log.getId());
-    return trainedExerciseRepository.findByLog(entity).stream()
+  public List<TrainedExercise> read(WorkoutLogEntityContainer log) {
+    return trainedExerciseRepository.findByLog(log.reference()).stream()
         .map(mapper::toTrainedExercise).toList();
   }
 
   @Override
   public TrainedExercise create(
       CreateTrainedExerciseRepoRequest request) {
-    var exercise = new ExerciseEntity();
-    exercise.setId(request.exercise().id());
-    var workout = new WorkoutLogEntity();
-    workout.setId(request.log().getId());
     var entity = new TrainedExerciseEntity();
-    entity.setExercise(exercise);
-    entity.setLog(workout);
+    entity.setExercise(request.exerciseContainer().reference());
+    entity.setLog(request.logContainer().reference());
     return mapper.toTrainedExercise(trainedExerciseRepository.save(entity));
   }
 
@@ -58,14 +49,12 @@ class TrainedExerciseRepositoryImpl
   @Override
   public TrainedExercise update(UpdateTrainedExerciseRepoRequest request)
       throws NotFoundException {
-    var exercise = new ExerciseEntity();
-    exercise.setId(request.exercise().id());
     var entity = trainedExerciseRepository.findById(
         new TrainedExercisePrimaryKey()
             .setTrainedExerciseId(request.trainedId())
-            .setWorkoutLogId(request.log().getId())).orElseThrow(
+            .setWorkoutLogId(request.logId())).orElseThrow(
         NotFoundException::new);
-    entity.setExercise(exercise);
+    entity.setExercise(request.exerciseContainer().reference());
     return mapper.toTrainedExercise(trainedExerciseRepository.save(entity));
   }
 

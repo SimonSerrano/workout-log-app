@@ -3,7 +3,7 @@ package com.marmouset.workout.app.port.out.set;
 import java.util.UUID;
 
 /**
- * Record for the exercise set.
+ * Record for the exerciseContainer set.
  *
  * @param id   set id
  * @param reps number of repetition

@@ -1,45 +1,45 @@
 package com.marmouset.workout.app.port.out.exercise.trained;
 
 import com.marmouset.workout.app.domain.exercise.TrainedExercise;
-import com.marmouset.workout.app.domain.workout.WorkoutLog;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogEntityContainer;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.util.List;
 
 /**
- * Interface for the trained exercise repository.
+ * Interface for the trained exerciseContainer repository.
  */
 public interface TrainedExerciseRepository {
   /**
    * Read trained exercises.
    *
-   * @param log the workout log the trained exercises belong to
+   * @param log the workout logContainer the trained exercises belong to
    * @return the trained exercises
    */
-  List<TrainedExercise> read(WorkoutLog log);
+  List<TrainedExercise> read(WorkoutLogEntityContainer log);
 
   /**
-   * Create a trained exercise.
+   * Create a trained exerciseContainer.
    *
    * @param request the request with all information to create
-   *                a trained exercise
-   * @return the trained exercise
+   *                a trained exerciseContainer
+   * @return the trained exerciseContainer
    */
   TrainedExercise create(CreateTrainedExerciseRepoRequest request);
 
   /**
-   * Delete a trained exercise.
+   * Delete a trained exerciseContainer.
    *
-   * @param request the request containing required data to delete the exercise
+   * @param request the request containing required data to delete the exerciseContainer
    */
   void delete(
       DeleteTrainedExerciseRepoRequest request);
 
   /**
-   * Update a trained exercise.
+   * Update a trained exerciseContainer.
    *
    * @param request the request containing required data to update
-   * @return the updated exercise
-   * @throws NotFoundException if the trained exercise is not found
+   * @return the updated exerciseContainer
+   * @throws NotFoundException if the trained exerciseContainer is not found
    */
   TrainedExercise update(UpdateTrainedExerciseRepoRequest request)
       throws NotFoundException;

@@ -10,7 +10,7 @@ import java.util.UUID;
 
 /**
  * Those are the exercises which have been trained.
- * It is composed of an exercise and multiple sets of that exercise.
+ * It is composed of an exerciseContainer and multiple sets of that exerciseContainer.
  */
 public class TrainedExerciseImpl implements TrainedExercise {
 

@@ -18,7 +18,7 @@ public class ListWorkoutLogsUseCase implements ListWorkoutLogs {
   /**
    * Constructor for this use case.
    *
-   * @param repository the workout log repository
+   * @param repository the workout logContainer repository
    * @param presenter  the presenter for workout logs
    */
   public ListWorkoutLogsUseCase(WorkoutLogRepository repository,

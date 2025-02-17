@@ -3,11 +3,11 @@ package com.marmouset.workout.app.port.in.workout;
 import java.util.UUID;
 
 /**
- * Interface for deleting a workout log use case.
+ * Interface for deleting a workout logContainer use case.
  */
 public interface DeleteWorkoutLog {
   /**
-   * Delete a workout log.
+   * Delete a workout logContainer.
    *
    * @param uuid the id
    */

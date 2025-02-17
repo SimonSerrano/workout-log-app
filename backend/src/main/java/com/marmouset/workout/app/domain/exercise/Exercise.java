@@ -10,14 +10,14 @@ public interface Exercise {
   /**
    * Getter for the name.
    *
-   * @return the name of the exercise
+   * @return the name of the exerciseContainer
    */
   String name();
 
   /**
    * Getter for the id.
    *
-   * @return the id of the exercise
+   * @return the id of the exerciseContainer
    */
   UUID id();
 

@@ -12,9 +12,9 @@ public interface ListTrainedExercises {
   /**
    * List trained exercises.
    *
-   * @param logId the id of the log
+   * @param logId the id of the logContainer
    * @return the trained exercises
-   * @throws WorkoutLogNotFoundException if the log is not found
+   * @throws WorkoutLogNotFoundException if the logContainer is not found
    */
   List<TrainedExerciseResponse> list(UUID logId) throws
       WorkoutLogNotFoundException;

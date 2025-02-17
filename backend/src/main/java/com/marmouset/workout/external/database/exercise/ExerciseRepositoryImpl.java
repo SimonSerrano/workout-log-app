@@ -2,6 +2,7 @@ package com.marmouset.workout.external.database.exercise;
 
 import com.marmouset.workout.app.domain.exercise.Exercise;
 import com.marmouset.workout.app.port.out.exercise.CreateExerciseRepoRequest;
+import com.marmouset.workout.app.port.out.exercise.ExerciseEntityContainer;
 import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.util.List;
@@ -30,14 +31,15 @@ class ExerciseRepositoryImpl implements ExerciseRepository {
   }
 
   @Override
-  public Exercise readReference(UUID id) throws NotFoundException {
-    return mapper.toExercise(exerciseRepository.findById(id).orElseThrow(
-        NotFoundException::new));
+  public ExerciseEntityContainer readReference(UUID id)
+      throws NotFoundException {
+    return new ExerciseEntityContainerImpl(
+        exerciseRepository.findById(id).orElseThrow(NotFoundException::new));
   }
 
   @Override
   public Exercise create(CreateExerciseRepoRequest request) {
-    var exercise = new ExerciseEntity(request.name());
+    var exercise = new ExerciseEntityImpl(request.name());
     return mapper.toExercise(exerciseRepository.save(exercise));
   }
 

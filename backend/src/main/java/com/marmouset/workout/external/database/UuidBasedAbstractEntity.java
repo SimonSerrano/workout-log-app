@@ -8,11 +8,11 @@ import java.io.Serializable;
 import java.util.UUID;
 
 /**
- * Class to create abstract entities with an uuid bases id.
+ * Class to create abstract entities with an uuid based id.
  */
 @MappedSuperclass
-public abstract class UuidBasedAbstractEntity extends AbstractEntity implements
-    Serializable {
+public abstract class UuidBasedAbstractEntity
+    extends AbstractEntity implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
@@ -21,9 +21,9 @@ public abstract class UuidBasedAbstractEntity extends AbstractEntity implements
     return id;
   }
 
-
-  public void setId(UUID id) {
+  public UuidBasedAbstractEntity setId(UUID id) {
     this.id = id;
+    return this;
   }
 
   @Override

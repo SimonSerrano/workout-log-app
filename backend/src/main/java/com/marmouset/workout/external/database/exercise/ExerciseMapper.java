@@ -2,12 +2,13 @@ package com.marmouset.workout.external.database.exercise;
 
 import com.marmouset.workout.app.domain.exercise.Exercise;
 import com.marmouset.workout.app.domain.exercise.ExerciseFactory;
+import com.marmouset.workout.app.port.out.exercise.ExerciseEntity;
 import com.marmouset.workout.external.database.AbstractMapper;
 import org.springframework.stereotype.Component;
 
 
 /**
- * This class maps an exercise entity to an exercise.
+ * This class maps an exerciseContainer entity to an exerciseContainer.
  */
 @Component
 public class ExerciseMapper extends

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Interface for the trained exercise entity.
+ * Interface for the trained exerciseContainer entity.
  */
 public interface TrainedExercise {
 
@@ -18,23 +18,23 @@ public interface TrainedExercise {
   Long getId();
 
   /**
-   * Get the log id.
+   * Get the logContainer id.
    *
-   * @return the log id
+   * @return the logContainer id
    */
   UUID getLogId();
 
   /**
-   * Get the trained exercise.
+   * Get the trained exerciseContainer.
    *
-   * @return the exercise
+   * @return the exerciseContainer
    */
   Exercise getExercise();
 
   /**
-   * Set the trained exercise.
+   * Set the trained exerciseContainer.
    *
-   * @param exercise the exercise
+   * @param exercise the exerciseContainer
    * @return this
    */
   TrainedExercise setExercise(Exercise exercise);

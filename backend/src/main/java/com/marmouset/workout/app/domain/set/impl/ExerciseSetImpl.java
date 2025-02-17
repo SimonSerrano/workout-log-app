@@ -4,7 +4,7 @@ import com.marmouset.workout.app.domain.set.ExerciseSet;
 import java.util.UUID;
 
 /**
- * Represents an exercise set.
+ * Represents an exerciseContainer set.
  */
 public class ExerciseSetImpl implements ExerciseSet {
 
@@ -12,7 +12,7 @@ public class ExerciseSetImpl implements ExerciseSet {
   private int reps;
 
   /**
-   * Constructs an exercise set.
+   * Constructs an exerciseContainer set.
    *
    * @param id   the id
    * @param reps the number of reps of that set

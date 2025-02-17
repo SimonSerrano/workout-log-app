@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Interface that represents a workout log.
+ * Interface that represents a workout logContainer.
  */
 public interface WorkoutLog {
 
@@ -39,9 +39,9 @@ public interface WorkoutLog {
   List<TrainedExercise> getExercises();
 
   /**
-   * Add a trained exercise.
+   * Add a trained exerciseContainer.
    *
-   * @param exercise the exercise to add
+   * @param exercise the exerciseContainer to add
    * @return this
    */
   WorkoutLog addExercise(TrainedExercise exercise);

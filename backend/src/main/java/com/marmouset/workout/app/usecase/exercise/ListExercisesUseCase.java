@@ -18,8 +18,8 @@ public class ListExercisesUseCase implements ListExercises {
   /**
    * Constructor for this use case.
    *
-   * @param repository the exercise repository
-   * @param presenter  the exercise presenter
+   * @param repository the exerciseContainer repository
+   * @param presenter  the exerciseContainer presenter
    */
   public ListExercisesUseCase(
       ExerciseRepository repository,

@@ -1,17 +1,17 @@
 package com.marmouset.workout.app.port.out.exercise.trained;
 
-import com.marmouset.workout.app.domain.exercise.Exercise;
-import com.marmouset.workout.app.domain.workout.WorkoutLog;
+import com.marmouset.workout.app.port.out.exercise.ExerciseEntityContainer;
+import java.util.UUID;
 
 /**
  * DTO to update a trained exercise.
  *
- * @param trainedId the trained exercise id
- * @param log       the log the trained exercise belongs to
- * @param exercise  the new exercise
+ * @param trainedId         the trained exercise id
+ * @param logId             the workout log id
+ * @param exerciseContainer the exercise container with the exercise trained
  */
 public record UpdateTrainedExerciseRepoRequest(
     Long trainedId,
-    WorkoutLog log,
-    Exercise exercise) {
+    UUID logId,
+    ExerciseEntityContainer exerciseContainer) {
 }

@@ -7,11 +7,11 @@ import java.util.UUID;
  */
 public interface ExerciseFactory {
   /**
-   * Creates an exercise.
+   * Creates an exerciseContainer.
    *
-   * @param id   the unique id of that exercise
-   * @param name the unique name of that exercise
-   * @return the exercise
+   * @param id   the unique id of that exerciseContainer
+   * @param name the unique name of that exerciseContainer
+   * @return the exerciseContainer
    */
   Exercise create(UUID id, String name);
 }

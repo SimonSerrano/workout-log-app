@@ -1,9 +1,11 @@
 package com.marmouset.workout.external.database.exercise.trained;
 
+import com.marmouset.workout.app.port.out.exercise.ExerciseEntity;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogEntity;
 import com.marmouset.workout.external.database.AbstractEntity;
-import com.marmouset.workout.external.database.exercise.ExerciseEntity;
+import com.marmouset.workout.external.database.exercise.ExerciseEntityImpl;
 import com.marmouset.workout.external.database.set.ExerciseSetEntity;
-import com.marmouset.workout.external.database.workout.WorkoutLogEntity;
+import com.marmouset.workout.external.database.workout.WorkoutLogEntityImpl;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -14,7 +16,7 @@ import jakarta.persistence.Table;
 import java.util.List;
 
 /**
- * This class represents a trained exercise in the database.
+ * This class represents a trained exerciseContainer in the database.
  */
 @Entity
 @Table(name = "trained_exercises")
@@ -23,13 +25,13 @@ public class TrainedExerciseEntity extends AbstractEntity {
   @EmbeddedId
   private TrainedExercisePrimaryKey id;
 
-  @OneToOne
+  @OneToOne(targetEntity = ExerciseEntityImpl.class)
   private ExerciseEntity exercise;
 
   @OneToMany(cascade = CascadeType.ALL)
   private List<ExerciseSetEntity> sets;
 
-  @OneToOne
+  @OneToOne(targetEntity = WorkoutLogEntityImpl.class)
   @JoinColumn(insertable = false, updatable = false)
   private WorkoutLogEntity log;
 

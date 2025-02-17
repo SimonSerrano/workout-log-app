@@ -9,12 +9,12 @@ import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRespon
  */
 public interface CreateTrainedExercise {
   /**
-   * Create a trained exercise.
+   * Create a trained exerciseContainer.
    *
    * @param command the command containing data to create trained exercises
-   * @return the trained exercise response
-   * @throws ExerciseNotFoundException   if the exercise is not found
-   * @throws WorkoutLogNotFoundException if the log is not found
+   * @return the trained exerciseContainer response
+   * @throws ExerciseNotFoundException   if the exerciseContainer is not found
+   * @throws WorkoutLogNotFoundException if the logContainer is not found
    */
   TrainedExerciseResponse create(CreateTrainedExerciseCommand command)
       throws ExerciseNotFoundException, WorkoutLogNotFoundException;

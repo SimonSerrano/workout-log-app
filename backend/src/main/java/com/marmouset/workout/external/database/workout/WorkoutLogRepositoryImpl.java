@@ -3,6 +3,7 @@ package com.marmouset.workout.external.database.workout;
 import com.marmouset.workout.app.domain.workout.WorkoutLog;
 import com.marmouset.workout.app.port.out.workout.CreateWorkoutLogRepoRequest;
 import com.marmouset.workout.app.port.out.workout.UpdateWorkoutLogRepoRequest;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogEntityContainer;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.util.List;
@@ -39,7 +40,7 @@ class WorkoutLogRepositoryImpl implements WorkoutLogRepository {
 
   @Override
   public WorkoutLog create(CreateWorkoutLogRepoRequest request) {
-    var workoutLog = new WorkoutLogEntity(request.name());
+    var workoutLog = new WorkoutLogEntityImpl(request.name());
     return mapper.toWorkoutLog(repository.save(workoutLog));
   }
 
@@ -49,9 +50,10 @@ class WorkoutLogRepositoryImpl implements WorkoutLogRepository {
   }
 
   @Override
-  public WorkoutLog readReference(UUID uuid)
+  public WorkoutLogEntityContainer readReference(
+      UUID uuid)
       throws NotFoundException {
-    return mapper.toWorkoutLog(repository.findById(uuid)
+    return new WorkoutLogEntityContainerImpl(repository.findById(uuid)
         .orElseThrow(NotFoundException::new));
   }
 

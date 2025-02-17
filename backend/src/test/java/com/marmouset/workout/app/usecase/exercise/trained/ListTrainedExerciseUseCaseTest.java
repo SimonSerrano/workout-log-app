@@ -13,6 +13,8 @@ import com.marmouset.workout.app.port.out.exercise.ExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogEntity;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogEntityContainer;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.time.Instant;
@@ -57,8 +59,10 @@ class ListTrainedExerciseUseCaseTest {
       WorkoutLogNotFoundException {
     var workout =
         workoutLogFactory.create(UUID.randomUUID(), "Toto", Instant.now());
+    WorkoutLogEntityContainer workoutLogEntityContainer =
+        () -> (WorkoutLogEntity) workout::getId;
     when(workoutLogRepository.readReference(workout.getId())).thenReturn(
-        workout);
+        workoutLogEntityContainer);
     var exercise1 = exerciseFactory.create(UUID.randomUUID(), "Push up");
     var exercise2 = exerciseFactory.create(UUID.randomUUID(), "Pull up");
     var trained1 =
@@ -68,7 +72,7 @@ class ListTrainedExerciseUseCaseTest {
         trainedExerciseFactory.create(
             new Random().nextLong(), workout.getId(), exercise2);
 
-    when(trainedExerciseRepository.read(workout))
+    when(trainedExerciseRepository.read(workoutLogEntityContainer))
         .thenReturn(List.of(trained1, trained2));
 
     var expected1 = new TrainedExerciseResponse(
@@ -93,10 +97,12 @@ class ListTrainedExerciseUseCaseTest {
       WorkoutLogNotFoundException {
     var workout =
         workoutLogFactory.create(UUID.randomUUID(), "Toto", Instant.now());
+    WorkoutLogEntityContainer workoutLogEntityContainer =
+        () -> (WorkoutLogEntity) workout::getId;
     when(workoutLogRepository.readReference(workout.getId()))
-        .thenReturn(workout);
+        .thenReturn(workoutLogEntityContainer);
 
-    when(trainedExerciseRepository.read(workout))
+    when(trainedExerciseRepository.read(workoutLogEntityContainer))
         .thenReturn(Collections.emptyList());
 
     assertTrue(useCase.list(workout.getId()).isEmpty());

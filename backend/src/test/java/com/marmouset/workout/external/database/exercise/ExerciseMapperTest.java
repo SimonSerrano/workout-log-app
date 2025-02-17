@@ -24,7 +24,7 @@ class ExerciseMapperTest {
 
   @Test
   void shouldMapToExercise() {
-    var entity = new ExerciseEntity();
+    ExerciseEntityImpl entity = new ExerciseEntityImpl();
     entity.setId(UUID.randomUUID());
     entity.setName("Pull up");
 

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Implementation of the workout log.
+ * Implementation of the workout logContainer.
  */
 public class WorkoutLogImpl implements WorkoutLog {
 
@@ -18,7 +18,7 @@ public class WorkoutLogImpl implements WorkoutLog {
   private String name;
 
   /**
-   * Creates a workout log.
+   * Creates a workout logContainer.
    *
    * @param id        the id
    * @param name      the name

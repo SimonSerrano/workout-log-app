@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 /**
- * Class representing an exercise set entity in the db.
+ * Class representing an exerciseContainer set entity in the db.
  */
 @Entity
 @Table(name = "sets")
@@ -14,7 +14,7 @@ public class ExerciseSetEntity extends UuidBasedAbstractEntity {
   private int reps;
 
   /**
-   * Creates an exercise set entity.
+   * Creates an exerciseContainer set entity.
    */
   public ExerciseSetEntity() {
   }

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Interface for the workout log repository.
+ * Interface for the workout logContainer repository.
  */
 public interface WorkoutLogRepository {
   /**
@@ -17,43 +17,44 @@ public interface WorkoutLogRepository {
   List<WorkoutLog> read();
 
   /**
-   * Get a workout log's details.
+   * Get a workout logContainer's details.
    *
-   * @param uuid the log id
-   * @return the workout log
+   * @param uuid the logContainer id
+   * @return the workout logContainer
    * @throws NotFoundException if the lof is not found
    */
   WorkoutLog read(UUID uuid) throws NotFoundException;
 
   /**
-   * Creates a workout log.
+   * Creates a workout logContainer.
    *
-   * @param request the dto to create such log
-   * @return the created workout log
+   * @param request the dto to create such logContainer
+   * @return the created workout logContainer
    */
   WorkoutLog create(CreateWorkoutLogRepoRequest request);
 
   /**
-   * Deletes a workout log.
+   * Deletes a workout logContainer.
    *
-   * @param uuid the id of the log
+   * @param uuid the id of the logContainer
    */
   void delete(UUID uuid);
 
   /**
-   * Get a log object with only the id populated.
+   * Get a logContainer object with only the id populated.
    *
-   * @param uuid the id of the log
-   * @return the workout log
-   * @throws NotFoundException if the log is not found
+   * @param uuid the id of the logContainer
+   * @return the workout logContainer
+   * @throws NotFoundException if the logContainer is not found
    */
-  WorkoutLog readReference(UUID uuid) throws NotFoundException;
+  WorkoutLogEntityContainer readReference(UUID uuid)
+      throws NotFoundException;
 
   /**
-   * Updates a workout log.
+   * Updates a workout logContainer.
    *
-   * @param request the request to update a log
-   * @return the update log
+   * @param request the request to update a logContainer
+   * @return the update logContainer
    */
   WorkoutLog update(UpdateWorkoutLogRepoRequest request)
       throws NotFoundException;

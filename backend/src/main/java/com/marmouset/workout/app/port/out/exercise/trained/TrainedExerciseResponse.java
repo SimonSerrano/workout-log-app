@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Response for the trained exercise.
+ * Response for the trained exerciseContainer.
  *
  * @param id       the id
- * @param logId    the workout log id
- * @param exercise the trained exercise
- * @param sets     the sets for that exercise
+ * @param logId    the workout logContainer id
+ * @param exercise the trained exerciseContainer
+ * @param sets     the sets for that exerciseContainer
  */
 public record TrainedExerciseResponse(Long id, UUID logId,
                                       ExerciseResponse exercise,

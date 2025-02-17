@@ -4,6 +4,6 @@ import java.util.UUID;
 import org.springframework.data.repository.ListCrudRepository;
 
 interface JpaExerciseRepository extends
-    ListCrudRepository<ExerciseEntity, UUID> {
+    ListCrudRepository<ExerciseEntityImpl, UUID> {
 
 }

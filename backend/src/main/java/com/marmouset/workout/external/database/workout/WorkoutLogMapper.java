@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 class WorkoutLogMapper
-    extends AbstractMapper<WorkoutLogFactory, WorkoutLogEntity, WorkoutLog> {
+    extends
+    AbstractMapper<WorkoutLogFactory, WorkoutLogEntityImpl, WorkoutLog> {
 
 
   /**
@@ -20,12 +21,12 @@ class WorkoutLogMapper
     super(factory);
   }
 
-  public WorkoutLog toWorkoutLog(WorkoutLogEntity entity) {
+  public WorkoutLog toWorkoutLog(WorkoutLogEntityImpl entity) {
     return map(entity);
   }
 
   @Override
-  protected WorkoutLog map(WorkoutLogEntity toMap) {
+  protected WorkoutLog map(WorkoutLogEntityImpl toMap) {
     return factory.create(toMap.getId(), toMap.getName(),
         toMap.getCreatedAt().toInstant(
             ZoneOffset.UTC));

@@ -9,6 +9,8 @@ import com.marmouset.workout.app.domain.exercise.TrainedExerciseFactory;
 import com.marmouset.workout.app.domain.workout.WorkoutLogFactory;
 import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import com.marmouset.workout.app.port.in.exercise.CreateTrainedExerciseCommand;
+import com.marmouset.workout.app.port.out.exercise.ExerciseEntity;
+import com.marmouset.workout.app.port.out.exercise.ExerciseEntityContainer;
 import com.marmouset.workout.app.port.out.exercise.ExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.trained.CreateTrainedExerciseRepoRequest;
@@ -16,6 +18,8 @@ import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresen
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
 import com.marmouset.workout.app.port.out.set.ExerciseSetPresenter;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogEntity;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogEntityContainer;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.time.Instant;
@@ -72,15 +76,34 @@ class CreateTrainedExerciseUseCaseTest {
         trainedExerciseFactory.create(new Random().nextLong(), workout.getId(),
             exerciseFactory.create(UUID.randomUUID(), "Pull ups"));
 
+    WorkoutLogEntityContainer containedWorkout = () -> new WorkoutLogEntity() {
+      @Override
+      public UUID getId() {
+        return workout.getId();
+      }
+    };
+    ExerciseEntityContainer exerciseEntityContainer =
+        () -> new ExerciseEntity() {
+          @Override
+          public String getName() {
+            return trainedExercise.getExercise().name();
+          }
+
+          @Override
+          public UUID getId() {
+            return trainedExercise.getExercise().id();
+          }
+        };
+
     when(
         exerciseRepository.readReference(trainedExercise.getExercise().id()))
-        .thenReturn(trainedExercise.getExercise());
+        .thenReturn(exerciseEntityContainer);
     when(workoutLogRepository.readReference(workout.getId()))
-        .thenReturn(workout);
+        .thenReturn(containedWorkout);
     when(trainedExerciseRepository
         .create(
-            new CreateTrainedExerciseRepoRequest(workout,
-                trainedExercise.getExercise())))
+            new CreateTrainedExerciseRepoRequest(containedWorkout,
+                exerciseEntityContainer)))
         .thenReturn(trainedExercise);
 
     var expected = new TrainedExerciseResponse(

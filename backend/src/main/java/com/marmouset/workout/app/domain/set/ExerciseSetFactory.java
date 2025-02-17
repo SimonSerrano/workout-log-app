@@ -3,7 +3,7 @@ package com.marmouset.workout.app.domain.set;
 import java.util.UUID;
 
 /**
- * Interface for the exercise set factory.
+ * Interface for the exerciseContainer set factory.
  */
 public interface ExerciseSetFactory {
   /**

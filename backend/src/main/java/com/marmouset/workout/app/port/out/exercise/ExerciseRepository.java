@@ -20,10 +20,10 @@ public interface ExerciseRepository {
    * Read an exercise only with its id populated.
    *
    * @param id the id
-   * @return the exercise
+   * @return the exercise container
    * @throws NotFoundException if the exercise is not found
    */
-  Exercise readReference(UUID id) throws NotFoundException;
+  ExerciseEntityContainer readReference(UUID id) throws NotFoundException;
 
   /**
    * Creates an exercise.

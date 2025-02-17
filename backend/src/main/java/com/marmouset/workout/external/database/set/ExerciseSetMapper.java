@@ -6,7 +6,7 @@ import com.marmouset.workout.external.database.AbstractMapper;
 import org.springframework.stereotype.Component;
 
 /**
- * This class maps an exercise set entity to an exercise set.
+ * This class maps an exerciseContainer set entity to an exerciseContainer set.
  */
 @Component
 public class ExerciseSetMapper

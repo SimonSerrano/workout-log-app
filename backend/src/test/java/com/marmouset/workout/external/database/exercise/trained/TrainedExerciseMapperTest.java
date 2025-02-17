@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.marmouset.workout.app.domain.exercise.ExerciseFactory;
 import com.marmouset.workout.app.domain.exercise.TrainedExerciseFactory;
 import com.marmouset.workout.app.domain.set.ExerciseSetFactory;
-import com.marmouset.workout.external.database.exercise.ExerciseEntity;
+import com.marmouset.workout.external.database.exercise.ExerciseEntityImpl;
 import com.marmouset.workout.external.database.exercise.ExerciseMapper;
 import com.marmouset.workout.external.database.set.ExerciseSetEntity;
 import com.marmouset.workout.external.database.set.ExerciseSetMapper;
@@ -52,7 +52,7 @@ class TrainedExerciseMapperTest {
     var setEntity2 = new ExerciseSetEntity();
     setEntity2.setId(UUID.randomUUID());
     setEntity2.setReps(13);
-    var exerciseEntity = new ExerciseEntity();
+    ExerciseEntityImpl exerciseEntity = new ExerciseEntityImpl();
     exerciseEntity.setId(UUID.randomUUID());
     exerciseEntity.setName("Pull ups");
     var trainedEntity = new TrainedExerciseEntity();

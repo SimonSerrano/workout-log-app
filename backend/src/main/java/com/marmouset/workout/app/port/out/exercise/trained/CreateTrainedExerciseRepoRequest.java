@@ -1,17 +1,19 @@
 package com.marmouset.workout.app.port.out.exercise.trained;
 
-import com.marmouset.workout.app.domain.exercise.Exercise;
-import com.marmouset.workout.app.domain.workout.WorkoutLog;
+import com.marmouset.workout.app.port.out.exercise.ExerciseEntityContainer;
+import com.marmouset.workout.app.port.out.workout.WorkoutLogEntityContainer;
 
 
 /**
- * Request to create a trained exercise in a repository.
+ * Request to create a trained exerciseContainer in a repository.
  *
- * @param log      the workout log to associate with
- * @param exercise the exercise to associate with
+ * @param logContainer      the workout log container with
+ *                          the log entity to associate with
+ * @param exerciseContainer the exerciseContainer container
+ *                          with the exerciseContainer entity to associate with
  */
 public record CreateTrainedExerciseRepoRequest(
-    WorkoutLog log,
-    Exercise exercise) {
+    WorkoutLogEntityContainer logContainer,
+    ExerciseEntityContainer exerciseContainer) {
 
 }
