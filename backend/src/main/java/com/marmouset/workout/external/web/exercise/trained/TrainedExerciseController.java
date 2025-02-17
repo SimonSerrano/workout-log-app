@@ -53,19 +53,6 @@ class TrainedExerciseController {
     }
   }
 
-  @PostMapping
-  public ResponseEntity<TrainedExerciseResponse> post(
-      @PathVariable UUID logId,
-      @Valid @RequestBody CreateOrUpdateTrainedExerciseBody body) {
-    try {
-      return new ResponseEntity<>(
-          createTrainedExercise.create(
-              new CreateTrainedExerciseCommand(logId, body.getExerciseId())),
-          HttpStatus.CREATED);
-    } catch (ExerciseNotFoundException | WorkoutLogNotFoundException e) {
-      return ResponseEntity.badRequest().build();
-    }
-  }
 
   @DeleteMapping(path = "/{trainedId}")
   public ResponseEntity<Void> delete(@PathVariable("logId") UUID logId,
@@ -73,6 +60,23 @@ class TrainedExerciseController {
                                      Long trainedId) {
     deleteTrainedExercise.delete(logId, trainedId);
     return ResponseEntity.noContent().build();
+  }
+
+  @PostMapping
+  public ResponseEntity<TrainedExerciseResponse> post(
+      @PathVariable UUID logId,
+      @Valid @RequestBody CreateOrUpdateTrainedExerciseBody body) {
+    try {
+      return new ResponseEntity<>(
+          createTrainedExercise.create(
+              new CreateTrainedExerciseCommand(
+                  logId,
+                  body.getExerciseId(),
+                  body.getSets())),
+          HttpStatus.CREATED);
+    } catch (ExerciseNotFoundException | WorkoutLogNotFoundException e) {
+      return ResponseEntity.badRequest().build();
+    }
   }
 
   @PatchMapping(path = "/{trainedId}")
@@ -83,7 +87,9 @@ class TrainedExerciseController {
     try {
       return new ResponseEntity<>(
           updateTrainedExercise.update(
-              new UpdatedTrainedExerciseCommand(trainedId, logId,
+              new UpdatedTrainedExerciseCommand(
+                  trainedId,
+                  logId,
                   body.getExerciseId())),
           HttpStatus.CREATED);
     } catch (ExerciseNotFoundException | WorkoutLogNotFoundException e) {

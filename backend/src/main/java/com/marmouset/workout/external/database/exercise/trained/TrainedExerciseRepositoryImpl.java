@@ -7,6 +7,7 @@ import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseReposi
 import com.marmouset.workout.app.port.out.exercise.trained.UpdateTrainedExerciseRepoRequest;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogEntityContainer;
 import com.marmouset.workout.external.database.exception.NotFoundException;
+import com.marmouset.workout.external.database.set.ExerciseSetEntity;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 
@@ -35,6 +36,11 @@ class TrainedExerciseRepositoryImpl implements TrainedExerciseRepository {
     var entity = new TrainedExerciseEntity();
     entity.setExercise(request.exerciseContainer().reference());
     entity.setLog(request.logContainer().reference());
+    entity.setSets(request.sets().stream().map(reps -> {
+      var setEntity = new ExerciseSetEntity();
+      setEntity.setReps(reps);
+      return setEntity;
+    }).toList());
     return mapper.toTrainedExercise(trainedExerciseRepository.save(entity));
   }
 

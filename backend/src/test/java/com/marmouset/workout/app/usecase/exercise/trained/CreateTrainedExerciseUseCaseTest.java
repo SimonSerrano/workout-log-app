@@ -24,6 +24,7 @@ import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.time.Instant;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -103,7 +104,7 @@ class CreateTrainedExerciseUseCaseTest {
     when(trainedExerciseRepository
         .create(
             new CreateTrainedExerciseRepoRequest(containedWorkout,
-                exerciseEntityContainer)))
+                exerciseEntityContainer, List.of(6, 6, 6))))
         .thenReturn(trainedExercise);
 
     var expected = new TrainedExerciseResponse(
@@ -114,6 +115,6 @@ class CreateTrainedExerciseUseCaseTest {
 
     assertEquals(expected, useCase.create(
         new CreateTrainedExerciseCommand(workout.getId(),
-            trainedExercise.getExercise().id())));
+            trainedExercise.getExercise().id(), List.of(6, 6, 6))));
   }
 }

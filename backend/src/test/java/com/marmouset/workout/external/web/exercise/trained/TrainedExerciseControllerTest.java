@@ -105,7 +105,7 @@ class TrainedExerciseControllerTest {
         new ExerciseResponse(exerciseId, "Pull up"),
         Collections.emptyList());
     when(createTrainedExercise.create(
-        new CreateTrainedExerciseCommand(logId, exerciseId)))
+        new CreateTrainedExerciseCommand(logId, exerciseId, body.getSets())))
         .thenReturn(response);
 
     mockMvc.perform(MockMvcRequestBuilders
@@ -202,8 +202,8 @@ class TrainedExerciseControllerTest {
   private List<ExerciseSetResponse> createSetTriplet(int first, int second,
                                                      int third) {
     return List.of(
-        new ExerciseSetResponse(UUID.randomUUID(), first),
-        new ExerciseSetResponse(UUID.randomUUID(), second),
-        new ExerciseSetResponse(UUID.randomUUID(), third));
+        new ExerciseSetResponse(1L, first),
+        new ExerciseSetResponse(2L, second),
+        new ExerciseSetResponse(3L, third));
   }
 }

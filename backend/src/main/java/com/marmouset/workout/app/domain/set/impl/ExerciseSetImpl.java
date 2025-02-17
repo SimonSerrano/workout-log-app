@@ -1,14 +1,13 @@
 package com.marmouset.workout.app.domain.set.impl;
 
 import com.marmouset.workout.app.domain.set.ExerciseSet;
-import java.util.UUID;
 
 /**
  * Represents an exerciseContainer set.
  */
 public class ExerciseSetImpl implements ExerciseSet {
 
-  private final UUID id;
+  private final Long id;
   private int reps;
 
   /**
@@ -17,13 +16,13 @@ public class ExerciseSetImpl implements ExerciseSet {
    * @param id   the id
    * @param reps the number of reps of that set
    */
-  public ExerciseSetImpl(UUID id, int reps) {
+  public ExerciseSetImpl(Long id, int reps) {
     this.id = id;
     this.reps = reps;
   }
 
   @Override
-  public UUID getId() {
+  public Long getId() {
     return id;
   }
 

@@ -47,10 +47,10 @@ class TrainedExerciseMapperTest {
   void shouldReturnedMapped() {
 
     var setEntity1 = new ExerciseSetEntity();
-    setEntity1.TEST_ONLY_setId(UUID.randomUUID());
+    setEntity1.TEST_ONLY_setId(1L);
     setEntity1.setReps(10);
     var setEntity2 = new ExerciseSetEntity();
-    setEntity2.TEST_ONLY_setId(UUID.randomUUID());
+    setEntity2.TEST_ONLY_setId(2L);
     setEntity2.setReps(13);
     ExerciseEntityImpl exerciseEntity = new ExerciseEntityImpl();
     exerciseEntity.TEST_ONLY_setId(UUID.randomUUID());

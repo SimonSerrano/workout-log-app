@@ -48,7 +48,10 @@ class CreateTrainedExerciseUseCase implements CreateTrainedExercise {
 
       return presenter.present(
           trainedExerciseRepository.create(
-              new CreateTrainedExerciseRepoRequest(workoutRef, exercise)));
+              new CreateTrainedExerciseRepoRequest(
+                  workoutRef,
+                  exercise,
+                  command.sets())));
     } catch (NotFoundException e) {
       throw new ExerciseNotFoundException(command.exerciseId());
     }

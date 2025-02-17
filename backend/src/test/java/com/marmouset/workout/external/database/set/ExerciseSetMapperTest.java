@@ -3,7 +3,6 @@ package com.marmouset.workout.external.database.set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.marmouset.workout.app.domain.set.ExerciseSetFactory;
-import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ class ExerciseSetMapperTest {
   @Test
   void shouldReturnMappedSet() {
     var entity = new ExerciseSetEntity();
-    entity.TEST_ONLY_setId(UUID.randomUUID());
+    entity.TEST_ONLY_setId(1L);
     entity.setReps(99);
 
     var expected = factory.create(entity.getId(), entity.getReps());
