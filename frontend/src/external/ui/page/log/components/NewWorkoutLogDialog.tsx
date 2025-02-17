@@ -42,7 +42,7 @@ export default function NewWorkoutLogDialog(props: NewWorkoutLogDialogProps) {
                 },
               }} 
               children={(field) =>(
-                <TextField label="Workout title"
+                <TextField label="Workout name"
                   id={field.name}
                   name={field.name}
                   value={field.state.value} 
