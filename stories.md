@@ -9,16 +9,16 @@
   - [ ] ui
 - [ ] As an **athlete**, I want to **delete a workout** so I can **remove a workout from my analysis**
   - [x] api
-  - [ ] ui
+  - [x] ui
 - [ ] As an **athlete**, I want to **read all my workouts** so I can **review my previous workouts and/or compare workouts**
   - [x] api
-  - [ ] ui
+  - [x] ui
 - [ ] As an **athlete**, I want my workouts **to be chronologically sorted** so I can **easily find a workout**
   - [ ] api
   - [ ] ui
 - [ ] As an **athlete**, I want to **name my workouts** so I can **qualify them and find them later on**
   - [x] api
-  - [ ] ui
+  - [x] ui
 - [ ] As an **athlete**, I want to **update the name of a workout** so I can **rename it better**
   - [x] api
   - [ ] ui
