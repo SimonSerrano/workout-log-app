@@ -4,11 +4,18 @@ import { isWorkoutLog } from '../../../../app/domain/log/guard';
 import { useEffect, useMemo } from 'react';
 import { useDeleteWorkoutLog } from '../../context/DeleteWorkoutLogContext';
 import WorkoutButtonBar from './components/WorkoutButtonBar';
+import { useListTrainedExercises } 
+  from '../../context/ListTrainedExercisesContext';
+import { useQuery } from '@tanstack/react-query';
+import TrainedExerciseList from './components/TrainedExerciseList';
 
 export default function WorkoutLogDetailsPage() {
   const routerState = useRouterState();
   const navigate = useNavigate();
   const deleteWorkoutLog = useDeleteWorkoutLog();
+  const listTrainedExercises = useListTrainedExercises();
+
+  
 
   const log = useMemo(() => {
     if (
@@ -21,6 +28,17 @@ export default function WorkoutLogDetailsPage() {
     return null;
   }, [routerState,]);
 
+  const listTrainedQueryResult = useQuery({
+    queryKey: [`log/${log?.id}/trained`,],
+    queryFn: async () => {
+      if(!log) {
+        return [];
+      }
+
+      return listTrainedExercises.list(log.id);
+    },
+  });
+
   useEffect(() => {
     if (log === null) {
       navigate({ to: '/log', });
@@ -30,6 +48,8 @@ export default function WorkoutLogDetailsPage() {
   if (!log) {
     return <CircularProgress />;
   }
+
+  
 
   const handleDelete = async () => {
     deleteWorkoutLog.delete(log.id);
@@ -48,6 +68,9 @@ export default function WorkoutLogDetailsPage() {
       </Grid2>
       <Grid2>
         <Typography>{log.createdAt}</Typography>
+      </Grid2>
+      <Grid2>
+        <TrainedExerciseList {...listTrainedQueryResult} />
       </Grid2>
     </Grid2>
   );
