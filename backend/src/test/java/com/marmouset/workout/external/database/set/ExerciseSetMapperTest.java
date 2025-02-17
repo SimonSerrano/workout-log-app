@@ -25,7 +25,7 @@ class ExerciseSetMapperTest {
   @Test
   void shouldReturnMappedSet() {
     var entity = new ExerciseSetEntity();
-    entity.setId(UUID.randomUUID());
+    entity.TEST_ONLY_setId(UUID.randomUUID());
     entity.setReps(99);
 
     var expected = factory.create(entity.getId(), entity.getReps());

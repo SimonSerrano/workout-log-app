@@ -47,13 +47,13 @@ class TrainedExerciseMapperTest {
   void shouldReturnedMapped() {
 
     var setEntity1 = new ExerciseSetEntity();
-    setEntity1.setId(UUID.randomUUID());
+    setEntity1.TEST_ONLY_setId(UUID.randomUUID());
     setEntity1.setReps(10);
     var setEntity2 = new ExerciseSetEntity();
-    setEntity2.setId(UUID.randomUUID());
+    setEntity2.TEST_ONLY_setId(UUID.randomUUID());
     setEntity2.setReps(13);
     ExerciseEntityImpl exerciseEntity = new ExerciseEntityImpl();
-    exerciseEntity.setId(UUID.randomUUID());
+    exerciseEntity.TEST_ONLY_setId(UUID.randomUUID());
     exerciseEntity.setName("Pull ups");
     var trainedEntity = new TrainedExerciseEntity();
     trainedEntity.setId(

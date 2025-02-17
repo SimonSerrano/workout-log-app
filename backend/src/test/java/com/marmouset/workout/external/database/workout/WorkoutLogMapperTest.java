@@ -27,7 +27,7 @@ class WorkoutLogMapperTest {
   void shouldReturnMappedWorkoutLog() {
     var entity = new WorkoutLogEntityImpl();
     entity.setName("Leg workout");
-    entity.setId(UUID.randomUUID());
+    entity.TEST_ONLY_setId(UUID.randomUUID());
     entity.setCreatedAt(LocalDateTime.now());
 
     var expected = factory.create(

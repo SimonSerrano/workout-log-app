@@ -21,7 +21,14 @@ public abstract class UuidBasedAbstractEntity
     return id;
   }
 
-  public UuidBasedAbstractEntity setId(UUID id) {
+  /**
+   * Set the id of the entity.
+   * This method should only be used for tests !!
+   *
+   * @param id the id to set
+   * @return this
+   */
+  public UuidBasedAbstractEntity TEST_ONLY_setId(UUID id) {
     this.id = id;
     return this;
   }

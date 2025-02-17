@@ -25,7 +25,7 @@ class ExerciseMapperTest {
   @Test
   void shouldMapToExercise() {
     ExerciseEntityImpl entity = new ExerciseEntityImpl();
-    entity.setId(UUID.randomUUID());
+    entity.TEST_ONLY_setId(UUID.randomUUID());
     entity.setName("Pull up");
 
     var expected = factory.create(entity.getId(), entity.getName());
