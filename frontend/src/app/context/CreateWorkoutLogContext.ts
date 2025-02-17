@@ -3,7 +3,7 @@ import CreateWorkoutLogPort from '../port/in/CreateWorkoutLogPort';
 
 export const CreateWorkoutLogContext = createContext<CreateWorkoutLogPort>({
   createNewWorkoutLog: async (newLog) => {
-    return {id: '', title: newLog.title, createdAt: '',};
+    return {id: '', name: newLog.title, createdAt: '',};
   },
 });
 

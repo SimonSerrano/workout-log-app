@@ -1,5 +1,5 @@
 export default interface WorkoutLogResponse {
   id: string;
-  title: string;
+  name: string;
   createdAtTimestamp: number;
 }

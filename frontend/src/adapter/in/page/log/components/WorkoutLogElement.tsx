@@ -25,7 +25,7 @@ export default function WorkoutLogElement({
   return (
     <Card>
       <CardContent>
-        <Typography variant="h5">{log.title}</Typography>
+        <Typography variant="h5">{log.name}</Typography>
         <Typography>{log.createdAt}</Typography>
       </CardContent>
       <CardActions>

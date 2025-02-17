@@ -32,7 +32,7 @@ export default function WorkoutLogDetailsPage() {
     <Grid2 container direction="column">
       <Button onClick={() => navigate({ to: '/log', })}>Back</Button>
       <Grid2>
-        <Typography>{log.title}</Typography>
+        <Typography>{log.name}</Typography>
       </Grid2>
       <Grid2>
         <Typography>{log.createdAt}</Typography>

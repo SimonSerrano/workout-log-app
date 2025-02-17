@@ -1,5 +1,5 @@
 export default interface WorkoutLog {
   id: string;
-  title: string;
+  name: string;
   createdAt: string;
 }
