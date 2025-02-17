@@ -1,9 +1,9 @@
 import { PropsWithChildren } from 'react';
 import { ListWorkoutLogsContext } from './ListWorkoutLogsContext';
-import ListWorkoutLogsUseCase from '../usecase/ListWorkoutLogsUseCase';
-import WorkoutLogClient from '../../external/web/WorkoutLogClient';
+import ListWorkoutLogsUseCase from '../../../app/usecase/ListWorkoutLogsUseCase';
+import WorkoutLogClient from '../../web/WorkoutLogClient';
 import WorkoutLogResponseMapper 
-  from '../port/out/mapper/WorkoutLogResponseMapper';
+  from '../../../app/port/out/mapper/WorkoutLogResponseMapper';
 
 export default function ListWorkoutLogsProvider(props: PropsWithChildren) {
   const useCase = new ListWorkoutLogsUseCase(

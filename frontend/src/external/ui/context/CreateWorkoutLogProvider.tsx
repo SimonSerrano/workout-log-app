@@ -1,9 +1,9 @@
 import { PropsWithChildren } from 'react';
-import WorkoutLogClient from '../../external/web/WorkoutLogClient';
+import WorkoutLogClient from '../../web/WorkoutLogClient';
 import WorkoutLogResponseMapper 
-  from '../port/out/mapper/WorkoutLogResponseMapper';
+  from '../../../app/port/out/mapper/WorkoutLogResponseMapper';
 import { CreateWorkoutLogContext } from './CreateWorkoutLogContext';
-import CreateWorkoutLogUseCase from '../usecase/CreateWorkoutLogUseCase';
+import CreateWorkoutLogUseCase from '../../../app/usecase/CreateWorkoutLogUseCase';
 
 export default function CreateWorkoutLogProvider(props: PropsWithChildren) {
   const useCase = new CreateWorkoutLogUseCase(

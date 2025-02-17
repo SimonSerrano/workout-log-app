@@ -4,12 +4,12 @@ import { useSignal } from '@preact/signals-react';
 import WorkoutLogList from './components/WorkoutLogList';
 import { useQuery } from '@tanstack/react-query';
 import { useListWorkoutLogs } 
-  from '../../../../app/context/ListWorkoutLogsContext';
+  from '../../context/ListWorkoutLogsContext';
 import WorkoutLogElement from './components/WorkoutLogElement';
 import { useNavigate } from '@tanstack/react-router';
 import WorkoutLog from '../../../../app/domain/log/WorkoutLog';
 import { useCreateWorkoutLog } 
-  from '../../../../app/context/CreateWorkoutLogContext';
+  from '../../context/CreateWorkoutLogContext';
 import NewWorkoutLogForm from '../../dto/NewWorkoutLogForm';
 
 export default function WorkoutLogPage() {

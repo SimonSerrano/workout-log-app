@@ -1,8 +1,8 @@
 import { PropsWithChildren } from 'react';
-import WorkoutLogClient from '../../external/web/WorkoutLogClient';
+import WorkoutLogClient from '../../web/WorkoutLogClient';
 import WorkoutLogResponseMapper 
-  from '../port/out/mapper/WorkoutLogResponseMapper';
-import getLogDetailsUseCase from '../usecase/GetLogDetailsUseCase';
+  from '../../../app/port/out/mapper/WorkoutLogResponseMapper';
+import getLogDetailsUseCase from '../../../app/usecase/GetLogDetailsUseCase';
 import { GetLogDetailsContext } from './GetLogDetailsContext';
 
 export default function GetLogDetailsProvider(props: PropsWithChildren) {
