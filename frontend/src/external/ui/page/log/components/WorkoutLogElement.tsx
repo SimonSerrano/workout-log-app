@@ -5,10 +5,10 @@ import {
   CardContent,
   Typography
 } from '@mui/material';
-import { isWorkoutLog } from '../../../../../domain/log/guard';
+import { isWorkoutLog } from '../../../../../app/domain/log/guard';
 import LogWithEmptyValueError 
-  from '../../../../../domain/log/LogWithEmptyValueError';
-import WorkoutLog from '../../../../../domain/log/WorkoutLog';
+  from '../../../../../app/domain/log/LogWithEmptyValueError';
+import WorkoutLog from '../../../../../app/domain/log/WorkoutLog';
 
 export interface WorkoutLogElementProps {
   log: WorkoutLog;

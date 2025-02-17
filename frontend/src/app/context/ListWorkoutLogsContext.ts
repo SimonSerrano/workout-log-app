@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import WorkoutLog from '../../domain/log/WorkoutLog';
+import WorkoutLog from '../domain/log/WorkoutLog';
 import ListWorkoutLogsPort from '../port/in/ListWorkoutLogsPort';
 
 export const ListWorkoutLogsContext = createContext<ListWorkoutLogsPort>({

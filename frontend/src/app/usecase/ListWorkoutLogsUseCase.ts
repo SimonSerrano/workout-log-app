@@ -1,4 +1,4 @@
-import WorkoutLog from '../../domain/log/WorkoutLog';
+import WorkoutLog from '../domain/log/WorkoutLog';
 import ListWorkoutLogsPort from '../port/in/ListWorkoutLogsPort';
 import WorkoutLogResponseMapper 
   from '../port/out/mapper/WorkoutLogResponseMapper';

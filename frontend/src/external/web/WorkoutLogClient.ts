@@ -1,6 +1,6 @@
 import NewWorkoutLog from '../../app/port/out/dto/NewWorkoutLog';
 import WorkoutLogClientPort from '../../app/port/out/WorkoutLogClientPort';
-import LogFetchError from '../../domain/log/LogFetchError';
+import LogFetchError from '../../app/domain/log/LogFetchError';
 import AbstractClient from './AbstractClient';
 import WorkoutLogResponse from './dto/WorkoutLogResponse';
 

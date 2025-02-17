@@ -1,6 +1,6 @@
 import { Button, CircularProgress, Grid2, Typography } from '@mui/material';
 import { useNavigate, useRouterState } from '@tanstack/react-router';
-import { isWorkoutLog } from '../../../../domain/log/guard';
+import { isWorkoutLog } from '../../../../app/domain/log/guard';
 import { useEffect, useMemo } from 'react';
 
 export default function WorkoutLogDetailsPage() {

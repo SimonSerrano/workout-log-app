@@ -7,7 +7,7 @@ import { useListWorkoutLogs }
   from '../../../../app/context/ListWorkoutLogsContext';
 import WorkoutLogElement from './components/WorkoutLogElement';
 import { useNavigate } from '@tanstack/react-router';
-import WorkoutLog from '../../../../domain/log/WorkoutLog';
+import WorkoutLog from '../../../../app/domain/log/WorkoutLog';
 import { useCreateWorkoutLog } 
   from '../../../../app/context/CreateWorkoutLogContext';
 import NewWorkoutLogForm from '../../dto/NewWorkoutLogForm';

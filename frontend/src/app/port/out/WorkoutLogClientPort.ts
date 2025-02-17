@@ -1,4 +1,4 @@
-import WorkoutLogResponse from '../../../adapter/out/dto/WorkoutLogResponse';
+import WorkoutLogResponse from '../../../external/web/dto/WorkoutLogResponse';
 import NewWorkoutLog from './dto/NewWorkoutLog';
 
 export default interface WorkoutLogClientPort {

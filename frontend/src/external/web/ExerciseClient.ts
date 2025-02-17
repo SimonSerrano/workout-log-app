@@ -1,5 +1,5 @@
 import ExerciseClientPort from '../../app/port/out/ExerciseClientPort';
-import Exercise from '../../domain/exercise/Exercise';
+import Exercise from '../../app/domain/exercise/Exercise';
 import AbstractClient from './AbstractClient';
 
 export default class ExerciseClient 

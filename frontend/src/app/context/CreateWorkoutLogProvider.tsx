@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import WorkoutLogClient from '../../adapter/out/WorkoutLogClient';
+import WorkoutLogClient from '../../external/web/WorkoutLogClient';
 import WorkoutLogResponseMapper 
   from '../port/out/mapper/WorkoutLogResponseMapper';
 import { CreateWorkoutLogContext } from './CreateWorkoutLogContext';

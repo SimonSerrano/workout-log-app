@@ -1,5 +1,6 @@
-import WorkoutLog from '../../../../domain/log/WorkoutLog';
-import WorkoutLogResponse from '../../../../adapter/out/dto/WorkoutLogResponse';
+import WorkoutLog from '../../../domain/log/WorkoutLog';
+import WorkoutLogResponse from 
+  '../../../../external/web/dto/WorkoutLogResponse';
 
 export default class WorkoutLogResponseMapper {
   toWorkoutLog(response: WorkoutLogResponse): WorkoutLog {
