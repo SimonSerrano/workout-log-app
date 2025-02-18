@@ -10,7 +10,7 @@ import { useNavigate } from '@tanstack/react-router';
 import WorkoutLog from '../../../../app/domain/log/WorkoutLog';
 import { useCreateWorkoutLog } 
   from '../../context/workout/CreateWorkoutLogContext';
-import NewWorkoutLogForm from '../../dto/NewWorkoutLogForm';
+import NewWorkoutLogForm from '../../../../app/port/in/dto/NewWorkoutLogForm';
 
 export default function WorkoutLogPage() {
   const newWorkoutDialogOpen = useSignal<boolean>(false);

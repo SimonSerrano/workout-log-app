@@ -1,6 +1,6 @@
 import WorkoutLog from '../domain/log/WorkoutLog';
 import CreateWorkoutLog from '../port/in/CreateWorkoutLog';
-import NewWorkoutLogForm from '../../external/ui/dto/NewWorkoutLogForm';
+import NewWorkoutLogForm from '../port/in/dto/NewWorkoutLogForm';
 import WorkoutLogResponseMapper 
   from '../port/out/mapper/WorkoutLogResponseMapper';
 import WorkoutLogClient from '../port/out/WorkoutLogClient';

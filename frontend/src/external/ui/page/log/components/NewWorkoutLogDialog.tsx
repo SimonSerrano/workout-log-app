@@ -6,7 +6,7 @@ import {
   Grid2, 
   TextField } from '@mui/material';
 import { useForm } from '@tanstack/react-form';
-import NewWorkoutLogForm from '../../../dto/NewWorkoutLogForm';
+import NewWorkoutLogForm from '../../../../../app/port/in/dto/NewWorkoutLogForm';
 
 interface NewWorkoutLogDialogProps {
   open: boolean;
