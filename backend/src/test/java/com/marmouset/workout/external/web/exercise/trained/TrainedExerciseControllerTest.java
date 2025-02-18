@@ -171,7 +171,7 @@ class TrainedExerciseControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(body))
         )
-        .andExpect(MockMvcResultMatchers.status().isCreated())
+        .andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers
             .jsonPath("$.logId").value(logId.toString()))
         .andExpect(MockMvcResultMatchers
