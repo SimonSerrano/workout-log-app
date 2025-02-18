@@ -6,7 +6,8 @@ import {
   Grid2, 
   TextField } from '@mui/material';
 import { useForm } from '@tanstack/react-form';
-import NewWorkoutLogForm from '../../../../../app/port/in/dto/NewWorkoutLogForm';
+import NewWorkoutLogForm 
+  from '../../../../../app/port/in/dto/NewWorkoutLogForm';
 
 interface NewWorkoutLogDialogProps {
   open: boolean;
@@ -23,7 +24,10 @@ export default function NewWorkoutLogDialog(props: NewWorkoutLogDialogProps) {
   });
 
   return (
-    <Dialog open={props.open} onClose={props.onClose}>
+    <Dialog open={props.open} onClose={() => {
+      props.onClose();
+      form.reset();
+    }}>
       <DialogTitle>Create a new workout log</DialogTitle>
       <DialogContent>
         <form onSubmit={(e) => {
@@ -48,7 +52,8 @@ export default function NewWorkoutLogDialog(props: NewWorkoutLogDialogProps) {
                     }
                   },
                 }} 
-                children={(field) =>(
+              >
+                {(field) =>(
                   <TextField label="Workout name"
                     id={field.name}
                     name={field.name}
@@ -58,7 +63,8 @@ export default function NewWorkoutLogDialog(props: NewWorkoutLogDialogProps) {
                     helperText={field.state.meta.errors.join(', ')}
                     onBlur={field.handleBlur} 
                     onChange={(e) => field.handleChange(e.target.value)}/>
-                )}/>
+                )}
+              </form.Field>
             </Grid2>
             <Grid2 alignSelf={'flex-end'}>
               <Grid2 container>

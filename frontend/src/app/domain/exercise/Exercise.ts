@@ -1,3 +1,3 @@
 export default interface Exercise {
-  name: string;
+  name: string
 }

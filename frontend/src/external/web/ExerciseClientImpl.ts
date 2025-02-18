@@ -1,6 +1,6 @@
 import ExerciseClient from '../../app/port/out/ExerciseClient';
-import Exercise from '../../app/domain/exercise/Exercise';
 import AbstractClient from './AbstractClient';
+import ExerciseResponse from './dto/ExerciseResponse';
 
 export default class ExerciseClientImpl 
   extends AbstractClient 
@@ -10,7 +10,7 @@ export default class ExerciseClientImpl
     return '/exercise';
   }
 
-  async list(): Promise<Exercise[]> {
+  async list(): Promise<ExerciseResponse[]> {
     const response = await fetch(this.url);
     if(!response.ok) {
       throw new Error('Cannot load exercises');

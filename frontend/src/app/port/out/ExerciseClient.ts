@@ -1,5 +1,5 @@
-import Exercise from '../../domain/exercise/Exercise';
+import ExerciseResponse from '../../../external/web/dto/ExerciseResponse';
 
 export default interface ExerciseClient {
-  list(): Promise<Exercise[]>
+  list(): Promise<ExerciseResponse[]>
 }
