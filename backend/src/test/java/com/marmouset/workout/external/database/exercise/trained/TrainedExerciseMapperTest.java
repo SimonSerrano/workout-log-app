@@ -9,6 +9,7 @@ import com.marmouset.workout.external.database.exercise.ExerciseEntityImpl;
 import com.marmouset.workout.external.database.exercise.ExerciseMapper;
 import com.marmouset.workout.external.database.set.ExerciseSetEntity;
 import com.marmouset.workout.external.database.set.ExerciseSetMapper;
+import com.marmouset.workout.external.database.workout.WorkoutLogEntityImpl;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -55,13 +56,13 @@ class TrainedExerciseMapperTest {
     ExerciseEntityImpl exerciseEntity = new ExerciseEntityImpl();
     exerciseEntity.TEST_ONLY_setId(UUID.randomUUID());
     exerciseEntity.setName("Pull ups");
+    var workout = new WorkoutLogEntityImpl();
+    workout.TEST_ONLY_setId(UUID.randomUUID());
     var trainedEntity = new TrainedExerciseEntity();
-    trainedEntity.setId(
-        new TrainedExercisePrimaryKey()
-            .setWorkoutLogId(UUID.randomUUID())
-            .setTrainedExerciseId(1L));
+    trainedEntity.TEST_ONLY_setId(1L);
     trainedEntity.setSets(List.of(setEntity1, setEntity2));
     trainedEntity.setExercise(exerciseEntity);
+    trainedEntity.setLog(workout);
 
 
     var exercise = exerciseFactory.create(exerciseEntity.getId(),
@@ -72,8 +73,8 @@ class TrainedExerciseMapperTest {
         exerciseSetFactory.create(setEntity2.getId(), setEntity2.getReps());
     var expected =
         trainedExerciseFactory.create(
-            trainedEntity.getId().getTrainedExerciseId(),
-            trainedEntity.getId().getWorkoutLogId(),
+            trainedEntity.getId(),
+            trainedEntity.getLog().getId(),
             exercise);
     expected.addSet(set1);
     expected.addSet(set2);

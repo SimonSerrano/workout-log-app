@@ -70,4 +70,9 @@ class WorkoutLogRepositoryImpl implements WorkoutLogRepository {
     return mapper.toWorkoutLog(repository.save(entity));
   }
 
+  @Override
+  public boolean exists(UUID id) {
+    return repository.existsById(id);
+  }
+
 }

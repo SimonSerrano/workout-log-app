@@ -9,7 +9,6 @@ import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresen
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
 import com.marmouset.workout.app.port.out.exercise.trained.UpdateTrainedExerciseRepoRequest;
-import com.marmouset.workout.app.port.out.workout.WorkoutLogEntityContainer;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import org.springframework.stereotype.Component;
@@ -38,10 +37,8 @@ class UpdateTrainedExerciseUseCase implements UpdateTrainedExercise {
   @Override
   public TrainedExerciseResponse update(UpdatedTrainedExerciseCommand command)
       throws WorkoutLogNotFoundException, ExerciseNotFoundException {
-    WorkoutLogEntityContainer workout;
-    try {
-      workout = workoutLogRepository.readReference(command.logId());
-    } catch (NotFoundException e) {
+
+    if (!workoutLogRepository.exists(command.logId())) {
       throw new WorkoutLogNotFoundException(command.logId());
     }
 
@@ -50,7 +47,6 @@ class UpdateTrainedExerciseUseCase implements UpdateTrainedExercise {
       return presenter.present(
           trainedExerciseRepository.update(new UpdateTrainedExerciseRepoRequest(
               command.trainedId(),
-              workout.reference().getId(),
               exercise))
       );
     } catch (NotFoundException e) {

@@ -47,8 +47,8 @@ public class TrainedExerciseMapper extends
   protected TrainedExercise map(TrainedExerciseEntity toMap) {
     var result =
         factory.create(
-            toMap.getId().getTrainedExerciseId(),
-            toMap.getId().getWorkoutLogId(),
+            toMap.getId(),
+            toMap.getLog().getId(),
             exerciseMapper.toExercise(toMap.getExercise()));
     return result.addAllSets(
         toMap.getSets().stream().map(exerciseSetMapper::toExerciseSet)

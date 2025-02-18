@@ -17,8 +17,6 @@ import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresen
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
 import com.marmouset.workout.app.port.out.exercise.trained.UpdateTrainedExerciseRepoRequest;
-import com.marmouset.workout.app.port.out.workout.WorkoutLogEntity;
-import com.marmouset.workout.app.port.out.workout.WorkoutLogEntityContainer;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import java.time.Instant;
@@ -75,8 +73,6 @@ class UpdateTrainedExerciseUseCaseTest {
             new ExerciseResponse(exercise.id(), exercise.name()),
             Collections.emptyList());
 
-    WorkoutLogEntityContainer workoutContainer =
-        () -> (WorkoutLogEntity) workout::getId;
     ExerciseEntityContainer exerciseContainer = () -> new ExerciseEntity() {
       @Override
       public String getName() {
@@ -89,21 +85,20 @@ class UpdateTrainedExerciseUseCaseTest {
       }
     };
 
-    when(workoutLogRepository.readReference(expected.logId()))
-        .thenReturn(workoutContainer);
+    when(workoutLogRepository.exists(expected.logId()))
+        .thenReturn(true);
     when(exerciseRepository.readReference(exercise.id()))
         .thenReturn(exerciseContainer);
     when(trainedExerciseRepository
         .update(
-            new UpdateTrainedExerciseRepoRequest(trainedId, workout.getId(),
+            new UpdateTrainedExerciseRepoRequest(trainedId,
                 exerciseContainer)))
         .thenReturn(trainedExerciseFactory
             .create(trainedId, workout.getId(), exercise));
 
     var result = useCase.update(
-        new UpdatedTrainedExerciseCommand(expected.id(), expected.logId(),
-            expected.exercise().id()));
-
+        new UpdatedTrainedExerciseCommand(
+            expected.id(), workout.getId(), expected.exercise().id()));
     assertEquals(expected, result);
 
   }

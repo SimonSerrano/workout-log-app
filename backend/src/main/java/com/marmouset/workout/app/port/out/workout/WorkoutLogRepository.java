@@ -56,4 +56,12 @@ public interface WorkoutLogRepository {
    */
   WorkoutLog update(UpdateWorkoutLogRepoRequest request)
       throws NotFoundException;
+
+  /**
+   * Checks whether a workout log exists by its id.
+   *
+   * @param id the id to check for
+   * @return true if it exists
+   */
+  boolean exists(UUID id);
 }

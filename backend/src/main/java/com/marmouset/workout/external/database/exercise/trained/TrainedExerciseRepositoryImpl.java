@@ -33,6 +33,7 @@ class TrainedExerciseRepositoryImpl implements TrainedExerciseRepository {
   @Override
   public TrainedExercise create(
       CreateTrainedExerciseRepoRequest request) {
+
     var entity = new TrainedExerciseEntity();
     entity.setExercise(request.exerciseContainer().reference());
     entity.setLog(request.logContainer().reference());
@@ -46,20 +47,15 @@ class TrainedExerciseRepositoryImpl implements TrainedExerciseRepository {
 
   @Override
   public void delete(DeleteTrainedExerciseRepoRequest request) {
-    trainedExerciseRepository.deleteById(
-        new TrainedExercisePrimaryKey()
-            .setWorkoutLogId(request.logId())
-            .setTrainedExerciseId(request.trainedId()));
+    trainedExerciseRepository.deleteById(request.trainedId());
   }
 
   @Override
   public TrainedExercise update(UpdateTrainedExerciseRepoRequest request)
       throws NotFoundException {
-    var entity = trainedExerciseRepository.findById(
-        new TrainedExercisePrimaryKey()
-            .setTrainedExerciseId(request.trainedId())
-            .setWorkoutLogId(request.logId())).orElseThrow(
-        NotFoundException::new);
+    var entity =
+        trainedExerciseRepository
+            .findById(request.trainedId()).orElseThrow(NotFoundException::new);
     entity.setExercise(request.exerciseContainer().reference());
     return mapper.toTrainedExercise(trainedExerciseRepository.save(entity));
   }

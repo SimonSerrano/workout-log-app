@@ -1,5 +1,6 @@
 package com.marmouset.workout.app.port.in.exercise;
 
+import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import java.util.UUID;
 
 /**
@@ -12,5 +13,5 @@ public interface DeleteTrainedExercise {
    * @param logId     the id of the workout logContainer
    * @param trainedId the id of the exerciseContainer to delete
    */
-  void delete(UUID logId, Long trainedId);
+  void delete(UUID logId, Long trainedId) throws WorkoutLogNotFoundException;
 }

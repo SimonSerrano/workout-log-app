@@ -10,6 +10,7 @@ import com.marmouset.workout.app.port.in.exercise.UpdateTrainedExercise;
 import com.marmouset.workout.app.port.in.exercise.UpdatedTrainedExerciseCommand;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
 import jakarta.validation.Valid;
+import java.util.Collections;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,7 +59,11 @@ class TrainedExerciseController {
   public ResponseEntity<Void> delete(@PathVariable("logId") UUID logId,
                                      @PathVariable("trainedId")
                                      Long trainedId) {
-    deleteTrainedExercise.delete(logId, trainedId);
+    try {
+      deleteTrainedExercise.delete(logId, trainedId);
+    } catch (WorkoutLogNotFoundException e) {
+      return ResponseEntity.badRequest().build();
+    }
     return ResponseEntity.noContent().build();
   }
 
@@ -72,7 +77,7 @@ class TrainedExerciseController {
               new CreateTrainedExerciseCommand(
                   logId,
                   body.getExerciseId(),
-                  body.getSets())),
+                  body.getSets().orElse(Collections.emptyList()))),
           HttpStatus.CREATED);
     } catch (ExerciseNotFoundException | WorkoutLogNotFoundException e) {
       return ResponseEntity.badRequest().build();

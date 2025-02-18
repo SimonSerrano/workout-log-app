@@ -2,6 +2,7 @@ package com.marmouset.workout.external.web.exercise.trained;
 
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.stereotype.Component;
 
@@ -22,8 +23,8 @@ class CreateOrUpdateTrainedExerciseBody {
     return this;
   }
 
-  public List<Integer> getSets() {
-    return sets;
+  public Optional<List<Integer>> getSets() {
+    return Optional.ofNullable(sets);
   }
 
   public CreateOrUpdateTrainedExerciseBody setSets(

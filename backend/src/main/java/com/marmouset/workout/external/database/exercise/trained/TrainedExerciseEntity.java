@@ -7,9 +7,13 @@ import com.marmouset.workout.external.database.exercise.ExerciseEntityImpl;
 import com.marmouset.workout.external.database.set.ExerciseSetEntity;
 import com.marmouset.workout.external.database.workout.WorkoutLogEntityImpl;
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -22,8 +26,9 @@ import java.util.List;
 @Table(name = "trained_exercises")
 public class TrainedExerciseEntity extends AbstractEntity {
 
-  @EmbeddedId
-  private TrainedExercisePrimaryKey id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
 
   @OneToOne(targetEntity = ExerciseEntityImpl.class)
   private ExerciseEntity exercise;
@@ -31,16 +36,11 @@ public class TrainedExerciseEntity extends AbstractEntity {
   @OneToMany(cascade = CascadeType.ALL)
   private List<ExerciseSetEntity> sets;
 
-  @OneToOne(targetEntity = WorkoutLogEntityImpl.class)
-  @JoinColumn(insertable = false, updatable = false)
+  @ManyToOne(fetch = FetchType.LAZY, targetEntity = WorkoutLogEntityImpl.class)
+  @JoinColumn(name = "log.id", updatable = false)
   private WorkoutLogEntity log;
 
   TrainedExerciseEntity() {
-  }
-
-  TrainedExerciseEntity(ExerciseEntity exercise, List<ExerciseSetEntity> sets) {
-    this.exercise = exercise;
-    this.sets = sets;
   }
 
   public ExerciseEntity getExercise() {
@@ -67,12 +67,19 @@ public class TrainedExerciseEntity extends AbstractEntity {
     this.log = log;
   }
 
-  public TrainedExercisePrimaryKey getId() {
+  public Long getId() {
     return id;
   }
 
-  public TrainedExerciseEntity setId(
-      TrainedExercisePrimaryKey id) {
+  /**
+   * Sets the id.
+   * For tests only
+   *
+   * @param id the id to set
+   * @return this
+   */
+  public TrainedExerciseEntity TEST_ONLY_setId(
+      Long id) {
     this.id = id;
     return this;
   }

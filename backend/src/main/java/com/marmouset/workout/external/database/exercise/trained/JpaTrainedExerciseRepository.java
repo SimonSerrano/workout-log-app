@@ -5,6 +5,6 @@ import java.util.List;
 import org.springframework.data.repository.ListCrudRepository;
 
 interface JpaTrainedExerciseRepository extends
-    ListCrudRepository<TrainedExerciseEntity, TrainedExercisePrimaryKey> {
+    ListCrudRepository<TrainedExerciseEntity, Long> {
   List<TrainedExerciseEntity> findByLog(WorkoutLogEntity log);
 }

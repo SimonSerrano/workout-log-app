@@ -15,6 +15,7 @@ import com.marmouset.workout.app.port.out.exercise.ExerciseResponse;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
 import com.marmouset.workout.app.port.out.set.ExerciseSetResponse;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -86,7 +87,6 @@ class TrainedExerciseControllerTest {
   void shouldDeleteTrainedExercise() throws Exception {
     var logId = UUID.randomUUID();
     var trainedId = 9L;
-
     mockMvc
         .perform(MockMvcRequestBuilders.delete(
             "/log/" + logId + "/trained/" + trainedId))
@@ -99,13 +99,14 @@ class TrainedExerciseControllerTest {
   void shouldCreateTrainedExercise() throws Exception {
     var logId = UUID.randomUUID();
     var exerciseId = UUID.randomUUID();
-    var body =
-        new CreateOrUpdateTrainedExerciseBody().setExerciseId(exerciseId);
+    var body = new HashMap<>();
+    body.put("exerciseId", exerciseId);
     var response = new TrainedExerciseResponse(8L, logId,
         new ExerciseResponse(exerciseId, "Pull up"),
         Collections.emptyList());
     when(createTrainedExercise.create(
-        new CreateTrainedExerciseCommand(logId, exerciseId, body.getSets())))
+        new CreateTrainedExerciseCommand(logId, exerciseId,
+            Collections.emptyList())))
         .thenReturn(response);
 
     mockMvc.perform(MockMvcRequestBuilders
@@ -171,8 +172,8 @@ class TrainedExerciseControllerTest {
     var logId = UUID.randomUUID();
     var exerciseId = UUID.randomUUID();
     var trainedId = 8L;
-    var body =
-        new CreateOrUpdateTrainedExerciseBody().setExerciseId(exerciseId);
+    var body = new HashMap<>();
+    body.put("exerciseId", exerciseId);
     var response = new TrainedExerciseResponse(8L, logId,
         new ExerciseResponse(exerciseId, "Pull up"),
         Collections.emptyList());
