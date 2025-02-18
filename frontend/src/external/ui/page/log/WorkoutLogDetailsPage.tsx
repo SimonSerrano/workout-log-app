@@ -2,7 +2,8 @@ import { CircularProgress, Grid2, Typography } from '@mui/material';
 import { useNavigate, useRouterState } from '@tanstack/react-router';
 import { isWorkoutLog } from '../../../../app/domain/log/guard';
 import { useEffect, useMemo } from 'react';
-import { useDeleteWorkoutLog } from '../../context/DeleteWorkoutLogContext';
+import { useDeleteWorkoutLog } 
+  from '../../context/workout/DeleteWorkoutLogContext';
 import WorkoutButtonBar from './components/WorkoutButtonBar';
 import { useListTrainedExercises } 
   from '../../context/ListTrainedExercisesContext';
