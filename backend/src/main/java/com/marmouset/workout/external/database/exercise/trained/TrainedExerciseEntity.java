@@ -27,7 +27,7 @@ import java.util.List;
 public class TrainedExerciseEntity extends AbstractEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @OneToOne(targetEntity = ExerciseEntityImpl.class)

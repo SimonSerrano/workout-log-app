@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 public class ExerciseSetEntity extends AbstractEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private int reps;
