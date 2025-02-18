@@ -90,13 +90,12 @@ class TrainedExerciseController {
       @PathVariable("trainedId") Long trainedId,
       @Valid @RequestBody CreateOrUpdateTrainedExerciseBody body) {
     try {
-      return new ResponseEntity<>(
+      return ResponseEntity.ok(
           updateTrainedExercise.update(
               new UpdatedTrainedExerciseCommand(
                   trainedId,
                   logId,
-                  body.getExerciseId())),
-          HttpStatus.CREATED);
+                  body.getExerciseId())));
     } catch (ExerciseNotFoundException | WorkoutLogNotFoundException e) {
       return ResponseEntity.badRequest().build();
     }
