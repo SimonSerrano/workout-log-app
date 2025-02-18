@@ -10,5 +10,5 @@ import java.util.UUID;
  * @param exerciseId the new exerciseContainer id
  */
 public record UpdatedTrainedExerciseCommand(long trainedId, UUID logId,
-                                            UUID exerciseId) {
+                                            String exerciseId) {
 }

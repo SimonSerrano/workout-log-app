@@ -35,6 +35,6 @@ public class ExerciseMapper extends
 
   @Override
   protected Exercise map(ExerciseEntity toMap) {
-    return factory.create(toMap.getId(), toMap.getName());
+    return factory.create(toMap.getName());
   }
 }

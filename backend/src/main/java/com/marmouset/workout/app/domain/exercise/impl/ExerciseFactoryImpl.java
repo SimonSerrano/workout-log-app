@@ -2,7 +2,6 @@ package com.marmouset.workout.app.domain.exercise.impl;
 
 import com.marmouset.workout.app.domain.exercise.Exercise;
 import com.marmouset.workout.app.domain.exercise.ExerciseFactory;
-import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExerciseFactoryImpl implements ExerciseFactory {
   @Override
-  public Exercise create(UUID id, String name) {
-    return new ExerciseImpl(id, name);
+  public Exercise create(String name) {
+    return new ExerciseImpl(name);
   }
 }

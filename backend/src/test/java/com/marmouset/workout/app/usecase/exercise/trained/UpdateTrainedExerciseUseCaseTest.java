@@ -66,11 +66,11 @@ class UpdateTrainedExerciseUseCaseTest {
       ExerciseNotFoundException {
     var workout =
         workoutLogFactory.create(UUID.randomUUID(), "Toto", Instant.now());
-    var exercise = exerciseFactory.create(UUID.randomUUID(), "Pull up");
+    var exercise = exerciseFactory.create("Pull up");
     var trainedId = 8L;
     var expected =
         new TrainedExerciseResponse(trainedId, workout.getId(),
-            new ExerciseResponse(exercise.id(), exercise.name()),
+            new ExerciseResponse(exercise.name()),
             Collections.emptyList());
 
     ExerciseEntityContainer exerciseContainer = () -> new ExerciseEntity() {
@@ -80,14 +80,14 @@ class UpdateTrainedExerciseUseCaseTest {
       }
 
       @Override
-      public UUID getId() {
-        return exercise.id();
+      public String getId() {
+        return exercise.name();
       }
     };
 
     when(workoutLogRepository.exists(expected.logId()))
         .thenReturn(true);
-    when(exerciseRepository.readReference(exercise.id()))
+    when(exerciseRepository.readReference(exercise.name()))
         .thenReturn(exerciseContainer);
     when(trainedExerciseRepository
         .update(
@@ -98,7 +98,7 @@ class UpdateTrainedExerciseUseCaseTest {
 
     var result = useCase.update(
         new UpdatedTrainedExerciseCommand(
-            expected.id(), workout.getId(), expected.exercise().id()));
+            expected.id(), workout.getId(), expected.exercise().name()));
     assertEquals(expected, result);
 
   }

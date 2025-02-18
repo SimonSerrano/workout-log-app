@@ -1,24 +1,27 @@
 package com.marmouset.workout.external.web.exercise.trained;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 @Component
 class CreateOrUpdateTrainedExerciseBody {
   @Valid
-  private UUID exerciseId;
+  @NotNull
+  @NotEmpty
+  private String exerciseId;
 
   @Valid
   private List<Integer> sets;
 
-  public UUID getExerciseId() {
+  public String getExerciseId() {
     return exerciseId;
   }
 
-  public CreateOrUpdateTrainedExerciseBody setExerciseId(UUID exerciseId) {
+  public CreateOrUpdateTrainedExerciseBody setExerciseId(String exerciseId) {
     this.exerciseId = exerciseId;
     return this;
   }

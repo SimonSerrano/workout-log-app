@@ -17,7 +17,6 @@ import com.marmouset.workout.app.port.out.set.ExerciseSetResponse;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
@@ -50,12 +49,12 @@ class TrainedExerciseControllerTest {
     var trained1 = new TrainedExerciseResponse(
         new Random().nextLong(),
         logId,
-        new ExerciseResponse(UUID.randomUUID(), "Pull up"),
+        new ExerciseResponse("Pull up"),
         createSetTriplet(4, 4, 5));
     var trained2 = new TrainedExerciseResponse(
         new Random().nextLong(),
         logId,
-        new ExerciseResponse(UUID.randomUUID(), "Push up"),
+        new ExerciseResponse("Push up"),
         createSetTriplet(6, 6, 8));
 
 
@@ -98,11 +97,11 @@ class TrainedExerciseControllerTest {
   @Test
   void shouldCreateTrainedExercise() throws Exception {
     var logId = UUID.randomUUID();
-    var exerciseId = UUID.randomUUID();
+    var exerciseId = "Pull up";
     var body = new HashMap<>();
     body.put("exerciseId", exerciseId);
     var response = new TrainedExerciseResponse(8L, logId,
-        new ExerciseResponse(exerciseId, "Pull up"),
+        new ExerciseResponse("Pull up"),
         Collections.emptyList());
     when(createTrainedExercise.create(
         new CreateTrainedExerciseCommand(logId, exerciseId,
@@ -119,8 +118,6 @@ class TrainedExerciseControllerTest {
             .jsonPath("$.logId").value(logId.toString()))
         .andExpect(MockMvcResultMatchers
             .jsonPath("$.id").value(response.id()))
-        .andExpect(MockMvcResultMatchers
-            .jsonPath("$.exercise.id").value(exerciseId.toString()))
         .andExpect(MockMvcResultMatchers
             .jsonPath("$.exercise.name")
             .value(response.exercise().name()))
@@ -153,29 +150,17 @@ class TrainedExerciseControllerTest {
             .status().isBadRequest());
   }
 
-  @Test
-  void shouldReturnBadRequestWhenExerciseIdIsInvalidInBodyOnPost()
-      throws Exception {
-    mockMvc.perform(MockMvcRequestBuilders
-            .post("/log/" + UUID.randomUUID() + "/trained")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(new ObjectMapper()
-                .writeValueAsString(Map.of("exerciseId", "toto"))))
-        .andExpect(MockMvcResultMatchers
-            .status().isBadRequest());
-  }
-
 
   @Test
   void shouldUpdateAndExerciseAndReturnOk()
       throws Exception {
     var logId = UUID.randomUUID();
-    var exerciseId = UUID.randomUUID();
+    var exerciseId = "Pull up";
     var trainedId = 8L;
     var body = new HashMap<>();
     body.put("exerciseId", exerciseId);
     var response = new TrainedExerciseResponse(8L, logId,
-        new ExerciseResponse(exerciseId, "Pull up"),
+        new ExerciseResponse("Pull up"),
         Collections.emptyList());
     when(updateTrainedExercise.update(
         new UpdatedTrainedExerciseCommand(trainedId, logId, exerciseId)))
@@ -191,8 +176,6 @@ class TrainedExerciseControllerTest {
             .jsonPath("$.logId").value(logId.toString()))
         .andExpect(MockMvcResultMatchers
             .jsonPath("$.id").value(response.id()))
-        .andExpect(MockMvcResultMatchers
-            .jsonPath("$.exercise.id").value(exerciseId.toString()))
         .andExpect(MockMvcResultMatchers
             .jsonPath("$.exercise.name")
             .value(response.exercise().name()))

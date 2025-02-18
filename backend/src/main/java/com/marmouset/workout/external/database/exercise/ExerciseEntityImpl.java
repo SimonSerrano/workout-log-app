@@ -1,9 +1,10 @@
 package com.marmouset.workout.external.database.exercise;
 
 import com.marmouset.workout.app.port.out.exercise.ExerciseEntity;
-import com.marmouset.workout.external.database.UuidBasedAbstractEntity;
+import com.marmouset.workout.external.database.AbstractEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 /**
@@ -12,8 +13,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "exercises")
 public class ExerciseEntityImpl
-    extends UuidBasedAbstractEntity implements ExerciseEntity {
+    extends AbstractEntity implements ExerciseEntity {
 
+  @Id
   @Column(unique = true)
   private String name;
 
@@ -40,4 +42,8 @@ public class ExerciseEntityImpl
     this.name = name;
   }
 
+  @Override
+  public String getId() {
+    return name;
+  }
 }

@@ -10,7 +10,7 @@ class ExercisePresenterImpl implements ExercisePresenter {
 
   @Override
   public ExerciseResponse present(Exercise exercise) {
-    return new ExerciseResponse(exercise.id(), exercise.name());
+    return new ExerciseResponse(exercise.name());
   }
 
 }

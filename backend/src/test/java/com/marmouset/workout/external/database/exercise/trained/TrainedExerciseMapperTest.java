@@ -54,7 +54,6 @@ class TrainedExerciseMapperTest {
     setEntity2.TEST_ONLY_setId(2L);
     setEntity2.setReps(13);
     ExerciseEntityImpl exerciseEntity = new ExerciseEntityImpl();
-    exerciseEntity.TEST_ONLY_setId(UUID.randomUUID());
     exerciseEntity.setName("Pull ups");
     var workout = new WorkoutLogEntityImpl();
     workout.TEST_ONLY_setId(UUID.randomUUID());
@@ -65,7 +64,7 @@ class TrainedExerciseMapperTest {
     trainedEntity.setLog(workout);
 
 
-    var exercise = exerciseFactory.create(exerciseEntity.getId(),
+    var exercise = exerciseFactory.create(
         exerciseEntity.getName());
     var set1 =
         exerciseSetFactory.create(setEntity1.getId(), setEntity1.getReps());

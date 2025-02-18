@@ -63,8 +63,8 @@ class ListTrainedExerciseUseCaseTest {
         () -> (WorkoutLogEntity) workout::getId;
     when(workoutLogRepository.readReference(workout.getId())).thenReturn(
         workoutLogEntityContainer);
-    var exercise1 = exerciseFactory.create(UUID.randomUUID(), "Push up");
-    var exercise2 = exerciseFactory.create(UUID.randomUUID(), "Pull up");
+    var exercise1 = exerciseFactory.create("Push up");
+    var exercise2 = exerciseFactory.create("Pull up");
     var trained1 =
         trainedExerciseFactory.create(
             new Random().nextLong(), workout.getId(), exercise1);

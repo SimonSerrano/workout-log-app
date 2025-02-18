@@ -12,6 +12,6 @@ import java.util.UUID;
  */
 public record CreateTrainedExerciseCommand(
     UUID logId,
-    UUID exerciseId,
+    String exerciseId,
     List<Integer> sets) {
 }

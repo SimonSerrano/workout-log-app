@@ -11,7 +11,6 @@ import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.ExerciseResponse;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +37,12 @@ class ListExercisesUseCaseTest {
 
   @Test
   void shouldReturnListOfExercises() {
-    var exercise1 = factory.create(UUID.randomUUID(), "Pull up");
-    var exercise2 = factory.create(UUID.randomUUID(), "Push up");
+    var exercise1 = factory.create("Pull up");
+    var exercise2 = factory.create("Push up");
     var expected1 =
-        new ExerciseResponse(exercise1.id(), exercise1.name());
+        new ExerciseResponse(exercise1.name());
     var expected2 =
-        new ExerciseResponse(exercise2.id(), exercise2.name());
+        new ExerciseResponse(exercise2.name());
 
     when(repository.read()).thenReturn(List.of(
         exercise1,

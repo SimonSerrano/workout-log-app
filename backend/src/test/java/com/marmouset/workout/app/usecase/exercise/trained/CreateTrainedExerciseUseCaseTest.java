@@ -75,7 +75,7 @@ class CreateTrainedExerciseUseCaseTest {
         workoutLogFactory.create(UUID.randomUUID(), "Toto", Instant.now());
     var trainedExercise =
         trainedExerciseFactory.create(new Random().nextLong(), workout.getId(),
-            exerciseFactory.create(UUID.randomUUID(), "Pull ups"));
+            exerciseFactory.create("Pull ups"));
 
     WorkoutLogEntityContainer containedWorkout = () -> new WorkoutLogEntity() {
       @Override
@@ -91,13 +91,13 @@ class CreateTrainedExerciseUseCaseTest {
           }
 
           @Override
-          public UUID getId() {
-            return trainedExercise.getExercise().id();
+          public String getId() {
+            return trainedExercise.getExercise().name();
           }
         };
 
     when(
-        exerciseRepository.readReference(trainedExercise.getExercise().id()))
+        exerciseRepository.readReference(trainedExercise.getExercise().name()))
         .thenReturn(exerciseEntityContainer);
     when(workoutLogRepository.readReference(workout.getId()))
         .thenReturn(containedWorkout);
@@ -115,6 +115,6 @@ class CreateTrainedExerciseUseCaseTest {
 
     assertEquals(expected, useCase.create(
         new CreateTrainedExerciseCommand(workout.getId(),
-            trainedExercise.getExercise().id(), List.of(6, 6, 6))));
+            trainedExercise.getExercise().name(), List.of(6, 6, 6))));
   }
 }
