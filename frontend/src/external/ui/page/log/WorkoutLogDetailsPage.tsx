@@ -1,10 +1,15 @@
-import { Button, CircularProgress, Grid2, Typography } from '@mui/material';
+import { 
+  Button, 
+  Card, 
+  CardContent, 
+  CircularProgress, 
+  Grid2, 
+  Typography } from '@mui/material';
 import { useNavigate, useRouterState } from '@tanstack/react-router';
 import { isWorkoutLog } from '../../../../app/domain/log/guard';
 import { useEffect, useMemo, useState } from 'react';
 import { useDeleteWorkoutLog } 
   from '../../context/workout/DeleteWorkoutLogContext';
-import WorkoutButtonBar from './element/WorkoutButtonBar';
 import { useListTrainedExercises } 
   from '../../context/exercise/trained/ListTrainedExercisesContext';
 import { useQuery } from '@tanstack/react-query';
@@ -21,6 +26,8 @@ import { useDeleteTrainedExercise }
   from '../../context/exercise/trained/DeleteTrainedExerciseContext';
 import TrainedExerciseFormComponent 
   from '../../component/TrainedExerciseFormComponent';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import WorkoutDeleteButton from './element/WorkoutDeleteButton';
 
 export default function WorkoutLogDetailsPage() {
   const routerState = useRouterState();
@@ -86,49 +93,65 @@ export default function WorkoutLogDetailsPage() {
   };
 
   return (
-    <Grid2 container direction="column">
-      <Grid2>
-        <WorkoutButtonBar 
-          onBackClick={() => navigate({ to: '/log', })} 
-          onDeleteClick={handleDelete}/>
+    <Grid2 container direction="column" spacing={4} alignItems="stretch">
+      <Grid2 alignSelf={'flex-end'}>
+        <Button onClick={() =>  navigate({ to: '/log', })}>Back</Button>
       </Grid2>
       <Grid2>
-        <Typography>{log.name}</Typography>
+        <Card>
+          <CardContent>
+            <Typography variant="h5" gutterBottom>{log.name}</Typography>
+            <Grid2 container direction="row">
+              <Grid2><CalendarTodayIcon/></Grid2>
+              <Grid2><Typography 
+                variant="subtitle1" 
+                gutterBottom>{log.createdAt}</Typography></Grid2>
+            </Grid2>
+          </CardContent>
+        </Card>
       </Grid2>
       <Grid2>
-        <Typography>{log.createdAt}</Typography>
-      </Grid2>
-      <Grid2>
-        <Grid2 container direction={'column'}>
-          <Grid2>
-            <Grid2 container>
+        <Card>
+          <CardContent>
+            <Grid2 container 
+              direction={'column'} 
+            >
               <Grid2>
-                <Typography>Trained exercise</Typography>
+                <Grid2 container
+                  justifyContent={'space-between'}>
+                  <Grid2>
+                    <Typography variant="h6">Trained exercise</Typography>
+                  </Grid2>
+                  <Grid2>
+                    <Button 
+                      disabled={
+                        listExercisesQueryResult.isPending 
+                || listExercisesQueryResult.isError}
+                      loading={listExercisesQueryResult.isPending}
+                      onClick={() => setNewTrainedOpen(true)}>
+                      Add exercise</Button>
+                  </Grid2>
+                </Grid2>
               </Grid2>
               <Grid2>
-                <Button 
-                  disabled={
-                    listExercisesQueryResult.isPending 
-                || listExercisesQueryResult.isError}
-                  loading={listExercisesQueryResult.isPending}
-                  onClick={() => setNewTrainedOpen(true)}>
-                  Add exercise</Button>
+                <TrainedExerciseList 
+                  {...listTrainedQueryResult} 
+                  onEditClick={(trained) => {
+                    setTrainedEdited(trained);
+                    setNewTrainedOpen(true);
+                  }}
+                  onDeleteClick={async (trained) => {
+                    await deleteTrainedExercise.delete(log.id, trained.id);
+                    await listTrainedQueryResult.refetch();
+                  }} />
               </Grid2>
             </Grid2>
-          </Grid2>
-          <Grid2>
-            <TrainedExerciseList 
-              {...listTrainedQueryResult} 
-              onEditClick={(trained) => {
-                setTrainedEdited(trained);
-                setNewTrainedOpen(true);
-              }}
-              onDeleteClick={async (trained) => {
-                await deleteTrainedExercise.delete(log.id, trained.id);
-                await listTrainedQueryResult.refetch();
-              }} />
-          </Grid2>
-        </Grid2>
+          </CardContent>
+        </Card>
+      </Grid2>
+      <Grid2 alignSelf={'center'} >
+        <WorkoutDeleteButton 
+          onDeleteClick={handleDelete}/>
       </Grid2>
       {
         listExercisesQueryResult.data && 
