@@ -17,6 +17,7 @@ import com.marmouset.workout.app.port.out.set.ExerciseSetResponse;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
@@ -157,13 +158,13 @@ class TrainedExerciseControllerTest {
     var logId = UUID.randomUUID();
     var exerciseId = "Pull up";
     var trainedId = 8L;
-    var body = new HashMap<>();
-    body.put("exerciseId", exerciseId);
+    var body = Map.of("exerciseId", exerciseId, "sets", List.of(8, 8, 6));
     var response = new TrainedExerciseResponse(8L, logId,
         new ExerciseResponse("Pull up"),
         Collections.emptyList());
     when(updateTrainedExercise.update(
-        new UpdatedTrainedExerciseCommand(trainedId, logId, exerciseId)))
+        new UpdatedTrainedExerciseCommand(trainedId, logId, exerciseId,
+            List.of(8, 8, 6))))
         .thenReturn(response);
 
     mockMvc.perform(MockMvcRequestBuilders

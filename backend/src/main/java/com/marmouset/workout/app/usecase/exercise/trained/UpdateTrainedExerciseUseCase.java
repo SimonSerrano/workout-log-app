@@ -45,9 +45,11 @@ class UpdateTrainedExerciseUseCase implements UpdateTrainedExercise {
     try {
       var exercise = exerciseRepository.readReference(command.exerciseId());
       return presenter.present(
-          trainedExerciseRepository.update(new UpdateTrainedExerciseRepoRequest(
-              command.trainedId(),
-              exercise))
+          trainedExerciseRepository.update(
+              new UpdateTrainedExerciseRepoRequest(
+                  command.trainedId(),
+                  exercise,
+                  command.sets()))
       );
     } catch (NotFoundException e) {
       throw new ExerciseNotFoundException(command.exerciseId());

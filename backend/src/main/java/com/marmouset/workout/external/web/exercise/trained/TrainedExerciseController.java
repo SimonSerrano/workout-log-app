@@ -95,7 +95,8 @@ class TrainedExerciseController {
               new UpdatedTrainedExerciseCommand(
                   trainedId,
                   logId,
-                  body.getExerciseId())));
+                  body.getExerciseId(),
+                  body.getSets().orElse(Collections.emptyList()))));
     } catch (ExerciseNotFoundException | WorkoutLogNotFoundException e) {
       return ResponseEntity.badRequest().build();
     }

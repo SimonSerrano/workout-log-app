@@ -24,6 +24,7 @@ class TrainedExerciseRepositoryImpl implements TrainedExerciseRepository {
     this.mapper = mapper;
   }
 
+
   @Override
   public List<TrainedExercise> read(WorkoutLogEntityContainer log) {
     return trainedExerciseRepository.findByLog(log.reference()).stream()
@@ -37,11 +38,8 @@ class TrainedExerciseRepositoryImpl implements TrainedExerciseRepository {
     var entity = new TrainedExerciseEntity();
     entity.setExercise(request.exerciseContainer().reference());
     entity.setLog(request.logContainer().reference());
-    entity.setSets(request.sets().stream().map(reps -> {
-      var setEntity = new ExerciseSetEntity();
-      setEntity.setReps(reps);
-      return setEntity;
-    }).toList());
+    entity.setSets(request.sets().stream().map(
+        this::createExerciseSetEntity).toList());
     return mapper.toTrainedExercise(trainedExerciseRepository.save(entity));
   }
 
@@ -57,7 +55,14 @@ class TrainedExerciseRepositoryImpl implements TrainedExerciseRepository {
         trainedExerciseRepository
             .findById(request.trainedId()).orElseThrow(NotFoundException::new);
     entity.setExercise(request.exerciseContainer().reference());
+    entity.setSets(request.sets().stream().map(
+        this::createExerciseSetEntity).toList());
     return mapper.toTrainedExercise(trainedExerciseRepository.save(entity));
   }
 
+  private ExerciseSetEntity createExerciseSetEntity(Integer s) {
+    var setEntity = new ExerciseSetEntity();
+    setEntity.setReps(s);
+    return setEntity;
+  }
 }
