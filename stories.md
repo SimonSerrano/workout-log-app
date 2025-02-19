@@ -23,6 +23,9 @@
   - [x] api
   - [ ] ui
 - [ ] As an **athlete**, I want to **set a rest timer** so I can **know when to start a new set and log my workout during rest**
+- [ ] As an **athlete**, I want to **create a workout from a routine** so I can **log my exercises faster and more easily**
+
+
 
 ## Exercises
 - [ ] As an **athlete**, I want to **log the exercises** I practiced in my workout so I can **compare workouts with the same exercises**
@@ -41,6 +44,13 @@
   - [x] api
   - [x] ui
 - [ ] As an **athlete**, I want to **see the progression of an exercise** so I can **ensure my workout makes me progress**
+- [ ] As an **athlete**, I want to **reorder my exercises** so I can **remember what happened during a workout**
+- [ ] As an **athlete**, I want to **set concentric exercises** so I can **log how many repetitions I did per set**
+- [ ] As an **athlete**, I want to **set weighted concentric exercises** so I can **log how many repetitions I did per set and how much weight I lifted**
+- [ ] As an **athlete**, I want to **set isometric exercises** so I can **log how long I held and how much weight I lifted per set**
+- [ ] As an **athlete**, I want to **set eccentric exercises** so I can **log how long I held, how many repetitions I did and how much weight I lifted per set**
+
+
 
 ## Sets
 - [ ] As an **athlete**, I want **add a set to an exercise** I did during an exercise so I can **log the number of reps**
@@ -55,6 +65,12 @@
 - [ ] As an **athlete**, I want to **update a set** so I can **correct the number of reps I did**
   - [x] api
   - [x] ui
+
+## Routine
+- [ ] As an **athlete**, I want to **define routines** so I can **always remember what my routines are**
+- [ ] As an **athlete**, I want to **name routines** so I can **retrieve them easily**
+- [ ] As an **athlete**, I want to **create a routine from a workout** so I can **adopt a routine I have been testing**
+
 
 
 
