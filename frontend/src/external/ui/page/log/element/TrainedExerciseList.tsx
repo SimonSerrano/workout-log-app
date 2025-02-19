@@ -1,11 +1,13 @@
 import { 
-  Button, 
   Chip, 
   CircularProgress, 
   Grid2, 
+  IconButton, 
   Typography } from '@mui/material';
 import TrainedExercise 
   from '../../../../../app/domain/exercise/TrainedExercise';
+import DeleteButtonComponent from '../../../component/DeleteButtonComponent';
+import EditIcon from '@mui/icons-material/Edit';
 
 export interface TrainedExerciseListProps {
   isPending: boolean,
@@ -30,24 +32,48 @@ export default function TrainedExerciseList(props: TrainedExerciseListProps) {
   return <Grid2 container direction={'column'}>
     {props.data?.map((trained) => (
       <Grid2 key={trained.id}>
-        <Grid2 container>
+        <Grid2 container direction={'column'}>
           <Grid2>
-            <Typography>{trained.exercise.name}</Typography>
-          </Grid2>
-          {
-            trained.sets.map((set) => (
-              <Grid2 key={set.id}>
-                <Chip label={set.reps} />
+            <Grid2 container 
+              spacing={2} 
+              alignItems={'center'} 
+              justifyContent={'space-between'}>
+              <Grid2>
+                <Typography>{trained.exercise.name}</Typography>
               </Grid2>
-            ))
-          }
-          <Grid2>
-            <Button onClick={() => props.onEditClick(trained)}>Edit</Button>
+              <Grid2 justifySelf={'flex-end'}>
+                <Grid2 container spacing={1}>
+                  <Grid2>
+                    <IconButton 
+                      onClick={() => props.onEditClick(trained)}>
+                      <EditIcon/>
+                    </IconButton>
+                  </Grid2>
+                  <Grid2>
+                    <DeleteButtonComponent iconOnly
+                      onDeleteClick={async () => props.onDeleteClick(trained)}>
+                    </DeleteButtonComponent>
+                  </Grid2>
+                </Grid2>
+              </Grid2>
+            </Grid2>
           </Grid2>
           <Grid2>
-            <Button onClick={() => props.onDeleteClick(trained)}>Delete</Button>
+            <Grid2 container spacing={2} alignItems={'center'}>
+              <Grid2>
+                <Typography>Reps: </Typography>
+              </Grid2>
+              {
+                trained.sets.map((set) => (
+                  <Grid2 key={set.id}>
+                    <Chip label={set.reps} />
+                  </Grid2>
+                ))
+              }
+            </Grid2>
           </Grid2>
         </Grid2>
+        
       </Grid2>
     ))}
   </Grid2>;

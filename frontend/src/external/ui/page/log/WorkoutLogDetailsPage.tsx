@@ -4,6 +4,7 @@ import {
   CardContent, 
   CircularProgress, 
   Grid2, 
+  IconButton, 
   Typography } from '@mui/material';
 import { useNavigate, useRouterState } from '@tanstack/react-router';
 import { isWorkoutLog } from '../../../../app/domain/log/guard';
@@ -27,7 +28,8 @@ import { useDeleteTrainedExercise }
 import TrainedExerciseFormComponent 
   from '../../component/TrainedExerciseFormComponent';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import WorkoutDeleteButton from './element/WorkoutDeleteButton';
+import DeleteButtonComponent from '../../component/DeleteButtonComponent';
+import AddIcon from '@mui/icons-material/Add';
 
 export default function WorkoutLogDetailsPage() {
   const routerState = useRouterState();
@@ -123,13 +125,13 @@ export default function WorkoutLogDetailsPage() {
                     <Typography variant="h6">Trained exercise</Typography>
                   </Grid2>
                   <Grid2>
-                    <Button 
+                    <IconButton 
                       disabled={
                         listExercisesQueryResult.isPending 
                 || listExercisesQueryResult.isError}
                       loading={listExercisesQueryResult.isPending}
                       onClick={() => setNewTrainedOpen(true)}>
-                      Add exercise</Button>
+                      <AddIcon/></IconButton>
                   </Grid2>
                 </Grid2>
               </Grid2>
@@ -150,7 +152,7 @@ export default function WorkoutLogDetailsPage() {
         </Card>
       </Grid2>
       <Grid2 alignSelf={'center'} >
-        <WorkoutDeleteButton 
+        <DeleteButtonComponent 
           onDeleteClick={handleDelete}/>
       </Grid2>
       {
