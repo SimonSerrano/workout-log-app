@@ -56,9 +56,9 @@ class TrainedExerciseController {
 
 
   @DeleteMapping(path = "/{trainedId}")
-  public ResponseEntity<Void> delete(@PathVariable("logId") UUID logId,
-                                     @PathVariable("trainedId")
-                                     Long trainedId) {
+  public ResponseEntity<Void> delete(
+      @PathVariable("logId") UUID logId,
+      @PathVariable("trainedId") Long trainedId) {
     try {
       deleteTrainedExercise.delete(logId, trainedId);
     } catch (WorkoutLogNotFoundException e) {
