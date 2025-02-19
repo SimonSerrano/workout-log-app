@@ -2,7 +2,15 @@ import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import Exercise from '../../../app/domain/exercise/Exercise';
 import TrainedExerciseFormDTO 
   from '../../../app/port/in/dto/TrainedExerciseForm';
-import { Grid2, TextField, MenuItem, Button } from '@mui/material';
+import { 
+  Grid2, 
+  TextField, 
+  MenuItem, 
+  Button, 
+  FormControl, 
+  InputLabel, 
+  Select,
+  FormHelperText } from '@mui/material';
 import { useForm } from '@tanstack/react-form';
 
 export interface TrainedExerciseFormProps {
@@ -43,7 +51,7 @@ export default function TrainedExerciseFormComponent(
         container
         direction="column"
         padding={2}
-        alignItems={'center'}
+        alignItems={'stretch'}
         spacing={2}
       >
         <Grid2>
@@ -58,28 +66,41 @@ export default function TrainedExerciseFormComponent(
             }}>
             {
               (field) => (
-                <TextField 
-                  id={field.name} 
-                  name={field.name} 
-                  label="Exercise" 
-                  value={field.state.value} 
+                <FormControl 
+                  fullWidth
                   error={Boolean(field.state.meta.errors.length)}
-                  helperText={field.state.meta.errors.join(', ')}
-                  onBlur={field.handleBlur} 
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  select>
-                  {
-                    props.exercises.map((exercise) => (
-                      <MenuItem 
-                        key={exercise.name} value={exercise.name}>
-                        {exercise.name}
-                      </MenuItem>
-                    ))
-                  }
-                </TextField>
+                >
+                  <InputLabel 
+                    id={`${field.name}-label`}>
+                    Exercise
+                  </InputLabel>
+                  <Select
+                    labelId={`${field.name}-label`}
+                    id={field.name}
+                    name={field.name} 
+                    label="Exercise" 
+                    value={field.state.value} 
+                    error={Boolean(field.state.meta.errors.length)}
+                    onBlur={field.handleBlur} 
+                    onChange={(e) => field.handleChange(e.target.value)}>
+                    {
+                      props.exercises.map((exercise) => (
+                        <MenuItem 
+                          key={exercise.name} value={exercise.name}>
+                          {exercise.name}
+                        </MenuItem>
+                      ))
+                    }
+                  </Select>
+                  <FormHelperText>
+                    {field.state.meta.errors.join(', ')}
+                  </FormHelperText>
+                </FormControl>
               )
             }
           </form.Field>
+        </Grid2>
+        <Grid2>
           <form.Field
             name="sets"
           >
