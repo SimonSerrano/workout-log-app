@@ -1,9 +1,9 @@
 import TrainedExercise from '../../../domain/exercise/TrainedExercise';
-import NewTrainedExerciseForm from '../dto/NewTrainedExerciseForm';
+import TrainedExerciseFormDTO from '../dto/TrainedExerciseForm';
 
 
 export default interface CreateTrainedExercise {
   create(
     workoutId: string, 
-    newTrained: NewTrainedExerciseForm): Promise<TrainedExercise>
+    newTrained: TrainedExerciseFormDTO): Promise<TrainedExercise>
 }

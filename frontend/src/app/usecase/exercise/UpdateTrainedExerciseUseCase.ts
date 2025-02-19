@@ -1,5 +1,5 @@
 import TrainedExercise from '../../domain/exercise/TrainedExercise';
-import NewTrainedExerciseForm from '../../port/in/dto/NewTrainedExerciseForm';
+import TrainedExerciseFormDTO from '../../port/in/dto/TrainedExerciseForm';
 import UpdateTrainedExercise from '../../port/in/exercise/UpdateTrainedExercise';
 import TrainedExerciseResponseMapper 
   from '../../port/out/mapper/TrainedExerciseResponseMapper';
@@ -18,7 +18,7 @@ implements UpdateTrainedExercise {
   async update(
     workoutId: string, 
     trainedId: number,
-    newTrained: NewTrainedExerciseForm): Promise<TrainedExercise> {
+    newTrained: TrainedExerciseFormDTO): Promise<TrainedExercise> {
     const response = await this.client.update(workoutId, trainedId, newTrained);
     return this.mapper.toTrainedExercise(response);
   }

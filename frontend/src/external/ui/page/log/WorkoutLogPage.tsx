@@ -1,11 +1,11 @@
 import { Button, CircularProgress, Grid2 } from '@mui/material';
-import NewWorkoutLogDialog from './components/NewWorkoutLogDialog';
+import NewWorkoutLogDialog from './element/NewWorkoutLogDialog';
 import { useSignal } from '@preact/signals-react';
-import WorkoutLogList from './components/WorkoutLogList';
+import WorkoutLogList from './element/WorkoutLogList';
 import { useQuery } from '@tanstack/react-query';
 import { useListWorkoutLogs } 
   from '../../context/workout/ListWorkoutLogsContext';
-import WorkoutLogElement from './components/WorkoutLogElement';
+import WorkoutLogElement from './element/WorkoutLogElement';
 import { useNavigate } from '@tanstack/react-router';
 import WorkoutLog from '../../../../app/domain/log/WorkoutLog';
 import { useCreateWorkoutLog } 

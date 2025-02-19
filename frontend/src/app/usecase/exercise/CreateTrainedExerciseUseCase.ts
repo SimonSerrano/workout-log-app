@@ -1,7 +1,7 @@
 import TrainedExercise from '../../domain/exercise/TrainedExercise';
 import CreateTrainedExercise 
   from '../../port/in/exercise/CreateTrainedExercise';
-import NewTrainedExerciseForm from '../../port/in/dto/NewTrainedExerciseForm';
+import TrainedExerciseFormDTO from '../../port/in/dto/TrainedExerciseForm';
 import TrainedExerciseResponseMapper 
   from '../../port/out/mapper/TrainedExerciseResponseMapper';
 import TrainedExerciseClient from '../../port/out/TrainedExerciseClient';
@@ -16,7 +16,7 @@ implements CreateTrainedExercise {
 
   async create(
     workoutId: string, 
-    newTrained: NewTrainedExerciseForm): Promise<TrainedExercise> {
+    newTrained: TrainedExerciseFormDTO): Promise<TrainedExercise> {
     const response = await this.client.create(workoutId, newTrained);
     return this.mapper.toTrainedExercise(response);
   }

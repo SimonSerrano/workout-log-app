@@ -4,20 +4,23 @@ import { isWorkoutLog } from '../../../../app/domain/log/guard';
 import { useEffect, useMemo, useState } from 'react';
 import { useDeleteWorkoutLog } 
   from '../../context/workout/DeleteWorkoutLogContext';
-import WorkoutButtonBar from './components/WorkoutButtonBar';
+import WorkoutButtonBar from './element/WorkoutButtonBar';
 import { useListTrainedExercises } 
   from '../../context/exercise/trained/ListTrainedExercisesContext';
 import { useQuery } from '@tanstack/react-query';
-import TrainedExerciseList from './components/TrainedExerciseList';
+import TrainedExerciseList from './element/TrainedExerciseList';
 import { useCreateTrainedExercise } 
   from '../../context/exercise/trained/CreateTrainedExerciseContext';
 import { useListExercises } from '../../context/exercise/ListExercisesContext';
-import NewTrainedExerciseDialog from './components/NewTrainedExerciseDialog';
+import TrainedExerciseDialogElement 
+  from './element/TrainedExerciseDialogElement';
 import TrainedExercise from '../../../../app/domain/exercise/TrainedExercise';
 import { useUpdateTrainedExercise } 
   from '../../context/exercise/trained/UpdateTrainedExerciseContext';
 import { useDeleteTrainedExercise } 
   from '../../context/exercise/trained/DeleteTrainedExerciseContext';
+import TrainedExerciseFormComponent 
+  from '../../component/TrainedExerciseFormComponent';
 
 export default function WorkoutLogDetailsPage() {
   const routerState = useRouterState();
@@ -129,31 +132,36 @@ export default function WorkoutLogDetailsPage() {
       </Grid2>
       {
         listExercisesQueryResult.data && 
-        <NewTrainedExerciseDialog 
+        <TrainedExerciseDialogElement 
+          new={!trainedEdited}
           open={newTrainedOpen} 
           onClose={() => {
             setTrainedEdited(undefined);
             setNewTrainedOpen(false);
           }}
-          onSubmit={async (newTrained) => {
-            if(!trainedEdited) {
-              await createTrainedExercise.create(log.id, newTrained);
-            }else {
-              await updateTrainedExercise.update(
-                log.id, 
-                trainedEdited.id, 
-                newTrained);
-            }
-            await listTrainedQueryResult.refetch();
-
-            setNewTrainedOpen(false);
-            setTrainedEdited(undefined);
-          }}
-          exercises={listExercisesQueryResult.data}
-          formData={trainedEdited && {
-            exerciseId: trainedEdited.exercise.name,
-            sets: trainedEdited.sets.map((s) => s.reps),
-          }} />
+        >
+          <TrainedExerciseFormComponent
+            onSubmit={async (newTrained) => {
+              if(!trainedEdited) {
+                await createTrainedExercise.create(log.id, newTrained);
+              }else {
+                await updateTrainedExercise.update(
+                  log.id, 
+                  trainedEdited.id, 
+                  newTrained);
+              }
+              await listTrainedQueryResult.refetch();
+  
+              setNewTrainedOpen(false);
+              setTrainedEdited(undefined);
+            }}
+            exercises={listExercisesQueryResult.data}
+            formData={trainedEdited && {
+              exerciseId: trainedEdited.exercise.name,
+              sets: trainedEdited.sets.map((s) => s.reps),
+            }}
+          />
+        </TrainedExerciseDialogElement>
       }
       
     </Grid2>
