@@ -103,7 +103,7 @@ export default function WorkoutLogDetailsPage() {
         <Card>
           <CardContent>
             <Typography variant="h5" gutterBottom>{log.name}</Typography>
-            <Grid2 container direction="row">
+            <Grid2 container direction="row" spacing={2}>
               <Grid2><CalendarTodayIcon/></Grid2>
               <Grid2><Typography 
                 variant="subtitle1" 
