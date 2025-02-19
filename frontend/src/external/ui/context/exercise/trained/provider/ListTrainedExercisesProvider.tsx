@@ -1,11 +1,11 @@
 import { PropsWithChildren } from 'react';
-import { ListTrainedExercisesContext } from './ListTrainedExercisesContext';
+import { ListTrainedExercisesContext } from '../ListTrainedExercisesContext';
 import ListTrainedExercisesUseCase 
-  from '../../../../../app/usecase/exercise/ListTrainedExercisesUseCase';
+  from '../../../../../../app/usecase/exercise/ListTrainedExercisesUseCase';
 import TrainedExerciseClientImpl 
-  from '../../../../web/TrainedExerciseClientImpl';
+  from '../../../../../web/TrainedExerciseClientImpl';
 import TrainedExerciseResponseMapper 
-  from '../../../../../app/port/out/mapper/TrainedExerciseResponseMapper';
+  from '../../../../../../app/port/out/mapper/TrainedExerciseResponseMapper';
 
 export default function ListTrainedExercisesProvider(props: PropsWithChildren) {
   const useCase = new ListTrainedExercisesUseCase(

@@ -1,10 +1,11 @@
 import { PropsWithChildren } from 'react';
 import TrainedExerciseResponseMapper 
-  from '../../../../../app/port/out/mapper/TrainedExerciseResponseMapper';
+  from '../../../../../../app/port/out/mapper/TrainedExerciseResponseMapper';
 import CreateTrainedExerciseUseCase 
-  from '../../../../../app/usecase/exercise/CreateTrainedExerciseUseCase';
-import TrainedExerciseClientImpl from '../../../../web/TrainedExerciseClientImpl';
-import { CreateTrainedExerciseContext } from './CreateTrainedExerciseContext';
+  from '../../../../../../app/usecase/exercise/CreateTrainedExerciseUseCase';
+import TrainedExerciseClientImpl 
+  from '../../../../../web/TrainedExerciseClientImpl';
+import { CreateTrainedExerciseContext } from '../CreateTrainedExerciseContext';
 
 export default function 
 CreateTrainedExerciseProvider(props: PropsWithChildren) {

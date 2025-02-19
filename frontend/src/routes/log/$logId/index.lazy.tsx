@@ -7,18 +7,18 @@ import DeleteWorkoutLogProvider
   from '../../../external/ui/context/workout/provider/DeleteWorkoutLogProvider';
 import ListTrainedExercisesProvider 
   from 
-  '../../../external/ui/context/exercise/trained/ListTrainedExercisesProvider';
+  '../../../external/ui/context/exercise/trained/provider/ListTrainedExercisesProvider';
 import CreateTrainedExerciseProvider 
   from 
-  '../../../external/ui/context/exercise/trained/CreateTrainedExerciseProvider';
+  '../../../external/ui/context/exercise/trained/provider/CreateTrainedExerciseProvider';
 import ListExercisesProvider 
   from '../../../external/ui/context/exercise/ListExercisesProvider';
 import UpdateTrainedExerciseProvider 
   from 
-  '../../../external/ui/context/exercise/trained/UpdateTrainedExerciseProvider';
+  '../../../external/ui/context/exercise/trained/provider/UpdateTrainedExerciseProvider';
 import DeleteTrainedExercisesProvider 
   from 
-  '../../../external/ui/context/exercise/trained/DeleteTrainedExerciseProvider';
+  '../../../external/ui/context/exercise/trained/provider/DeleteTrainedExerciseProvider';
 
 export const Route = createLazyFileRoute('/log/$logId/')({
   component: () => (
