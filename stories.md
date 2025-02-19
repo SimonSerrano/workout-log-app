@@ -26,10 +26,10 @@
 ## Exercises
 - [ ] As an **athlete**, I want to **log the exercises** I practiced in my workout so I can **compare workouts with the same exercises**
   - [x] api
-  - [ ] ui
+  - [x] ui
 - [ ] As an **athelte**, I want to **update an exercise** I practiced so I can **correct a wrong input**
   - [x] api
-  - [ ] ui
+  - [x] ui
 - [ ] As an **athlete**, I want to **delete an exercise** so I can **correct a wrong input**
   - [x] api
   - [ ] ui
