@@ -16,6 +16,8 @@ import NewTrainedExerciseDialog from './components/NewTrainedExerciseDialog';
 import TrainedExercise from '../../../../app/domain/exercise/TrainedExercise';
 import { useUpdateTrainedExercise } 
   from '../../context/exercise/trained/UpdateTrainedExerciseContext';
+import { useDeleteTrainedExercise } 
+  from '../../context/exercise/trained/DeleteTrainedExerciseContext';
 
 export default function WorkoutLogDetailsPage() {
   const routerState = useRouterState();
@@ -25,6 +27,7 @@ export default function WorkoutLogDetailsPage() {
   const createTrainedExercise = useCreateTrainedExercise();
   const updateTrainedExercise = useUpdateTrainedExercise();
   const listExercises = useListExercises();
+  const deleteTrainedExercise = useDeleteTrainedExercise();
 
   const [newTrainedOpen, setNewTrainedOpen,] = useState(false);
   const [trainedEdited, setTrainedEdited,] = 
@@ -116,6 +119,10 @@ export default function WorkoutLogDetailsPage() {
               onEditClick={(trained) => {
                 setTrainedEdited(trained);
                 setNewTrainedOpen(true);
+              }}
+              onDeleteClick={async (trained) => {
+                await deleteTrainedExercise.delete(log.id, trained.id);
+                await listTrainedQueryResult.refetch();
               }} />
           </Grid2>
         </Grid2>

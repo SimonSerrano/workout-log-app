@@ -13,6 +13,7 @@ export interface TrainedExerciseListProps {
   data?: TrainedExercise[]
   error: Error | null
   onEditClick(trained: TrainedExercise): void
+  onDeleteClick(trained: TrainedExercise): void
 }
 
 export default function TrainedExerciseList(props: TrainedExerciseListProps) {
@@ -42,6 +43,9 @@ export default function TrainedExerciseList(props: TrainedExerciseListProps) {
           }
           <Grid2>
             <Button onClick={() => props.onEditClick(trained)}>Edit</Button>
+          </Grid2>
+          <Grid2>
+            <Button onClick={() => props.onDeleteClick(trained)}>Delete</Button>
           </Grid2>
         </Grid2>
       </Grid2>

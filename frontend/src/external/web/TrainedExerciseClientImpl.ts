@@ -6,6 +6,7 @@ import TrainedExerciseResponse from './dto/TrainedExerciseResponse';
 export default class TrainedExerciseClientImpl 
   extends AbstractClient implements TrainedExerciseClient {
 
+
   
   protected getPath(): string {
     return '/log';
@@ -58,6 +59,18 @@ export default class TrainedExerciseClientImpl
     }
     
     return response.json();
+  }
+
+
+  async delete(workoutId: string, trainedId: number): Promise<void> {
+    const response = await fetch(
+      `${this.url}/${workoutId}/trained/${trainedId}`, {
+        method: 'DELETE',
+      });
+    
+    if(response.status !== 204) {
+      throw new Error('Cannot delete trained exercise');
+    }
   }
 
 }

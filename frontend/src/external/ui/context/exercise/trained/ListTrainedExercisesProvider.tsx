@@ -2,7 +2,8 @@ import { PropsWithChildren } from 'react';
 import { ListTrainedExercisesContext } from './ListTrainedExercisesContext';
 import ListTrainedExercisesUseCase 
   from '../../../../../app/usecase/exercise/ListTrainedExercisesUseCase';
-import TrainedExerciseClientImpl from '../../../../web/TrainedExerciseClientImpl';
+import TrainedExerciseClientImpl 
+  from '../../../../web/TrainedExerciseClientImpl';
 import TrainedExerciseResponseMapper 
   from '../../../../../app/port/out/mapper/TrainedExerciseResponseMapper';
 

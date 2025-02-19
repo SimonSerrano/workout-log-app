@@ -13,4 +13,8 @@ export default interface TrainedExerciseClient {
     trainedId: number,
     trained: NewTrainedExercise
   ): Promise<TrainedExerciseResponse>
+  delete(
+    workoutId: string,
+    trainedId: number
+  ): Promise<void>
 }

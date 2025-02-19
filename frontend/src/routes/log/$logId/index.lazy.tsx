@@ -16,6 +16,9 @@ import ListExercisesProvider
 import UpdateTrainedExerciseProvider 
   from 
   '../../../external/ui/context/exercise/trained/UpdateTrainedExerciseProvider';
+import DeleteTrainedExercisesProvider 
+  from 
+  '../../../external/ui/context/exercise/trained/DeleteTrainedExerciseProvider';
 
 export const Route = createLazyFileRoute('/log/$logId/')({
   component: () => (
@@ -25,7 +28,9 @@ export const Route = createLazyFileRoute('/log/$logId/')({
           <CreateTrainedExerciseProvider>
             <ListExercisesProvider>
               <UpdateTrainedExerciseProvider>
-                <WorkoutLogDetailsPage />
+                <DeleteTrainedExercisesProvider>
+                  <WorkoutLogDetailsPage />
+                </DeleteTrainedExercisesProvider>
               </UpdateTrainedExerciseProvider>
             </ListExercisesProvider>
           </CreateTrainedExerciseProvider>
