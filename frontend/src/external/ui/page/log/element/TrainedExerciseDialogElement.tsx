@@ -1,8 +1,6 @@
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogTitle } from '@mui/material';
 import { PropsWithChildren } from 'react';
+import { InteractiveBannerComponent, InteractiveBannerTitleComponent } 
+  from '../../../component/InteractiveBannerComponent';
 
 export interface TrainedExerciseDialogProps {
   new?: boolean
@@ -11,24 +9,19 @@ export interface TrainedExerciseDialogProps {
 }
 
 
-
-
-
 export default 
 function TrainedExerciseDialogElement(
   props: PropsWithChildren<TrainedExerciseDialogProps>) {
 
   return (
-    <Dialog open={props.open} onClose={() => {
+    <InteractiveBannerComponent open={props.open} onClose={() => {
       props.onClose();
     }}>
-      <DialogTitle>{!props.new ? 
+      <InteractiveBannerTitleComponent>{!props.new ? 
         'Update this trained exercise' : 'Create a new trained exercise'}
-      </DialogTitle>
-      <DialogContent>
-        {props.children}
-      </DialogContent>
-    </Dialog>
+      </InteractiveBannerTitleComponent>
+      {props.children}
+    </InteractiveBannerComponent>
   );
 
 }
