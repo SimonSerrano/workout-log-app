@@ -1,7 +1,7 @@
 ## General
 - [ ] As an **athlete**, I want to **progressively log my workout (exercises, sets and reps)** so that I can **consume my rest time effectively**
-  - [ ] api
-  - [ ] ui
+  - [x] api
+  - [x] ui
 
 ## Workouts
 - [ ] As an **athlete**, I want to **log a workout** so I can **keep track of progress in my trained exercises**
@@ -14,14 +14,15 @@
   - [x] api
   - [x] ui
 - [ ] As an **athlete**, I want my workouts **to be chronologically sorted** so I can **easily find a workout**
-  - [ ] api
-  - [ ] ui
+  - [x] api
+  - [x] ui
 - [ ] As an **athlete**, I want to **name my workouts** so I can **qualify them and find them later on**
   - [x] api
   - [x] ui
 - [ ] As an **athlete**, I want to **update the name of a workout** so I can **rename it better**
   - [x] api
   - [ ] ui
+- [ ] As an **athlete**, I want to **set a rest timer** so I can **know when to start a new set and log my workout during rest**
 
 ## Exercises
 - [ ] As an **athlete**, I want to **log the exercises** I practiced in my workout so I can **compare workouts with the same exercises**
@@ -32,27 +33,28 @@
   - [x] ui
 - [ ] As an **athlete**, I want to **delete an exercise** so I can **correct a wrong input**
   - [x] api
-  - [ ] ui
+  - [x] ui
 - [ ] As an **athlete**, I want to **list all my exercises in a workout** so I can **recall what my workout was made of**
   - [x] api
-  - [ ] ui
+  - [x] ui
 - [ ] As an **athlete**, I want to **select exercises from a list** so I do not **have to input the exercise name regularly**
   - [x] api
-  - [ ] ui
+  - [x] ui
+- [ ] As an **athlete**, I want to **see the progression of an exercise** so I can **ensure my workout makes me progress**
 
 ## Sets
 - [ ] As an **athlete**, I want **add a set to an exercise** I did during an exercise so I can **log the number of reps**
   - [x] api
-  - [ ] ui
+  - [x] ui
 - [ ] As an **athlete**, I want to **delete a set** so I can **correct a wrong input**
   - [x] api
-  - [ ] ui
+  - [x] ui
 - [ ] As an **athlete**, I want to **list all my sets** so I can **take a look at the number of repetitions for each set**
   - [x] api
-  - [ ] ui
+  - [x] ui
 - [ ] As an **athlete**, I want to **update a set** so I can **correct the number of reps I did**
   - [x] api
-  - [ ] ui
+  - [x] ui
 
 
 
