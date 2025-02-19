@@ -28,7 +28,8 @@ class WorkoutLogRepositoryImpl implements WorkoutLogRepository {
 
   @Override
   public List<WorkoutLog> read() {
-    return repository.findAll().stream().map(mapper::toWorkoutLog).toList();
+    return repository.findAllByOrderByCreatedAtDesc().stream()
+        .map(mapper::toWorkoutLog).toList();
   }
 
   @Override
