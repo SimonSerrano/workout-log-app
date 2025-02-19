@@ -1,5 +1,5 @@
-import DeleteWorkoutLog from '../port/in/DeleteWorkoutLog';
-import WorkoutLogClient from '../port/out/WorkoutLogClient';
+import DeleteWorkoutLog from '../../port/in/workout/DeleteWorkoutLog';
+import WorkoutLogClient from '../../port/out/WorkoutLogClient';
 
 export default class DeleteWorkoutLogUseCase implements DeleteWorkoutLog {
   

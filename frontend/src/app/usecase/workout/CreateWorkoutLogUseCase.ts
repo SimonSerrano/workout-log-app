@@ -1,9 +1,9 @@
-import WorkoutLog from '../domain/log/WorkoutLog';
-import CreateWorkoutLog from '../port/in/CreateWorkoutLog';
-import NewWorkoutLogForm from '../port/in/dto/NewWorkoutLogForm';
+import WorkoutLog from '../../domain/log/WorkoutLog';
+import CreateWorkoutLog from '../../port/in/workout/CreateWorkoutLog';
+import NewWorkoutLogForm from '../../port/in/dto/NewWorkoutLogForm';
 import WorkoutLogResponseMapper 
-  from '../port/out/mapper/WorkoutLogResponseMapper';
-import WorkoutLogClient from '../port/out/WorkoutLogClient';
+  from '../../port/out/mapper/WorkoutLogResponseMapper';
+import WorkoutLogClient from '../../port/out/WorkoutLogClient';
 
 export default class CreateWorkoutLogUseCase implements CreateWorkoutLog {
   

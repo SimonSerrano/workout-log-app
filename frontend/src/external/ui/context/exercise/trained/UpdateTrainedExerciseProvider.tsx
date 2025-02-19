@@ -1,10 +1,10 @@
 import { PropsWithChildren } from 'react';
 import TrainedExerciseResponseMapper 
-  from '../../../app/port/out/mapper/TrainedExerciseResponseMapper';
+  from '../../../../../app/port/out/mapper/TrainedExerciseResponseMapper';
 
-import TrainedExerciseClientImpl from '../../web/TrainedExerciseClientImpl';
+import TrainedExerciseClientImpl from '../../../../web/TrainedExerciseClientImpl';
 import UpdateTrainedExerciseUseCase 
-  from '../../../app/usecase/UpdateTrainedExerciseUseCase';
+  from '../../../../../app/usecase/exercise/UpdateTrainedExerciseUseCase';
 import { UpdateTrainedExerciseContext } from './UpdateTrainedExerciseContext';
 
 export default function 

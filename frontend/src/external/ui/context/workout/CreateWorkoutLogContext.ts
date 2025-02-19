@@ -1,5 +1,6 @@
 import { createContext, useContext } from 'react';
-import CreateWorkoutLog from '../../../../app/port/in/CreateWorkoutLog';
+import CreateWorkoutLog 
+  from '../../../../app/port/in/workout/CreateWorkoutLog';
 
 export const CreateWorkoutLogContext = createContext<CreateWorkoutLog>({
   create: async (newLog) => {

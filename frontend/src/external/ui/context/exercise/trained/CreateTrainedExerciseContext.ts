@@ -1,6 +1,8 @@
 import { createContext, useContext } from 'react';
-import CreateTrainedExercise from '../../../app/port/in/CreateTrainedExercise';
-import TrainedExercise from '../../../app/domain/exercise/TrainedExercise';
+import CreateTrainedExercise 
+  from '../../../../../app/port/in/exercise/CreateTrainedExercise';
+import TrainedExercise 
+  from '../../../../../app/domain/exercise/TrainedExercise';
 
 
 

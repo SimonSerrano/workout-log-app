@@ -1,8 +1,8 @@
-import WorkoutLog from '../domain/log/WorkoutLog';
-import GetLogDetails from '../port/in/GetLogDetails';
+import WorkoutLog from '../../domain/log/WorkoutLog';
+import GetLogDetails from '../../port/in/workout/GetLogDetails';
 import WorkoutLogResponseMapper 
-  from '../port/out/mapper/WorkoutLogResponseMapper';
-import WorkoutLogClient from '../port/out/WorkoutLogClient';
+  from '../../port/out/mapper/WorkoutLogResponseMapper';
+import WorkoutLogClient from '../../port/out/WorkoutLogClient';
 
 export default class getLogDetailsUseCase implements GetLogDetails {
   constructor(

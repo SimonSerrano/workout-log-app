@@ -1,9 +1,9 @@
-import TrainedExercise from '../domain/exercise/TrainedExercise';
-import NewTrainedExerciseForm from '../port/in/dto/NewTrainedExerciseForm';
-import UpdateTrainedExercise from '../port/in/UpdateTrainedExercise';
+import TrainedExercise from '../../domain/exercise/TrainedExercise';
+import NewTrainedExerciseForm from '../../port/in/dto/NewTrainedExerciseForm';
+import UpdateTrainedExercise from '../../port/in/exercise/UpdateTrainedExercise';
 import TrainedExerciseResponseMapper 
-  from '../port/out/mapper/TrainedExerciseResponseMapper';
-import TrainedExerciseClient from '../port/out/TrainedExerciseClient';
+  from '../../port/out/mapper/TrainedExerciseResponseMapper';
+import TrainedExerciseClient from '../../port/out/TrainedExerciseClient';
 
 export default class UpdateTrainedExerciseUseCase 
 implements UpdateTrainedExercise {

@@ -1,8 +1,8 @@
 import { PropsWithChildren } from 'react';
-import WorkoutLogClientImpl from '../../../web/WorkoutLogClientImpl';
+import WorkoutLogClientImpl from '../../../../web/WorkoutLogClientImpl';
 import DeleteWorkoutLogUseCase from 
-  '../../../../app/usecase/DeleteWorkoutLogUseCase';
-import { DeleteWorkoutLogContext } from './DeleteWorkoutLogContext';
+  '../../../../../app/usecase/workout/DeleteWorkoutLogUseCase';
+import { DeleteWorkoutLogContext } from '../DeleteWorkoutLogContext';
 
 export default function DeleteWorkoutLogProvider(props: PropsWithChildren) {
   const useCase = new DeleteWorkoutLogUseCase(new WorkoutLogClientImpl());

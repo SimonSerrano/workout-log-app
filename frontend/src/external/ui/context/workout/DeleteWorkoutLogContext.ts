@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import DeleteWorkoutLog from '../../../../app/port/in/DeleteWorkoutLog';
+import DeleteWorkoutLog from '../../../../app/port/in/workout/DeleteWorkoutLog';
 
 export const DeleteWorkoutLogContext = createContext<DeleteWorkoutLog>({
   delete: async () => {

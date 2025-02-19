@@ -6,16 +6,16 @@ import { useDeleteWorkoutLog }
   from '../../context/workout/DeleteWorkoutLogContext';
 import WorkoutButtonBar from './components/WorkoutButtonBar';
 import { useListTrainedExercises } 
-  from '../../context/ListTrainedExercisesContext';
+  from '../../context/exercise/trained/ListTrainedExercisesContext';
 import { useQuery } from '@tanstack/react-query';
 import TrainedExerciseList from './components/TrainedExerciseList';
 import { useCreateTrainedExercise } 
-  from '../../context/CreateTrainedExerciseContext';
-import { useListExercises } from '../../context/ListExercisesContext';
+  from '../../context/exercise/trained/CreateTrainedExerciseContext';
+import { useListExercises } from '../../context/exercise/ListExercisesContext';
 import NewTrainedExerciseDialog from './components/NewTrainedExerciseDialog';
 import TrainedExercise from '../../../../app/domain/exercise/TrainedExercise';
 import { useUpdateTrainedExercise } 
-  from '../../context/UpdateTrainedExerciseContext';
+  from '../../context/exercise/trained/UpdateTrainedExerciseContext';
 
 export default function WorkoutLogDetailsPage() {
   const routerState = useRouterState();

@@ -1,9 +1,9 @@
 import { PropsWithChildren } from 'react';
-import ListExercisesUseCase from '../../../app/usecase/ListExercisesUseCase';
+import ListExercisesUseCase from '../../../../app/usecase/exercise/ListExercisesUseCase';
 import { ListExercisesContext } from './ListExercisesContext';
-import ExerciseClientImpl from '../../web/ExerciseClientImpl';
+import ExerciseClientImpl from '../../../web/ExerciseClientImpl';
 import ExerciseReponseMapper 
-  from '../../../app/port/out/mapper/ExerciseResponseMapper';
+  from '../../../../app/port/out/mapper/ExerciseResponseMapper';
 
 export default function 
 ListExercisesProvider(props: PropsWithChildren) {

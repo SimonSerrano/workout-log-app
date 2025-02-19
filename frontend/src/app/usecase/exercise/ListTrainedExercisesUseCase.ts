@@ -1,8 +1,8 @@
-import TrainedExercise from '../domain/exercise/TrainedExercise';
-import ListTrainedExercises from '../port/in/ListTrainedExercises';
+import TrainedExercise from '../../domain/exercise/TrainedExercise';
+import ListTrainedExercises from '../../port/in/exercise/ListTrainedExercises';
 import TrainedExerciseResponseMapper 
-  from '../port/out/mapper/TrainedExerciseResponseMapper';
-import TrainedExerciseClient from '../port/out/TrainedExerciseClient';
+  from '../../port/out/mapper/TrainedExerciseResponseMapper';
+import TrainedExerciseClient from '../../port/out/TrainedExerciseClient';
 
 export default class ListTrainedExercisesUseCase 
 implements ListTrainedExercises {
