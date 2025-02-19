@@ -1,7 +1,6 @@
 import {
-  Button,
   Card,
-  CardActions,
+  CardActionArea,
   CardContent,
   Typography
 } from '@mui/material';
@@ -23,14 +22,13 @@ export default function WorkoutLogElement({
     throw new LogWithEmptyValueError();
   }
   return (
-    <Card>
-      <CardContent>
-        <Typography variant="h5">{log.name}</Typography>
-        <Typography>{log.createdAt}</Typography>
-      </CardContent>
-      <CardActions>
-        <Button onClick={() => onDetailsClick(log)}>Details</Button>
-      </CardActions>
+    <Card sx={{width: '100%',}}>
+      <CardActionArea onClick={() => onDetailsClick(log)}>
+        <CardContent>
+          <Typography variant="h5">{log.name}</Typography>
+          <Typography>{log.createdAt}</Typography>
+        </CardContent>
+      </CardActionArea>
     </Card>
   );
 }
