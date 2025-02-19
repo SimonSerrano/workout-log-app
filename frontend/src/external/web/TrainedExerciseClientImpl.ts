@@ -38,15 +38,20 @@ export default class TrainedExerciseClientImpl
     return response.json();
   }
 
-  async update(workoutId: string, trained: NewTrainedExercise): 
-  Promise<TrainedExerciseResponse> {
-    const response = await fetch(`${this.url}/${workoutId}/trained`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(trained),
-    });
+  async update(
+    workoutId: string, 
+    trainedId: number, 
+    trained: NewTrainedExercise): 
+    Promise<TrainedExerciseResponse> {
+    const response = await fetch(
+      `${this.url}/${workoutId}/trained/${trainedId}`, 
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(trained),
+      });
     
     if(response.status !== 200) {
       throw new Error('Cannot update trained exercise');

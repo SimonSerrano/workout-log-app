@@ -10,6 +10,7 @@ export default interface TrainedExerciseClient {
     newTrained: NewTrainedExercise): Promise<TrainedExerciseResponse>
   update(
     workoutId: string,
+    trainedId: number,
     trained: NewTrainedExercise
   ): Promise<TrainedExerciseResponse>
 }

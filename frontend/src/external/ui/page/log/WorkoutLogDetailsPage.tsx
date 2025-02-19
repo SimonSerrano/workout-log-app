@@ -28,7 +28,7 @@ export default function WorkoutLogDetailsPage() {
 
   const [newTrainedOpen, setNewTrainedOpen,] = useState(false);
   const [trainedEdited, setTrainedEdited,] = 
-  useState<null | TrainedExercise>(null);
+  useState<undefined | TrainedExercise>(undefined);
 
 
   
@@ -124,17 +124,29 @@ export default function WorkoutLogDetailsPage() {
         listExercisesQueryResult.data && 
         <NewTrainedExerciseDialog 
           open={newTrainedOpen} 
-          onClose={() => setNewTrainedOpen(false)}
+          onClose={() => {
+            setTrainedEdited(undefined);
+            setNewTrainedOpen(false);
+          }}
           onSubmit={async (newTrained) => {
             if(!trainedEdited) {
-              createTrainedExercise.create(log.id, newTrained);
+              await createTrainedExercise.create(log.id, newTrained);
             }else {
-              updateTrainedExercise.update(log.id, newTrained);
+              await updateTrainedExercise.update(
+                log.id, 
+                trainedEdited.id, 
+                newTrained);
             }
+            await listTrainedQueryResult.refetch();
+
             setNewTrainedOpen(false);
-            setTrainedEdited(null);
+            setTrainedEdited(undefined);
           }}
-          exercises={listExercisesQueryResult.data} />
+          exercises={listExercisesQueryResult.data}
+          formData={trainedEdited && {
+            exerciseId: trainedEdited.exercise.name,
+            sets: trainedEdited.sets.map((s) => s.reps),
+          }} />
       }
       
     </Grid2>

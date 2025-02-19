@@ -21,7 +21,7 @@ export interface NewTrainedExerciseDialogProps {
   formData?: NewTrainedExerciseForm
 }
 
-const defaultFormData = {
+const defaultFormData: Required<NewTrainedExerciseForm> = {
   exerciseId: '',
   sets: [],
 };

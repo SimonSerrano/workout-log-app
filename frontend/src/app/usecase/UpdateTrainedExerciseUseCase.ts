@@ -17,8 +17,9 @@ implements UpdateTrainedExercise {
 
   async update(
     workoutId: string, 
+    trainedId: number,
     newTrained: NewTrainedExerciseForm): Promise<TrainedExercise> {
-    const response = await this.client.update(workoutId, newTrained);
+    const response = await this.client.update(workoutId, trainedId, newTrained);
     return this.mapper.toTrainedExercise(response);
   }
 }
