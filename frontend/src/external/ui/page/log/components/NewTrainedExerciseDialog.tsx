@@ -12,6 +12,7 @@ import {
   Grid2, 
   MenuItem, 
   TextField } from '@mui/material';
+import { useEffect } from 'react';
 
 export interface NewTrainedExerciseDialogProps {
   open: boolean
@@ -42,10 +43,15 @@ function NewTrainedExerciseDialog(props: NewTrainedExerciseDialogProps) {
     onSubmit: ({value,}) => props.onSubmit(value),
   });
 
+  useEffect(() => {
+    if(!props.open) {
+      form.reset();
+    }
+  }, [props.open, form,]);
+
   return (
     <Dialog open={props.open} onClose={() => {
       props.onClose();
-      form.reset();
     }}>
       <DialogTitle>{props.formData ? 
         'Update this trained exercise' : 'Create a new trained exercise'}
