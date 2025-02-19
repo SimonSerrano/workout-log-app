@@ -1,5 +1,5 @@
 import { Button, CircularProgress, Grid2 } from '@mui/material';
-import NewWorkoutLogDialog from './element/NewWorkoutLogDialog';
+import NewWorkoutLogDialogElement from './element/NewWorkoutLogDialogElement';
 import { useSignal } from '@preact/signals-react';
 import WorkoutLogList from './element/WorkoutLogList';
 import { useQuery } from '@tanstack/react-query';
@@ -53,7 +53,7 @@ export default function WorkoutLogPage() {
         <Button onClick={() => (newWorkoutDialogOpen.value = true)}>
           Add workout log
         </Button>
-        <NewWorkoutLogDialog
+        <NewWorkoutLogDialogElement
           open={newWorkoutDialogOpen.value}
           onClose={() => (newWorkoutDialogOpen.value = false)}
           onSubmit={handleOnSubmitNewWorkout}
