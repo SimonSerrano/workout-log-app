@@ -39,7 +39,10 @@ export default function TrainedExerciseList(props: TrainedExerciseListProps) {
               alignItems={'center'} 
               justifyContent={'space-between'}>
               <Grid2>
-                <Typography>{trained.exercise.name}</Typography>
+                <Typography 
+                  color={'primary'}
+                  sx={{fontWeight: 'bold',}}
+                >{trained.exercise.name}</Typography>
               </Grid2>
               <Grid2 justifySelf={'flex-end'}>
                 <Grid2 container spacing={1}>
@@ -66,7 +69,7 @@ export default function TrainedExerciseList(props: TrainedExerciseListProps) {
               {
                 trained.sets.map((set) => (
                   <Grid2 key={set.id}>
-                    <Chip label={set.reps} />
+                    <Chip color="secondary" label={set.reps} />
                   </Grid2>
                 ))
               }
