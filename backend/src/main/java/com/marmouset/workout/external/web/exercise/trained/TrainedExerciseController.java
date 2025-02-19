@@ -10,7 +10,7 @@ import com.marmouset.workout.app.port.in.exercise.UpdateTrainedExercise;
 import com.marmouset.workout.app.port.in.exercise.UpdatedTrainedExerciseCommand;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
 import jakarta.validation.Valid;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -77,7 +77,7 @@ class TrainedExerciseController {
               new CreateTrainedExerciseCommand(
                   logId,
                   body.getExerciseId(),
-                  body.getSets().orElse(Collections.emptyList()))),
+                  body.getSets().orElse(new ArrayList<>()))),
           HttpStatus.CREATED);
     } catch (ExerciseNotFoundException | WorkoutLogNotFoundException e) {
       return ResponseEntity.badRequest().build();
@@ -96,7 +96,7 @@ class TrainedExerciseController {
                   trainedId,
                   logId,
                   body.getExerciseId(),
-                  body.getSets().orElse(Collections.emptyList()))));
+                  body.getSets().orElse(new ArrayList<>()))));
     } catch (ExerciseNotFoundException | WorkoutLogNotFoundException e) {
       return ResponseEntity.badRequest().build();
     }

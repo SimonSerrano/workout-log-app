@@ -16,6 +16,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,6 +41,7 @@ public class TrainedExerciseEntity extends AbstractEntity {
   private WorkoutLogEntity log;
 
   TrainedExerciseEntity() {
+    sets = new ArrayList<>();
   }
 
   public ExerciseEntity getExercise() {
@@ -54,8 +56,14 @@ public class TrainedExerciseEntity extends AbstractEntity {
     return sets;
   }
 
+  /**
+   * Replace all sets with new sets.
+   *
+   * @param sets the sets to set
+   */
   public void setSets(List<ExerciseSetEntity> sets) {
-    this.sets = sets;
+    this.sets.clear();
+    this.sets.addAll(sets);
   }
 
   public WorkoutLogEntity getLog() {
