@@ -1,4 +1,4 @@
-import { Paper, Stack, Typography, Backdrop, Slide } from '@mui/material';
+import { Paper, Typography, Backdrop, Slide } from '@mui/material';
 import TrapFocus from '@mui/material/Unstable_TrapFocus';
 import { PropsWithChildren } from 'react';
 
@@ -22,7 +22,7 @@ export function InteractiveBannerComponent(
 
 
   return <Backdrop
-    // sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1, })}
+    sx={(theme) => ({ zIndex: theme.zIndex.drawer + 1, })}
     open={props.open}
     onClick={(e) => {
       if(props.onClose) {
@@ -51,12 +51,7 @@ export function InteractiveBannerComponent(
             e.stopPropagation();
           }}
         >
-          <Stack
-            direction={{ xs: 'column', sm: 'row', }}
-            sx={{ justifyContent: 'space-between', gap: 2, }}
-          >
-            {props.open && props.children}
-          </Stack>
+          {props.open && props.children}
         </Paper>
       </Slide>
     </TrapFocus>
