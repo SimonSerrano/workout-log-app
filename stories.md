@@ -24,6 +24,8 @@
   - [ ] ui
 - [ ] As an **athlete**, I want to **set a rest timer** so I can **know when to start a new set and log my workout during rest**
 - [ ] As an **athlete**, I want to **create a workout from a routine** so I can **log my exercises faster and more easily**
+- [ ] As an **athlete**, I want to **see my workouts in a calendar** so I can **get a global view of my trainings**
+- [ ] As an **athlete**, I want to **set the date of my workout** so I can **log workouts that happened in the past**
 
 
 
