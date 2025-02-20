@@ -8,7 +8,7 @@ import com.marmouset.workout.app.domain.exercise.ExerciseNotFoundException;
 import com.marmouset.workout.app.domain.exercise.TrainedExerciseFactory;
 import com.marmouset.workout.app.domain.workout.WorkoutLogFactory;
 import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
-import com.marmouset.workout.app.port.in.exercise.CreateTrainedExerciseCommand;
+import com.marmouset.workout.app.port.in.exercise.CreateTrainedExerciseCommandBuilder;
 import com.marmouset.workout.app.port.out.exercise.ExerciseEntity;
 import com.marmouset.workout.app.port.out.exercise.ExerciseEntityContainer;
 import com.marmouset.workout.app.port.out.exercise.ExercisePresenter;
@@ -16,7 +16,7 @@ import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.trained.CreateTrainedExerciseRepoRequest;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
-import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
+import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponseBuilder;
 import com.marmouset.workout.app.port.out.set.ExerciseSetPresenter;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogEntity;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogEntityContainer;
@@ -107,14 +107,17 @@ class CreateTrainedExerciseUseCaseTest {
                 exerciseEntityContainer, List.of(6, 6, 6))))
         .thenReturn(trainedExercise);
 
-    var expected = new TrainedExerciseResponse(
-        trainedExercise.getId(),
-        trainedExercise.getLogId(),
-        exercisePresenter.present(trainedExercise.getExercise()),
-        Collections.emptyList());
+    var expected =
+        new TrainedExerciseResponseBuilder().setId(trainedExercise.getId())
+            .setLogId(trainedExercise.getLogId()).setExercise(
+                exercisePresenter.present(trainedExercise.getExercise()))
+            .setSets(Collections.emptyList())
+            .build();
 
     assertEquals(expected, useCase.create(
-        new CreateTrainedExerciseCommand(workout.getId(),
-            trainedExercise.getExercise().name(), List.of(6, 6, 6))));
+        new CreateTrainedExerciseCommandBuilder().setLogId(workout.getId())
+            .setExerciseId(trainedExercise.getExercise().name())
+            .setSets(List.of(6, 6, 6))
+            .build()));
   }
 }

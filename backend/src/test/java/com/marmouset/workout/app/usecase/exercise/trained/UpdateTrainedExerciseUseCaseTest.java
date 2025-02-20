@@ -15,7 +15,7 @@ import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.ExerciseResponse;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
-import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
+import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponseBuilder;
 import com.marmouset.workout.app.port.out.exercise.trained.UpdateTrainedExerciseRepoRequest;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
@@ -70,9 +70,11 @@ class UpdateTrainedExerciseUseCaseTest {
     var exercise = exerciseFactory.create("Pull up");
     var trainedId = 8L;
     var expected =
-        new TrainedExerciseResponse(trainedId, workout.getId(),
-            new ExerciseResponse(exercise.name()),
-            Collections.emptyList());
+        new TrainedExerciseResponseBuilder().setId(trainedId)
+            .setLogId(workout.getId())
+            .setExercise(new ExerciseResponse(exercise.name()))
+            .setSets(Collections.emptyList())
+            .build();
 
     ExerciseEntityContainer exerciseContainer = () -> new ExerciseEntity() {
       @Override

@@ -6,6 +6,7 @@ import com.marmouset.workout.app.domain.set.ExerciseSet;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -19,6 +20,7 @@ public class TrainedExerciseImpl implements TrainedExercise {
   private final List<ExerciseSet> sets;
   private final UUID logId;
   private Exercise exercise;
+  private Integer weight;
 
 
   /**
@@ -73,6 +75,17 @@ public class TrainedExerciseImpl implements TrainedExercise {
   @Override
   public TrainedExercise removeSet(ExerciseSet set) {
     sets.remove(set);
+    return this;
+  }
+
+  @Override
+  public Optional<Integer> getWeight() {
+    return Optional.ofNullable(weight);
+  }
+
+  @Override
+  public TrainedExercise setWeight(Integer weight) {
+    this.weight = weight;
     return this;
   }
 

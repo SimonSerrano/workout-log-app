@@ -16,6 +16,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,9 @@ public class TrainedExerciseEntity extends AbstractEntity {
   @ManyToOne(fetch = FetchType.LAZY, targetEntity = WorkoutLogEntityImpl.class)
   @JoinColumn(name = "log.id", updatable = false)
   private WorkoutLogEntity log;
+
+  @Min(0)
+  private float weight;
 
   TrainedExerciseEntity() {
     sets = new ArrayList<>();
@@ -88,6 +92,21 @@ public class TrainedExerciseEntity extends AbstractEntity {
   public TrainedExerciseEntity TEST_ONLY_setId(
       Long id) {
     this.id = id;
+    return this;
+  }
+
+  public float getWeight() {
+    return weight;
+  }
+
+  /**
+   * Sets the weight.
+   *
+   * @param weight the weight to set
+   * @return this
+   */
+  public TrainedExerciseEntity setWeight(float weight) {
+    this.weight = weight;
     return this;
   }
 }

@@ -3,7 +3,7 @@ package com.marmouset.workout.external.web.exercise.trained;
 import com.marmouset.workout.app.domain.exercise.ExerciseNotFoundException;
 import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import com.marmouset.workout.app.port.in.exercise.CreateTrainedExercise;
-import com.marmouset.workout.app.port.in.exercise.CreateTrainedExerciseCommand;
+import com.marmouset.workout.app.port.in.exercise.CreateTrainedExerciseCommandBuilder;
 import com.marmouset.workout.app.port.in.exercise.DeleteTrainedExercise;
 import com.marmouset.workout.app.port.in.exercise.ListTrainedExercises;
 import com.marmouset.workout.app.port.in.exercise.UpdateTrainedExercise;
@@ -72,12 +72,13 @@ class TrainedExerciseController {
       @PathVariable UUID logId,
       @Valid @RequestBody CreateOrUpdateTrainedExerciseBody body) {
     try {
+      var commandBuilder = new CreateTrainedExerciseCommandBuilder()
+          .setExerciseId(body.getExerciseId())
+          .setLogId(logId);
+      body.getSets().ifPresent(commandBuilder::setSets);
+      body.getWeight().ifPresent(commandBuilder::setWeight);
       return new ResponseEntity<>(
-          createTrainedExercise.create(
-              new CreateTrainedExerciseCommand(
-                  logId,
-                  body.getExerciseId(),
-                  body.getSets().orElse(new ArrayList<>()))),
+          createTrainedExercise.create(commandBuilder.build()),
           HttpStatus.CREATED);
     } catch (ExerciseNotFoundException | WorkoutLogNotFoundException e) {
       return ResponseEntity.badRequest().build();

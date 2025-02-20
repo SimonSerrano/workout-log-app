@@ -1,6 +1,7 @@
 package com.marmouset.workout.external.web.exercise.trained;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
@@ -10,12 +11,16 @@ import org.springframework.stereotype.Component;
 @Component
 class CreateOrUpdateTrainedExerciseBody {
   @Valid
-  @NotNull
-  @NotEmpty
+  @NotNull(message = "exerciseId cannot be null")
+  @NotEmpty(message = "exerciseId cannot be empty")
   private String exerciseId;
 
   @Valid
   private List<Integer> sets;
+
+  @Valid
+  @Min(value = 0, message = "Weight must be > 0")
+  private Integer weight;
 
   public String getExerciseId() {
     return exerciseId;
@@ -33,6 +38,15 @@ class CreateOrUpdateTrainedExerciseBody {
   public CreateOrUpdateTrainedExerciseBody setSets(
       List<Integer> sets) {
     this.sets = sets;
+    return this;
+  }
+
+  public Optional<Integer> getWeight() {
+    return Optional.ofNullable(weight);
+  }
+
+  public CreateOrUpdateTrainedExerciseBody setWeight(Integer weight) {
+    this.weight = weight;
     return this;
   }
 }

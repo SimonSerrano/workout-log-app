@@ -1,17 +1,32 @@
 package com.marmouset.workout.app.port.in.exercise;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
- * DTO to create a trained exerciseContainer in the business layer.
+ * DTO to create a trained exercise in the business layer.
  *
- * @param logId      the logContainer id
- * @param exerciseId the exerciseContainer id
+ * @param logId      the log id
+ * @param exerciseId the exercise id
  * @param sets       the sets practiced
+ * @param weight     the weight used for that exercise
  */
-public record CreateTrainedExerciseCommand(
-    UUID logId,
-    String exerciseId,
-    List<Integer> sets) {
+public record CreateTrainedExerciseCommand(UUID logId, String exerciseId,
+                                           List<Integer> sets, Integer weight) {
+
+  /**
+   * Creates a trained exercise command.
+   *
+   * @param logId      the log id
+   * @param exerciseId the exercise id
+   * @param sets       the optional sets
+   * @param weight     the optional weight
+   */
+  public CreateTrainedExerciseCommand {
+    if (Objects.isNull(sets)) {
+      sets = Collections.emptyList();
+    }
+  }
 }

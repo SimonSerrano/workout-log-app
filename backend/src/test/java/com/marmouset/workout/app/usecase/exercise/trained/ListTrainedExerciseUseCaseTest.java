@@ -12,7 +12,7 @@ import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import com.marmouset.workout.app.port.out.exercise.ExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
-import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
+import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponseBuilder;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogEntity;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogEntityContainer;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
@@ -75,16 +75,16 @@ class ListTrainedExerciseUseCaseTest {
     when(trainedExerciseRepository.read(workoutLogEntityContainer))
         .thenReturn(List.of(trained1, trained2));
 
-    var expected1 = new TrainedExerciseResponse(
-        trained1.getId(),
-        trained1.getLogId(),
-        exercisePresenter.present(exercise1),
-        Collections.emptyList());
-    var expected2 = new TrainedExerciseResponse(
-        trained2.getId(),
-        trained2.getLogId(),
-        exercisePresenter.present(exercise2),
-        Collections.emptyList());
+    var expected1 = new TrainedExerciseResponseBuilder().setId(trained1.getId())
+        .setLogId(trained1.getLogId())
+        .setExercise(exercisePresenter.present(exercise1))
+        .setSets(Collections.emptyList())
+        .build();
+    var expected2 = new TrainedExerciseResponseBuilder().setId(trained2.getId())
+        .setLogId(trained2.getLogId())
+        .setExercise(exercisePresenter.present(exercise2))
+        .setSets(Collections.emptyList())
+        .build();
 
     var result = useCase.list(workout.getId()).iterator();
     assertEquals(expected1, result.next());

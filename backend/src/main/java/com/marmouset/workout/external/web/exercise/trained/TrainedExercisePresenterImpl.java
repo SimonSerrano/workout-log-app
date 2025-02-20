@@ -4,6 +4,7 @@ import com.marmouset.workout.app.domain.exercise.TrainedExercise;
 import com.marmouset.workout.app.port.out.exercise.ExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
+import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponseBuilder;
 import com.marmouset.workout.app.port.out.set.ExerciseSetPresenter;
 import org.springframework.stereotype.Component;
 
@@ -21,11 +22,13 @@ class TrainedExercisePresenterImpl implements TrainedExercisePresenter {
 
   @Override
   public TrainedExerciseResponse present(TrainedExercise exercise) {
-    return new TrainedExerciseResponse(
-        exercise.getId(),
-        exercise.getLogId(),
-        exercisePresenter.present(exercise.getExercise()),
-        exercise.getSets().stream().map(exerciseSetPresenter::present)
-            .toList());
+    var response = new TrainedExerciseResponseBuilder()
+        .setId(exercise.getId())
+        .setLogId(exercise.getLogId())
+        .setExercise(exercisePresenter.present(exercise.getExercise()))
+        .setSets(exercise.getSets()
+            .stream().map(exerciseSetPresenter::present).toList());
+    exercise.getWeight().ifPresent(response::setWeight);
+    return response.build();
   }
 }

@@ -3,6 +3,7 @@ package com.marmouset.workout.app.domain.exercise;
 import com.marmouset.workout.app.domain.set.ExerciseSet;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -70,5 +71,19 @@ public interface TrainedExercise {
    */
   TrainedExercise removeSet(ExerciseSet set);
 
+  /**
+   * Get the optional weight.
+   *
+   * @return the weight wrapped in an optional
+   */
+  Optional<Integer> getWeight();
+
+  /**
+   * Set the weight.
+   *
+   * @param weight the weight to set
+   * @return this
+   */
+  TrainedExercise setWeight(Integer weight);
 
 }

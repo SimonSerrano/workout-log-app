@@ -12,10 +12,12 @@ import java.util.UUID;
  * @param logId    the workout logContainer id
  * @param exercise the trained exerciseContainer
  * @param sets     the sets for that exerciseContainer
+ * @param weight   the optional weight
  */
 public record TrainedExerciseResponse(Long id, UUID logId,
                                       ExerciseResponse exercise,
-                                      List<ExerciseSetResponse> sets) {
+                                      List<ExerciseSetResponse> sets,
+                                      Integer weight) {
 
 
 }
