@@ -21,9 +21,7 @@ class WorkoutLogRepositoryImpl implements WorkoutLogRepository {
                                   WorkoutLogMapper mapper) {
     this.repository = repository;
     this.mapper = mapper;
-
-    create(new CreateWorkoutLogRepoRequest("Toto"));
-    create(new CreateWorkoutLogRepoRequest("Titi"));
+    
   }
 
   @Override

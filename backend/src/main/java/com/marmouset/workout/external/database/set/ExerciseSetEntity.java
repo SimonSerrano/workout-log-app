@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 
 /**
  * Class representing an exercise set entity in the db.
@@ -18,6 +19,7 @@ public class ExerciseSetEntity extends AbstractEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Min(1)
   private int reps;
 
   /**

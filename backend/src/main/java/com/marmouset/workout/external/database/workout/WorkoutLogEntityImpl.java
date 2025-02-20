@@ -4,6 +4,9 @@ import com.marmouset.workout.app.port.out.workout.WorkoutLogEntity;
 import com.marmouset.workout.external.database.UuidBasedAbstractEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * This class represents a workout logContainer in the database.
@@ -13,6 +16,9 @@ import jakarta.persistence.Table;
 public class WorkoutLogEntityImpl
     extends UuidBasedAbstractEntity implements WorkoutLogEntity {
 
+  @NotNull
+  @NotEmpty
+  @Size(min = 1, max = 200)
   private String name;
 
   /**

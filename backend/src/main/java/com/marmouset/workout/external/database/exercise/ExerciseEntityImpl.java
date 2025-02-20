@@ -6,6 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 
 /**
  * Class representing an Exercise in the db.
@@ -17,6 +18,7 @@ public class ExerciseEntityImpl
 
   @Id
   @Column(unique = true)
+  @Size(min = 2, max = 200)
   private String name;
 
   /**

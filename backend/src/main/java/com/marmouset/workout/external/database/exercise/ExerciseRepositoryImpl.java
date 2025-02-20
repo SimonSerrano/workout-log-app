@@ -20,8 +20,7 @@ class ExerciseRepositoryImpl implements ExerciseRepository {
     this.exerciseRepository = exerciseRepository;
     this.mapper = mapper;
 
-    create(new CreateExerciseRepoRequest("Push up"));
-    create(new CreateExerciseRepoRequest("Pull up"));
+ 
   }
 
   @Override
