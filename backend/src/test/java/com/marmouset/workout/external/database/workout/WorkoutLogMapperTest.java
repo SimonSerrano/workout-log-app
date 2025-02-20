@@ -3,8 +3,7 @@ package com.marmouset.workout.external.database.workout;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.marmouset.workout.app.domain.workout.WorkoutLogFactory;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.Instant;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,12 +27,12 @@ class WorkoutLogMapperTest {
     var entity = new WorkoutLogEntityImpl();
     entity.setName("Leg workout");
     entity.TEST_ONLY_setId(UUID.randomUUID());
-    entity.setCreatedAt(LocalDateTime.now());
+    entity.setCreatedAt(Instant.now());
 
     var expected = factory.create(
         entity.getId(),
         entity.getName(),
-        entity.getCreatedAt().toInstant(ZoneOffset.UTC));
+        entity.getCreatedAt());
 
     assertEquals(expected, mapper.toWorkoutLog(entity));
 

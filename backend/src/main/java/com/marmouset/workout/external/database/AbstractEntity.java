@@ -5,7 +5,7 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Version;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 /**
  * Entity for the database that adds id and date time events.
@@ -18,18 +18,18 @@ public abstract class AbstractEntity {
   private Integer version;
 
   @Column(nullable = false, updatable = false)
-  private LocalDateTime createdAt;
+  private Instant createdAt;
 
   @Column(nullable = false)
-  private LocalDateTime updatedAt;
+  private Instant updatedAt;
 
   /**
    * Sets the createdAt and updatedAt.
    */
   @PrePersist
   protected void onCreate() {
-    this.createdAt = LocalDateTime.now();
-    this.updatedAt = LocalDateTime.now();
+    this.createdAt = Instant.now();
+    this.updatedAt = Instant.now();
   }
 
   /**
@@ -37,22 +37,22 @@ public abstract class AbstractEntity {
    */
   @PreUpdate
   protected void onUpdate() {
-    this.updatedAt = LocalDateTime.now();
+    this.updatedAt = Instant.now();
   }
 
   public Integer getVersion() {
     return version;
   }
 
-  public LocalDateTime getCreatedAt() {
+  public Instant getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(LocalDateTime createdAt) {
+  public void setCreatedAt(Instant createdAt) {
     this.createdAt = createdAt;
   }
 
-  public LocalDateTime getUpdatedAt() {
+  public Instant getUpdatedAt() {
     return updatedAt;
   }
 }

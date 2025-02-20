@@ -3,7 +3,6 @@ package com.marmouset.workout.external.database.workout;
 import com.marmouset.workout.app.domain.workout.WorkoutLog;
 import com.marmouset.workout.app.domain.workout.WorkoutLogFactory;
 import com.marmouset.workout.external.database.AbstractMapper;
-import java.time.ZoneOffset;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,9 +26,10 @@ class WorkoutLogMapper
 
   @Override
   protected WorkoutLog map(WorkoutLogEntityImpl toMap) {
-    return factory.create(toMap.getId(), toMap.getName(),
-        toMap.getCreatedAt().toInstant(
-            ZoneOffset.UTC));
+    return factory.create(
+        toMap.getId(),
+        toMap.getName(),
+        toMap.getCreatedAt());
   }
 }
 
