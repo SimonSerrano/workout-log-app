@@ -141,6 +141,11 @@ This project aims to provide an application where athletes can write down their 
 
 TODO: Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
+
+### Folder structure
+
+The sources are organized in two main folders: `app` and `external`. The `app` folder contains everything related to the business of this application. The `external` folder contains everything related to frameworks, database access, web and ui. This folder structure is based on the clean architecture principle with dependencies going inward only and not outward.
+
 _For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
