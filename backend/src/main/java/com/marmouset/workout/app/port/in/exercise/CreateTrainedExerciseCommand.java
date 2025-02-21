@@ -13,8 +13,11 @@ import java.util.UUID;
  * @param sets       the sets practiced
  * @param weight     the weight used for that exercise
  */
-public record CreateTrainedExerciseCommand(UUID logId, String exerciseId,
-                                           List<Integer> sets, Integer weight) {
+public record CreateTrainedExerciseCommand(
+    UUID logId,
+    String exerciseId,
+    List<Integer> sets,
+    Integer weight) {
 
   /**
    * Creates a trained exercise command.
@@ -25,8 +28,11 @@ public record CreateTrainedExerciseCommand(UUID logId, String exerciseId,
    * @param weight     the optional weight
    */
   public CreateTrainedExerciseCommand {
+    Objects.requireNonNull(logId, "Log id cannot be null");
+    Objects.requireNonNull(exerciseId, "Exercise id cannot be null");
     if (Objects.isNull(sets)) {
       sets = Collections.emptyList();
     }
+
   }
 }

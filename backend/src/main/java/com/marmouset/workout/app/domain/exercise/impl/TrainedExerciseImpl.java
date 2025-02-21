@@ -6,6 +6,7 @@ import com.marmouset.workout.app.domain.set.ExerciseSet;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -106,14 +107,22 @@ public class TrainedExerciseImpl implements TrainedExercise {
     if (!sets.equals(that.sets)) {
       return false;
     }
-    return exercise.equals(that.exercise);
+    if (!logId.equals(that.logId)) {
+      return false;
+    }
+    if (!exercise.equals(that.exercise)) {
+      return false;
+    }
+    return Objects.equals(weight, that.weight);
   }
 
   @Override
   public int hashCode() {
     int result = id.hashCode();
     result = 31 * result + sets.hashCode();
+    result = 31 * result + logId.hashCode();
     result = 31 * result + exercise.hashCode();
+    result = 31 * result + (weight != null ? weight.hashCode() : 0);
     return result;
   }
 }

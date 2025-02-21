@@ -1,6 +1,8 @@
 package com.marmouset.workout.external.database.exercise.trained;
 
 import com.marmouset.workout.app.port.out.exercise.ExerciseEntity;
+import com.marmouset.workout.app.port.out.exercise.trained.CreateTrainedExerciseRepoRequest;
+import com.marmouset.workout.app.port.out.exercise.trained.UpdateTrainedExerciseRepoRequest;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogEntity;
 import com.marmouset.workout.external.database.AbstractEntity;
 import com.marmouset.workout.external.database.exercise.ExerciseEntityImpl;
@@ -42,7 +44,7 @@ public class TrainedExerciseEntity extends AbstractEntity {
   private WorkoutLogEntity log;
 
   @Min(0)
-  private float weight;
+  private Integer weight;
 
   TrainedExerciseEntity() {
     sets = new ArrayList<>();
@@ -105,8 +107,44 @@ public class TrainedExerciseEntity extends AbstractEntity {
    * @param weight the weight to set
    * @return this
    */
-  public TrainedExerciseEntity setWeight(float weight) {
+  public TrainedExerciseEntity setWeight(Integer weight) {
     this.weight = weight;
     return this;
+  }
+
+  /**
+   * Mutates this entity from a creation request.
+   *
+   * @param request the mutation request
+   * @return this
+   */
+  public TrainedExerciseEntity mutateFrom(
+      CreateTrainedExerciseRepoRequest request) {
+    setExercise(request.exerciseContainer().reference());
+    setLog(request.logContainer().reference());
+    setSets(request.sets().stream().map(
+        this::createExerciseSetEntity).toList());
+    setWeight(request.weight());
+    return this;
+  }
+
+  /**
+   * Mutates this entity from an update request.
+   *
+   * @param request the mutation request
+   * @return this
+   */
+  public TrainedExerciseEntity mutateFrom(
+      UpdateTrainedExerciseRepoRequest request) {
+    setExercise(request.exerciseContainer().reference());
+    setSets(
+        request.sets().stream().map(this::createExerciseSetEntity).toList());
+    return this;
+  }
+
+  private ExerciseSetEntity createExerciseSetEntity(Integer s) {
+    var setEntity = new ExerciseSetEntity();
+    setEntity.setReps(s);
+    return setEntity;
   }
 }

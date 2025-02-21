@@ -5,7 +5,9 @@ import static org.mockito.Mockito.when;
 
 import com.marmouset.workout.app.domain.exercise.ExerciseFactory;
 import com.marmouset.workout.app.domain.exercise.ExerciseNotFoundException;
+import com.marmouset.workout.app.domain.exercise.TrainedExercise;
 import com.marmouset.workout.app.domain.exercise.TrainedExerciseFactory;
+import com.marmouset.workout.app.domain.workout.WorkoutLog;
 import com.marmouset.workout.app.domain.workout.WorkoutLogFactory;
 import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
 import com.marmouset.workout.app.port.in.exercise.CreateTrainedExerciseCommandBuilder;
@@ -13,7 +15,7 @@ import com.marmouset.workout.app.port.out.exercise.ExerciseEntity;
 import com.marmouset.workout.app.port.out.exercise.ExerciseEntityContainer;
 import com.marmouset.workout.app.port.out.exercise.ExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
-import com.marmouset.workout.app.port.out.exercise.trained.CreateTrainedExerciseRepoRequest;
+import com.marmouset.workout.app.port.out.exercise.trained.CreateTrainedExerciseRepoRequestBuilder;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponseBuilder;
@@ -58,6 +60,7 @@ class CreateTrainedExerciseUseCaseTest {
 
   private CreateTrainedExerciseUseCase useCase;
 
+
   @BeforeEach
   void setUp() {
     useCase = new CreateTrainedExerciseUseCase(
@@ -77,13 +80,110 @@ class CreateTrainedExerciseUseCaseTest {
         trainedExerciseFactory.create(new Random().nextLong(), workout.getId(),
             exerciseFactory.create("Pull ups"));
 
-    WorkoutLogEntityContainer containedWorkout = () -> new WorkoutLogEntity() {
-      @Override
-      public UUID getId() {
-        return workout.getId();
-      }
-    };
+    WorkoutLogEntityContainer containedWorkout =
+        () -> (WorkoutLogEntity) workout::getId;
     ExerciseEntityContainer exerciseEntityContainer =
+        createExerciseEntityContainer(trainedExercise);
+
+    prepareRepositoryMocksHappyReturns(
+        trainedExercise,
+        exerciseEntityContainer,
+        workout,
+        containedWorkout,
+        new CreateTrainedExerciseRepoRequestBuilder()
+            .setLogContainer(containedWorkout)
+            .setExerciseContainer(exerciseEntityContainer)
+            .setSets(List.of(6, 6, 6)));
+
+    var expected =
+        new TrainedExerciseResponseBuilder()
+            .setId(trainedExercise.getId())
+            .setLogId(trainedExercise.getLogId())
+            .setExercise(
+                exercisePresenter.present(trainedExercise.getExercise()))
+            .setSets(Collections.emptyList())
+            .build();
+
+    assertEquals(expected, useCase.create(
+        new CreateTrainedExerciseCommandBuilder()
+            .setLogId(workout.getId())
+            .setExerciseId(trainedExercise.getExercise().name())
+            .setSets(List.of(6, 6, 6))
+            .build()));
+  }
+
+
+  @Test
+  void shouldReturnCreatedTrainedExerciseWithWeight()
+      throws NotFoundException, WorkoutLogNotFoundException,
+      ExerciseNotFoundException {
+    var weight = 30;
+    var workout =
+        workoutLogFactory.create(UUID.randomUUID(), "Toto", Instant.now());
+    var trainedExercise = trainedExerciseFactory.create(
+        new Random().nextLong(),
+        workout.getId(),
+        exerciseFactory.create("Pull ups"));
+    trainedExercise.setWeight(weight);
+
+    WorkoutLogEntityContainer containedWorkout =
+        () -> (WorkoutLogEntity) workout::getId;
+    ExerciseEntityContainer
+        exerciseEntityContainer =
+        createExerciseEntityContainer(trainedExercise);
+
+    prepareRepositoryMocksHappyReturns(
+        trainedExercise,
+        exerciseEntityContainer,
+        workout,
+        containedWorkout,
+        new CreateTrainedExerciseRepoRequestBuilder()
+            .setLogContainer(containedWorkout)
+            .setExerciseContainer(exerciseEntityContainer)
+            .setSets(List.of(6, 6, 6))
+            .setWeight(weight));
+
+    var expected =
+        new TrainedExerciseResponseBuilder()
+            .setId(trainedExercise.getId())
+            .setLogId(trainedExercise.getLogId())
+            .setExercise(
+                exercisePresenter.present(trainedExercise.getExercise()))
+            .setSets(Collections.emptyList())
+            .setWeight(weight)
+            .build();
+
+    assertEquals(expected, useCase.create(
+        new CreateTrainedExerciseCommandBuilder()
+            .setLogId(workout.getId())
+            .setExerciseId(trainedExercise.getExercise().name())
+            .setSets(List.of(6, 6, 6))
+            .setWeight(weight)
+            .build()));
+  }
+
+  private void prepareRepositoryMocksHappyReturns(
+      TrainedExercise trainedExercise,
+      ExerciseEntityContainer exerciseEntityContainer,
+      WorkoutLog workout,
+      WorkoutLogEntityContainer containedWorkout,
+      CreateTrainedExerciseRepoRequestBuilder containedWorkout1)
+      throws NotFoundException {
+    when(
+        exerciseRepository.readReference(trainedExercise.getExercise().name()))
+        .thenReturn(exerciseEntityContainer);
+    when(workoutLogRepository.readReference(workout.getId()))
+        .thenReturn(containedWorkout);
+    when(trainedExerciseRepository
+        .create(
+            containedWorkout1
+                .build()))
+        .thenReturn(trainedExercise);
+  }
+
+  private ExerciseEntityContainer createExerciseEntityContainer(
+      TrainedExercise trainedExercise) {
+    return
         () -> new ExerciseEntity() {
           @Override
           public String getName() {
@@ -95,29 +195,5 @@ class CreateTrainedExerciseUseCaseTest {
             return trainedExercise.getExercise().name();
           }
         };
-
-    when(
-        exerciseRepository.readReference(trainedExercise.getExercise().name()))
-        .thenReturn(exerciseEntityContainer);
-    when(workoutLogRepository.readReference(workout.getId()))
-        .thenReturn(containedWorkout);
-    when(trainedExerciseRepository
-        .create(
-            new CreateTrainedExerciseRepoRequest(containedWorkout,
-                exerciseEntityContainer, List.of(6, 6, 6))))
-        .thenReturn(trainedExercise);
-
-    var expected =
-        new TrainedExerciseResponseBuilder().setId(trainedExercise.getId())
-            .setLogId(trainedExercise.getLogId()).setExercise(
-                exercisePresenter.present(trainedExercise.getExercise()))
-            .setSets(Collections.emptyList())
-            .build();
-
-    assertEquals(expected, useCase.create(
-        new CreateTrainedExerciseCommandBuilder().setLogId(workout.getId())
-            .setExerciseId(trainedExercise.getExercise().name())
-            .setSets(List.of(6, 6, 6))
-            .build()));
   }
 }

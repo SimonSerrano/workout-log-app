@@ -34,12 +34,7 @@ class TrainedExerciseRepositoryImpl implements TrainedExerciseRepository {
   @Override
   public TrainedExercise create(
       CreateTrainedExerciseRepoRequest request) {
-
-    var entity = new TrainedExerciseEntity();
-    entity.setExercise(request.exerciseContainer().reference());
-    entity.setLog(request.logContainer().reference());
-    entity.setSets(request.sets().stream().map(
-        this::createExerciseSetEntity).toList());
+    var entity = new TrainedExerciseEntity().mutateFrom(request);
     return mapper.toTrainedExercise(trainedExerciseRepository.save(entity));
   }
 
@@ -53,10 +48,8 @@ class TrainedExerciseRepositoryImpl implements TrainedExerciseRepository {
       throws NotFoundException {
     var entity =
         trainedExerciseRepository
-            .findById(request.trainedId()).orElseThrow(NotFoundException::new);
-    entity.setExercise(request.exerciseContainer().reference());
-    entity.setSets(request.sets().stream().map(
-        this::createExerciseSetEntity).toList());
+            .findById(request.trainedId()).orElseThrow(NotFoundException::new)
+            .mutateFrom(request);
     return mapper.toTrainedExercise(trainedExerciseRepository.save(entity));
   }
 
