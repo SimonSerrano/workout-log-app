@@ -116,6 +116,7 @@ This project aims to provide an application where athletes can write down their 
 * [NodeJS/NPM >= 22](https://nodejs.org/en)
 * [Java >= 21](https://www.java.com/fr/)
 * [Maven >= 3.6.3](https://maven.apache.org/)
+* [Docker >= 27.5.1](https://www.docker.com/)
 
 ### Installation
 
