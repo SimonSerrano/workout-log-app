@@ -1,10 +1,23 @@
 package com.marmouset.workout.app.port.out.set;
 
+import java.util.Objects;
+
 /**
  * Record for the exerciseContainer set.
  *
  * @param id   set id
  * @param reps number of repetition
  */
-public record ExerciseSetResponse(Long id, int reps) {
+public record ExerciseSetResponse(Long id, Integer reps) {
+
+  /**
+   * Creates an ExerciseSetResponse.
+   *
+   * @param id   the id
+   * @param reps the reps
+   */
+  public ExerciseSetResponse {
+    Objects.requireNonNull(id, "id cannot be null");
+    Objects.requireNonNull(reps, "reps cannot be null");
+  }
 }
