@@ -12,30 +12,36 @@ class UpdatedTrainedExerciseCommandTest {
   @Test
   void shouldThrowNullPointerExceptionWhenTrainedIdIsNull() {
     assertThrows(NullPointerException.class,
-        () -> new UpdatedTrainedExerciseCommand(
-            null,
-            UUID.randomUUID(),
-            "Pull ups",
-            Collections.emptyList()));
+        () -> new UpdatedTrainedExerciseCommandBuilder()
+            .setTrainedId(null)
+            .setLogId(UUID.randomUUID())
+            .setExerciseId("Pull ups")
+            .setSets(Collections.emptyList())
+            .setWeight(null)
+            .build());
   }
 
   @Test
   void shouldThrowNullPointerExceptionWhenLogIdIsNull() {
     assertThrows(NullPointerException.class,
-        () -> new UpdatedTrainedExerciseCommand(
-            new Random().nextLong(),
-            null,
-            "Pull ups",
-            Collections.emptyList()));
+        () -> new UpdatedTrainedExerciseCommandBuilder()
+            .setTrainedId(new Random().nextLong())
+            .setLogId(null)
+            .setExerciseId("Pull ups")
+            .setSets(Collections.emptyList())
+            .setWeight(null)
+            .build());
   }
 
   @Test
   void shouldThrowNullPointerExceptionWhenExerciseIdIsNull() {
     assertThrows(NullPointerException.class,
-        () -> new UpdatedTrainedExerciseCommand(
-            new Random().nextLong(),
-            UUID.randomUUID(),
-            null,
-            Collections.emptyList()));
+        () -> new UpdatedTrainedExerciseCommandBuilder()
+            .setTrainedId(new Random().nextLong())
+            .setLogId(UUID.randomUUID())
+            .setExerciseId(null)
+            .setSets(null)
+            .setWeight(null)
+            .build());
   }
 }

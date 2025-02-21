@@ -1,5 +1,6 @@
 package com.marmouset.workout.app.port.in.exercise;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -11,13 +12,14 @@ import java.util.UUID;
  * @param logId      the logContainer id
  * @param exerciseId the new exerciseContainer id
  * @param sets       the number of repetitions during that set
+ * @param weight     the weight of the exercise
  */
 public record UpdatedTrainedExerciseCommand(
     Long trainedId,
     UUID logId,
     String exerciseId,
-    List<Integer> sets
-) {
+    List<Integer> sets,
+    Integer weight) {
 
   /**
    * Creates a UpdatedTrainedExerciseCommand.
@@ -26,10 +28,14 @@ public record UpdatedTrainedExerciseCommand(
    * @param logId      the log id
    * @param exerciseId the exercise id
    * @param sets       the sets
+   * @param weight     the weight of the exercise
    */
   public UpdatedTrainedExerciseCommand {
     Objects.requireNonNull(trainedId, "Trained exercise id cannot be null");
     Objects.requireNonNull(logId, "Log id cannot be null");
     Objects.requireNonNull(exerciseId, "Exercise id cannot be null");
+    if (Objects.isNull(sets)) {
+      sets = Collections.emptyList();
+    }
   }
 }

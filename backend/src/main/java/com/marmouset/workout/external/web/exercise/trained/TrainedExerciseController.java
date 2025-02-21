@@ -7,7 +7,7 @@ import com.marmouset.workout.app.port.in.exercise.CreateTrainedExerciseCommandBu
 import com.marmouset.workout.app.port.in.exercise.DeleteTrainedExercise;
 import com.marmouset.workout.app.port.in.exercise.ListTrainedExercises;
 import com.marmouset.workout.app.port.in.exercise.UpdateTrainedExercise;
-import com.marmouset.workout.app.port.in.exercise.UpdatedTrainedExerciseCommand;
+import com.marmouset.workout.app.port.in.exercise.UpdatedTrainedExerciseCommandBuilder;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
 import jakarta.validation.Valid;
 import java.util.ArrayList;
@@ -54,7 +54,6 @@ class TrainedExerciseController {
     }
   }
 
-
   @DeleteMapping(path = "/{trainedId}")
   public ResponseEntity<Void> delete(
       @PathVariable("logId") UUID logId,
@@ -93,11 +92,10 @@ class TrainedExerciseController {
     try {
       return ResponseEntity.ok(
           updateTrainedExercise.update(
-              new UpdatedTrainedExerciseCommand(
-                  trainedId,
-                  logId,
-                  body.getExerciseId(),
-                  body.getSets().orElse(new ArrayList<>()))));
+              new UpdatedTrainedExerciseCommandBuilder().setTrainedId(trainedId)
+                  .setLogId(logId).setExerciseId(body.getExerciseId())
+                  .setSets(body.getSets().orElse(new ArrayList<>()))
+                  .build()));
     } catch (ExerciseNotFoundException | WorkoutLogNotFoundException e) {
       return ResponseEntity.badRequest().build();
     }

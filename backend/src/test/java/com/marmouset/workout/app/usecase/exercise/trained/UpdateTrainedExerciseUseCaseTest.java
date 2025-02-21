@@ -8,7 +8,7 @@ import com.marmouset.workout.app.domain.exercise.ExerciseNotFoundException;
 import com.marmouset.workout.app.domain.exercise.TrainedExerciseFactory;
 import com.marmouset.workout.app.domain.workout.WorkoutLogFactory;
 import com.marmouset.workout.app.domain.workout.WorkoutLogNotFoundException;
-import com.marmouset.workout.app.port.in.exercise.UpdatedTrainedExerciseCommand;
+import com.marmouset.workout.app.port.in.exercise.UpdatedTrainedExerciseCommandBuilder;
 import com.marmouset.workout.app.port.out.exercise.ExerciseEntity;
 import com.marmouset.workout.app.port.out.exercise.ExerciseEntityContainer;
 import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
@@ -52,29 +52,25 @@ class UpdateTrainedExerciseUseCaseTest {
 
   @BeforeEach
   void setUp() {
-    useCase =
-        new UpdateTrainedExerciseUseCase(
-            trainedExerciseRepository,
-            workoutLogRepository,
-            exerciseRepository,
-            presenter);
+    useCase = new UpdateTrainedExerciseUseCase(
+        trainedExerciseRepository,
+        workoutLogRepository,
+        exerciseRepository,
+        presenter);
   }
-
 
   @Test
   void shouldCallRepositoryToUpdateTrainedExercise()
       throws NotFoundException, WorkoutLogNotFoundException,
       ExerciseNotFoundException {
-    var workout =
-        workoutLogFactory.create(UUID.randomUUID(), "Toto", Instant.now());
+    var workout = workoutLogFactory.create(UUID.randomUUID(), "Toto", Instant.now());
     var exercise = exerciseFactory.create("Pull up");
     var trainedId = 8L;
-    var expected =
-        new TrainedExerciseResponseBuilder().setId(trainedId)
-            .setLogId(workout.getId())
-            .setExercise(new ExerciseResponse(exercise.name()))
-            .setSets(Collections.emptyList())
-            .build();
+    var expected = new TrainedExerciseResponseBuilder().setId(trainedId)
+        .setLogId(workout.getId())
+        .setExercise(new ExerciseResponse(exercise.name()))
+        .setSets(Collections.emptyList())
+        .build();
 
     ExerciseEntityContainer exerciseContainer = () -> new ExerciseEntity() {
       @Override
@@ -100,9 +96,9 @@ class UpdateTrainedExerciseUseCaseTest {
             .create(trainedId, workout.getId(), exercise));
 
     var result = useCase.update(
-        new UpdatedTrainedExerciseCommand(
-            expected.id(), workout.getId(), expected.exercise().name(),
-            List.of(8, 8, 7)));
+        new UpdatedTrainedExerciseCommandBuilder().setTrainedId(expected.id())
+            .setLogId(workout.getId()).setExerciseId(expected.exercise().name())
+            .setSets(List.of(8, 8, 7)).build());
     assertEquals(expected, result);
 
   }
