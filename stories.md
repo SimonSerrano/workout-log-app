@@ -48,9 +48,9 @@
 - [ ] As an **athlete**, I want to **see the progression of an exercise** so I can **ensure my workout makes me progress**
 - [ ] As an **athlete**, I want to **reorder my exercises** so I can **remember what happened during a workout**
 - [ ] As an **athlete**, I want to **set concentric exercises** so I can **log how many repetitions I did per set**
-- [ ] As an **athlete**, I want to **set weighted concentric exercises** so I can **log how many repetitions I did per set and how much weight I lifted**
-- [ ] As an **athlete**, I want to **set isometric exercises** so I can **log how long I held and how much weight I lifted per set**
-- [ ] As an **athlete**, I want to **set eccentric exercises** so I can **log how long I held, how many repetitions I did and how much weight I lifted per set**
+- [ ] As an **athlete**, I want to **set isometric exercises** so I can **log how long I held per set**
+- [ ] As an **athlete**, I want to **set eccentric exercises** so I can **log how long I held and how many repetitions per set**
+- [x] As an **athlete**, I want to **set the weight to any exercise** so I can **log how much weight I lifted**
 
 
 
