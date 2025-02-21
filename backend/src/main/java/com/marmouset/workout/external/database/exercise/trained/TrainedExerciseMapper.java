@@ -7,7 +7,6 @@ import com.marmouset.workout.external.database.exercise.ExerciseMapper;
 import com.marmouset.workout.external.database.set.ExerciseSetMapper;
 import org.springframework.stereotype.Component;
 
-
 /**
  * Mapper between the database entity and the domain's entity.
  */
@@ -26,8 +25,8 @@ public class TrainedExerciseMapper extends
    * @param exerciseSetMapper mapper for the exercise set
    */
   public TrainedExerciseMapper(TrainedExerciseFactory factory,
-                               ExerciseMapper exerciseMapper,
-                               ExerciseSetMapper exerciseSetMapper) {
+      ExerciseMapper exerciseMapper,
+      ExerciseSetMapper exerciseSetMapper) {
     super(factory);
     this.exerciseMapper = exerciseMapper;
     this.exerciseSetMapper = exerciseSetMapper;
@@ -45,13 +44,13 @@ public class TrainedExerciseMapper extends
 
   @Override
   protected TrainedExercise map(TrainedExerciseEntity toMap) {
-    var result =
-        factory.create(
-            toMap.getId(),
-            toMap.getLog().getId(),
-            exerciseMapper.toExercise(toMap.getExercise()));
+    var result = factory.create(
+        toMap.getId(),
+        toMap.getLog().getId(),
+        exerciseMapper.toExercise(toMap.getExercise()));
     return result.addAllSets(
         toMap.getSets().stream().map(exerciseSetMapper::toExerciseSet)
-            .toList());
+            .toList())
+        .setWeight(toMap.getWeight());
   }
 }

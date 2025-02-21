@@ -97,7 +97,7 @@ public class TrainedExerciseEntity extends AbstractEntity {
     return this;
   }
 
-  public float getWeight() {
+  public Integer getWeight() {
     return weight;
   }
 
