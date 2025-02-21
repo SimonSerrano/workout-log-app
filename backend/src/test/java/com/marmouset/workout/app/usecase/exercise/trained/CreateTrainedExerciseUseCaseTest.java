@@ -20,7 +20,6 @@ import com.marmouset.workout.app.port.out.exercise.trained.CreateTrainedExercise
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponseBuilder;
-import com.marmouset.workout.app.port.out.set.ExerciseSetPresenter;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogEntity;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogEntityContainer;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
@@ -50,8 +49,6 @@ class CreateTrainedExerciseUseCaseTest {
   private TrainedExercisePresenter trainedExercisePresenter;
   @Autowired
   private ExercisePresenter exercisePresenter;
-  @Autowired
-  private ExerciseSetPresenter exerciseSetPresenter;
 
   @Autowired
   private ExerciseFactory exerciseFactory;

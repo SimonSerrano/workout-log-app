@@ -10,7 +10,6 @@ import com.marmouset.workout.app.port.in.exercise.UpdateTrainedExercise;
 import com.marmouset.workout.app.port.in.exercise.UpdatedTrainedExerciseCommandBuilder;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
 import jakarta.validation.Valid;
-import java.util.ArrayList;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -90,12 +89,14 @@ class TrainedExerciseController {
       @PathVariable("trainedId") Long trainedId,
       @Valid @RequestBody CreateOrUpdateTrainedExerciseBody body) {
     try {
-      return ResponseEntity.ok(
-          updateTrainedExercise.update(
-              new UpdatedTrainedExerciseCommandBuilder().setTrainedId(trainedId)
-                  .setLogId(logId).setExerciseId(body.getExerciseId())
-                  .setSets(body.getSets().orElse(new ArrayList<>()))
-                  .build()));
+      var commandBuilder = new UpdatedTrainedExerciseCommandBuilder()
+          .setLogId(logId)
+          .setTrainedId(trainedId)
+          .setExerciseId(body.getExerciseId());
+      body.getSets().ifPresent(commandBuilder::setSets);
+      body.getWeight().ifPresent(commandBuilder::setWeight);
+      return ResponseEntity
+          .ok(updateTrainedExercise.update(commandBuilder.build()));
     } catch (ExerciseNotFoundException | WorkoutLogNotFoundException e) {
       return ResponseEntity.badRequest().build();
     }

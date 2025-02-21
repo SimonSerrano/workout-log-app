@@ -203,7 +203,8 @@ class TrainedExerciseControllerTest {
         .setId(8L)
         .setLogId(logId)
         .setExercise(new ExerciseResponse("Pull up"))
-        .setSets(Collections.emptyList()).setWeight(weight)
+        .setSets(Collections.emptyList())
+        .setWeight(weight)
         .build();
     when(createTrainedExercise.create(
         new CreateTrainedExerciseCommandBuilder()
@@ -219,6 +220,43 @@ class TrainedExerciseControllerTest {
         .contentType(MediaType.APPLICATION_JSON)
         .content(new ObjectMapper().writeValueAsString(body)))
         .andExpect(MockMvcResultMatchers.status().isCreated())
+        .andExpect(MockMvcResultMatchers
+            .jsonPath("$.weight").value(weight));
+  }
+
+  @Test
+  void shouldUpdateExerciseWithWeight()
+      throws Exception {
+    var logId = UUID.randomUUID();
+    var exerciseId = "Pull up";
+    var weight = 30;
+    var trainedId = 8L;
+    var body = Map.of(
+        "exerciseId", exerciseId,
+        "weight", weight);
+
+    var response = new TrainedExerciseResponseBuilder()
+        .setId(8L)
+        .setLogId(logId)
+        .setExercise(new ExerciseResponse("Pull up"))
+        .setSets(Collections.emptyList())
+        .setWeight(weight)
+        .build();
+    when(updateTrainedExercise.update(
+        new UpdatedTrainedExerciseCommandBuilder()
+            .setLogId(logId)
+            .setTrainedId(trainedId)
+            .setExerciseId(exerciseId)
+            .setSets(Collections.emptyList())
+            .setWeight(weight)
+            .build()))
+        .thenReturn(response);
+
+    mockMvc.perform(MockMvcRequestBuilders
+        .patch("/log/" + logId + "/trained/" + trainedId)
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(new ObjectMapper().writeValueAsString(body)))
+        .andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers
             .jsonPath("$.weight").value(weight));
   }

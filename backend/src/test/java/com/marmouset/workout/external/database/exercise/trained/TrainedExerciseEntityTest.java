@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.AssertionFailureBuilder.assertionFailure;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.marmouset.workout.app.port.out.exercise.trained.CreateTrainedExerciseRepoRequestBuilder;
+import com.marmouset.workout.app.port.out.exercise.trained.UpdateTrainedExerciseRepoRequestBuilder;
 import com.marmouset.workout.external.database.exercise.ExerciseEntityImpl;
 import com.marmouset.workout.external.database.set.ExerciseSetEntity;
 import com.marmouset.workout.external.database.workout.WorkoutLogEntityImpl;
 import java.util.List;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class TrainedExerciseEntityTest {
@@ -34,12 +34,12 @@ class TrainedExerciseEntityTest {
   }
 
   @Test
-  @Disabled("Update request not yet implemented")
   void shouldMutateFromUpdateRequest() {
     var exercise = new ExerciseEntityImpl();
     var sets = List.of(3, 4, 6);
     var entity = new TrainedExerciseEntity()
-        .mutateFrom(new CreateTrainedExerciseRepoRequestBuilder()
+        .mutateFrom(new UpdateTrainedExerciseRepoRequestBuilder()
+            .setTrainedId(1L)
             .setExerciseContainer(() -> exercise)
             .setSets(List.of(3, 4, 6))
             .setWeight(30)

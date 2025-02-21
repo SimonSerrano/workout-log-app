@@ -139,6 +139,7 @@ public class TrainedExerciseEntity extends AbstractEntity {
     setExercise(request.exerciseContainer().reference());
     setSets(
         request.sets().stream().map(this::createExerciseSetEntity).toList());
+    setWeight(request.weight());
     return this;
   }
 

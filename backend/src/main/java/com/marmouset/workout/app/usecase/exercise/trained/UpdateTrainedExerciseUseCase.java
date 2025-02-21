@@ -8,14 +8,13 @@ import com.marmouset.workout.app.port.out.exercise.ExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExercisePresenter;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseRepository;
 import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseResponse;
-import com.marmouset.workout.app.port.out.exercise.trained.UpdateTrainedExerciseRepoRequest;
+import com.marmouset.workout.app.port.out.exercise.trained.UpdateTrainedExerciseRepoRequestBuilder;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
 import org.springframework.stereotype.Component;
 
 @Component
 class UpdateTrainedExerciseUseCase implements UpdateTrainedExercise {
-
 
   private final TrainedExerciseRepository trainedExerciseRepository;
   private final WorkoutLogRepository workoutLogRepository;
@@ -44,13 +43,13 @@ class UpdateTrainedExerciseUseCase implements UpdateTrainedExercise {
 
     try {
       var exercise = exerciseRepository.readReference(command.exerciseId());
-      return presenter.present(
-          trainedExerciseRepository.update(
-              new UpdateTrainedExerciseRepoRequest(
-                  command.trainedId(),
-                  exercise,
-                  command.sets()))
-      );
+      var requestBuilder = new UpdateTrainedExerciseRepoRequestBuilder()
+          .setTrainedId(command.trainedId())
+          .setExerciseContainer(exercise)
+          .setSets(command.sets())
+          .setWeight(command.weight());
+      return presenter
+          .present(trainedExerciseRepository.update(requestBuilder.build()));
     } catch (NotFoundException e) {
       throw new ExerciseNotFoundException(command.exerciseId());
     }

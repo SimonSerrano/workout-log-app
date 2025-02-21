@@ -7,7 +7,6 @@ import com.marmouset.workout.app.port.out.exercise.trained.TrainedExerciseReposi
 import com.marmouset.workout.app.port.out.exercise.trained.UpdateTrainedExerciseRepoRequest;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogEntityContainer;
 import com.marmouset.workout.external.database.exception.NotFoundException;
-import com.marmouset.workout.external.database.set.ExerciseSetEntity;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +22,6 @@ class TrainedExerciseRepositoryImpl implements TrainedExerciseRepository {
     this.trainedExerciseRepository = trainedExerciseRepository;
     this.mapper = mapper;
   }
-
 
   @Override
   public List<TrainedExercise> read(WorkoutLogEntityContainer log) {
@@ -46,16 +44,9 @@ class TrainedExerciseRepositoryImpl implements TrainedExerciseRepository {
   @Override
   public TrainedExercise update(UpdateTrainedExerciseRepoRequest request)
       throws NotFoundException {
-    var entity =
-        trainedExerciseRepository
-            .findById(request.trainedId()).orElseThrow(NotFoundException::new)
-            .mutateFrom(request);
+    var entity = trainedExerciseRepository
+        .findById(request.trainedId()).orElseThrow(NotFoundException::new)
+        .mutateFrom(request);
     return mapper.toTrainedExercise(trainedExerciseRepository.save(entity));
-  }
-
-  private ExerciseSetEntity createExerciseSetEntity(Integer s) {
-    var setEntity = new ExerciseSetEntity();
-    setEntity.setReps(s);
-    return setEntity;
   }
 }
