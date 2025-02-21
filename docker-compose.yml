@@ -27,6 +27,7 @@ services:
       watch:
         - path: ./backend
           action: rebuild
+          target: /app
 
   frontend:
     build: 
@@ -36,14 +37,15 @@ services:
     restart: always
     ports:
       - "${FRONTEND_PORT}:80"
-    depends_on:
-      - backend
     networks:
       - frontend_network
     develop:
       watch:
         - path: ./frontend
           action: rebuild
+          target: /app
+          ignore:
+            - node_modules
 
   db:
     image: postgres:17
