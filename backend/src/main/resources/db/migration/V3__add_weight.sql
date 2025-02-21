@@ -1,0 +1,1 @@
+alter table trained_exercises add column weight integer;
