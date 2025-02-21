@@ -1,5 +1,5 @@
 import TrainedExercise from '../../domain/exercise/TrainedExercise';
-import TrainedExerciseFormDTO from '../../port/in/dto/TrainedExerciseForm';
+import TrainedExerciseFormDTO from '../../port/in/dto/TrainedExerciseFormDTO';
 import UpdateTrainedExercise from '../../port/in/exercise/UpdateTrainedExercise';
 import TrainedExerciseResponseMapper 
   from '../../port/out/mapper/TrainedExerciseResponseMapper';

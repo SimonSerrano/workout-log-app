@@ -2,12 +2,14 @@ import {
   Chip, 
   CircularProgress, 
   Grid2, 
+  Icon, 
   IconButton, 
   Typography } from '@mui/material';
 import TrainedExercise 
   from '../../../../../app/domain/exercise/TrainedExercise';
 import DeleteButtonComponent from '../../../component/DeleteButtonComponent';
 import EditIcon from '@mui/icons-material/Edit';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 
 export interface TrainedExerciseListProps {
   isPending: boolean,
@@ -39,10 +41,34 @@ export default function TrainedExerciseList(props: TrainedExerciseListProps) {
               alignItems={'center'} 
               justifyContent={'space-between'}>
               <Grid2>
-                <Typography 
-                  color={'primary'}
-                  sx={{fontWeight: 'bold',}}
-                >{trained.exercise.name}</Typography>
+                <Grid2 container 
+                  spacing={2}
+                  alignItems={'center'} 
+                  justifyContent={'space-between'}
+                >
+                  <Grid2>
+                    <Typography 
+                      color={'primary'}
+                      sx={{fontWeight: 'bold',}}
+                    >{trained.exercise.name}</Typography>
+                  </Grid2>
+                  {
+                    trained.weight && (
+                      <>
+                        <Grid2>
+                          <Icon>
+                            <FitnessCenterIcon />
+                          </Icon>
+                        </Grid2>
+                        <Grid2>
+                          <Typography color="secondary">
+                            {trained.weight}
+                          </Typography>
+                        </Grid2>
+                      </>
+                    )
+                  }
+                </Grid2>
               </Grid2>
               <Grid2 justifySelf={'flex-end'}>
                 <Grid2 container spacing={1}>

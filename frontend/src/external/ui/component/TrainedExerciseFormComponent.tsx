@@ -1,7 +1,7 @@
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import Exercise from '../../../app/domain/exercise/Exercise';
 import TrainedExerciseFormDTO 
-  from '../../../app/port/in/dto/TrainedExerciseForm';
+  from '../../../app/port/in/dto/TrainedExerciseFormDTO';
 import { 
   Grid2, 
   TextField, 
@@ -19,7 +19,7 @@ export interface TrainedExerciseFormProps {
   formData?: TrainedExerciseFormDTO
 }
 
-const defaultFormData: Required<TrainedExerciseFormDTO> = {
+const defaultFormData: TrainedExerciseFormDTO = {
   exerciseId: '',
   sets: [],
 };
@@ -106,7 +106,7 @@ export default function TrainedExerciseFormComponent(
           >
             {(field) => (
               <Autocomplete
-                value={field.state.value.map((v) => ({
+                value={(field.state.value || []).map((v) => ({
                   label: new Intl.NumberFormat().format(v),
                   reps: v,
                 }))}
@@ -151,7 +151,6 @@ export default function TrainedExerciseFormComponent(
                     </li>
                   );
                 }}
-                // sx={{ width: 300, }}
                 freeSolo
                 multiple
                 renderInput={(params) => (
@@ -160,6 +159,33 @@ export default function TrainedExerciseFormComponent(
                 )}
               />
             )}
+          </form.Field>
+        </Grid2>
+        <Grid2>
+          <form.Field 
+            name="weight"
+          >
+            {
+              (field) => (
+                <TextField
+                  fullWidth
+                  id={field.name}
+                  name={field.name}
+                  onBlur={field.handleBlur}
+                  value={field.state.value || ''}
+                  error={Boolean(field.state.meta.errors.length)}
+                  label="Weight"
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    const parsedValue = parseInt(value);
+                    if(value && isNaN(parsedValue)) {
+                      return;
+                    }
+                    field.handleChange(parsedValue);
+                  }}
+                />
+              )
+            }
           </form.Field>
         </Grid2>
         <Grid2 alignSelf={'flex-end'}>

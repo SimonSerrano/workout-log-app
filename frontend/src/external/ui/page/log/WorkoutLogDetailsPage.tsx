@@ -184,6 +184,7 @@ export default function WorkoutLogDetailsPage() {
             formData={trainedEdited && {
               exerciseId: trainedEdited.exercise.name,
               sets: trainedEdited.sets.map((s) => s.reps),
+              weight: trainedEdited.weight,
             }}
           />
         </TrainedExerciseDialogElement>

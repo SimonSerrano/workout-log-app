@@ -10,6 +10,7 @@ export default class TrainedExerciseResponseMapper {
       exercise: response.exercise,
       logId: response.logId,
       sets: response.sets,
+      weight: response.weight,
     };
   }
 }

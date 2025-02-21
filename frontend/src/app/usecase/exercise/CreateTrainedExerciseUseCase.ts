@@ -1,7 +1,7 @@
 import TrainedExercise from '../../domain/exercise/TrainedExercise';
 import CreateTrainedExercise 
   from '../../port/in/exercise/CreateTrainedExercise';
-import TrainedExerciseFormDTO from '../../port/in/dto/TrainedExerciseForm';
+import TrainedExerciseFormDTO from '../../port/in/dto/TrainedExerciseFormDTO';
 import TrainedExerciseResponseMapper 
   from '../../port/out/mapper/TrainedExerciseResponseMapper';
 import TrainedExerciseClient from '../../port/out/TrainedExerciseClient';

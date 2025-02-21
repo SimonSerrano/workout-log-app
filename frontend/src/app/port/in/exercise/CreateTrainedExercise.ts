@@ -1,5 +1,5 @@
 import TrainedExercise from '../../../domain/exercise/TrainedExercise';
-import TrainedExerciseFormDTO from '../dto/TrainedExerciseForm';
+import TrainedExerciseFormDTO from '../dto/TrainedExerciseFormDTO';
 
 
 export default interface CreateTrainedExercise {
