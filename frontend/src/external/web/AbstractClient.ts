@@ -1,7 +1,7 @@
 export default abstract class AbstractClient {
   protected url: string;
   constructor(){
-    this.url = `http://localhost:8080${this.getPath()}`;
+    this.url = `${window.location.origin}/api${this.getPath()}`;
   }
 
   protected abstract getPath(): string;
