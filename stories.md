@@ -54,6 +54,7 @@
 
 
 
+
 ## Sets
 - [ ] As an **athlete**, I want **add a set to an exercise** I did during an exercise so I can **log the number of reps**
   - [x] api
