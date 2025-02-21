@@ -1,6 +1,7 @@
 package com.marmouset.workout.app.usecase.exercise.trained;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import com.marmouset.workout.app.domain.exercise.ExerciseFactory;
@@ -24,6 +25,7 @@ import com.marmouset.workout.app.port.out.workout.WorkoutLogEntity;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogEntityContainer;
 import com.marmouset.workout.app.port.out.workout.WorkoutLogRepository;
 import com.marmouset.workout.external.database.exception.NotFoundException;
+import com.marmouset.workout.external.database.workout.WorkoutLogEntityImpl;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
@@ -160,6 +162,31 @@ class CreateTrainedExerciseUseCaseTest {
             .setSets(List.of(6, 6, 6))
             .setWeight(weight)
             .build()));
+  }
+
+
+  @Test
+  void shouldThrowWorkoutLogNotFound() throws NotFoundException {
+    var uuid = UUID.randomUUID();
+    when(workoutLogRepository.readReference(uuid))
+        .thenThrow(NotFoundException.class);
+
+    assertThrows(WorkoutLogNotFoundException.class, () -> useCase.create(
+        new CreateTrainedExerciseCommandBuilder().setLogId(uuid)
+            .setExerciseId("Pull ups").build()));
+  }
+
+  @Test
+  void shouldThrowExerciseNotFound() throws NotFoundException {
+    var uuid = UUID.randomUUID();
+    when(workoutLogRepository.readReference(uuid))
+        .thenReturn(WorkoutLogEntityImpl::new);
+    when(exerciseRepository.readReference("Pull ups")).thenThrow(
+        NotFoundException.class);
+
+    assertThrows(ExerciseNotFoundException.class, () -> useCase.create(
+        new CreateTrainedExerciseCommandBuilder().setLogId(uuid)
+            .setExerciseId("Pull ups").build()));
   }
 
   private void prepareRepositoryMocksHappyReturns(
