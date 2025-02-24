@@ -30,6 +30,7 @@ import TrainedExerciseFormComponent
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import DeleteButtonComponent from '../../component/DeleteButtonComponent';
 import AddIcon from '@mui/icons-material/Add';
+import TrainedExerciseListElement from './element/TrainedExerciseListElement';
 
 export default function WorkoutLogDetailsPage() {
   const routerState = useRouterState();
@@ -138,14 +139,20 @@ export default function WorkoutLogDetailsPage() {
               <Grid2>
                 <TrainedExerciseList 
                   {...listTrainedQueryResult} 
-                  onEditClick={(trained) => {
-                    setTrainedEdited(trained);
-                    setNewTrainedOpen(true);
-                  }}
-                  onDeleteClick={async (trained) => {
-                    await deleteTrainedExercise.delete(log.id, trained.id);
-                    await listTrainedQueryResult.refetch();
-                  }} />
+                >
+                  {
+                    (trained) => <TrainedExerciseListElement 
+                      key={trained.id} 
+                      trained={trained} onEditClick={(trained) => {
+                        setTrainedEdited(trained);
+                        setNewTrainedOpen(true);
+                      }}
+                      onDeleteClick={async (trained) => {
+                        await deleteTrainedExercise.delete(log.id, trained.id);
+                        await listTrainedQueryResult.refetch();
+                      }}/>
+                  }
+                </TrainedExerciseList>
               </Grid2>
             </Grid2>
           </CardContent>
