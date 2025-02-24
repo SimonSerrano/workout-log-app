@@ -43,4 +43,7 @@ public interface TrainedExerciseRepository {
    */
   TrainedExercise update(UpdateTrainedExerciseRepoRequest request)
       throws NotFoundException;
+
+  List<TrainedExercise> getTrainedExerciseByExerciseId(
+      GetTrainedExerciseByExerciseIdRepoRequest request);
 }

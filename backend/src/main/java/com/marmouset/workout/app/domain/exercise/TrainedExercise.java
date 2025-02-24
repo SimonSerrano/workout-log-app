@@ -1,6 +1,7 @@
 package com.marmouset.workout.app.domain.exercise;
 
 import com.marmouset.workout.app.domain.set.ExerciseSet;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,14 @@ public interface TrainedExercise {
    * @return the logContainer id
    */
   UUID getLogId();
+
+
+  /**
+   * Get the workout date.
+   *
+   * @return the workout date
+   */
+  Instant getWorkoutDate();
 
   /**
    * Get the trained exerciseContainer.
