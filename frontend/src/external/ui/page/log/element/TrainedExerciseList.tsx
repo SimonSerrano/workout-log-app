@@ -31,7 +31,7 @@ export default function TrainedExerciseList(props: TrainedExerciseListProps) {
     return <Typography>{props.error.message}</Typography>;
   }
 
-  return <Grid2 container direction={'column'}>
+  return <Grid2 container direction={'column'} spacing={4}>
     {props.data?.map((trained) => (
       <Grid2 key={trained.id}>
         <Grid2 container direction={'column'}>
@@ -44,7 +44,6 @@ export default function TrainedExerciseList(props: TrainedExerciseListProps) {
                 <Grid2 container 
                   spacing={2}
                   alignItems={'center'} 
-                  justifyContent={'space-between'}
                 >
                   <Grid2>
                     <Typography 
@@ -54,7 +53,10 @@ export default function TrainedExerciseList(props: TrainedExerciseListProps) {
                   </Grid2>
                   {
                     trained.weight && (
-                      <>
+                      <Grid2 
+                        container
+                        alignItems={'center'} 
+                      >
                         <Grid2>
                           <Icon>
                             <FitnessCenterIcon />
@@ -65,7 +67,7 @@ export default function TrainedExerciseList(props: TrainedExerciseListProps) {
                             {trained.weight}
                           </Typography>
                         </Grid2>
-                      </>
+                      </Grid2>
                     )
                   }
                 </Grid2>
