@@ -45,7 +45,7 @@
 - [ ] As an **athlete**, I want to **select exercises from a list** so I do not **have to input the exercise name regularly**
   - [x] api
   - [x] ui
-- [ ] As an **athlete**, I want to **see the progression of an exercise** so I can **ensure my workout makes me progress**
+- [ ] As an **athlete**, I want to **see the progression of the total number of repetitions to an exercise** so I can **ensure my workout makes me progress**
 - [ ] As an **athlete**, I want to **reorder my exercises** so I can **remember what happened during a workout**
 - [ ] As an **athlete**, I want to **set concentric exercises** so I can **log how many repetitions I did per set**
 - [ ] As an **athlete**, I want to **set isometric exercises** so I can **log how long I held per set**
