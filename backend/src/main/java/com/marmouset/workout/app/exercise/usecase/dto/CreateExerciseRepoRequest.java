@@ -9,6 +9,11 @@ import java.util.Objects;
  */
 public record CreateExerciseRepoRequest(String name) {
 
+  /**
+   * Creates a CreateExerciseRepoRequest.
+   *
+   * @param name the name of the exercise
+   */
   public CreateExerciseRepoRequest {
     Objects.requireNonNull(name, "Name is null");
   }
