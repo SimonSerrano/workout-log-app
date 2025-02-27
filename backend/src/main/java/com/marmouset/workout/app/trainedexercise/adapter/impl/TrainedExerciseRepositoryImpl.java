@@ -50,9 +50,9 @@ public class TrainedExerciseRepositoryImpl
       CreateTrainedExerciseRepoRequest request) {
     var entity = trainedExerciseFactory.create()
         .setExercise(request.exercise())
-        .setLog(request.log()).addAllSets(request.sets().stream().map(
-            exerciseSetFactory::create
-        ).toList())
+        .setLog(request.log())
+        .addAllSets(request.sets().stream().map(
+            exerciseSetFactory::create).toList())
         .setWeight(request.weight());
 
     return repositoryGateway.save(entity);
