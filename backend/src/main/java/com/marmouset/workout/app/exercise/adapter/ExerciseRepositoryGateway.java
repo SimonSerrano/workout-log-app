@@ -2,6 +2,7 @@ package com.marmouset.workout.app.exercise.adapter;
 
 import com.marmouset.workout.app.exercise.entity.Exercise;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Proxy interface to interact with a repository.
@@ -31,5 +32,12 @@ public interface ExerciseRepositoryGateway {
    */
   Exercise save(Exercise exercise);
 
+  /**
+   * Find an exercise by its id.
+   *
+   * @param id the id
+   * @return an optional containing the exercise or empty if not found
+   */
+  Optional<? extends Exercise> findById(String id);
 
 }

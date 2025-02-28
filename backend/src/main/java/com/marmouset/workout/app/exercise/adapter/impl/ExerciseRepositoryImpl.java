@@ -25,7 +25,7 @@ public class ExerciseRepositoryImpl implements ExerciseRepository {
    * @param factory           the exercise factory
    */
   public ExerciseRepositoryImpl(ExerciseRepositoryGateway repositoryGateway,
-                                ExerciseFactory factory) {
+      ExerciseFactory factory) {
     this.repositoryGateway = repositoryGateway;
     this.factory = factory;
   }
@@ -33,6 +33,11 @@ public class ExerciseRepositoryImpl implements ExerciseRepository {
   @Override
   public List<? extends Exercise> read() {
     return repositoryGateway.findAll();
+  }
+
+  @Override
+  public Exercise read(String id) throws NotFoundException {
+    return repositoryGateway.findById(id).orElseThrow(NotFoundException::new);
   }
 
   @Override

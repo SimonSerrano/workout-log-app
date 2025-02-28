@@ -1,6 +1,5 @@
 package com.marmouset.workout.app.exercise.external.spring.web;
 
-
 import static org.mockito.Mockito.when;
 
 import com.marmouset.workout.ApplicationConfiguration;
@@ -17,10 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-@WebMvcTest(value = {ExerciseSpringController.class},
-    excludeFilters = @ComponentScan.Filter(
-        type = FilterType.ASSIGNABLE_TYPE,
-        classes = {ApplicationConfiguration.class}))
+@WebMvcTest(value = {
+    ExerciseSpringController.class }, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {
+        ApplicationConfiguration.class }))
 class ExerciseSpringControllerTest {
   @Autowired
   private MockMvc mockMvc;
@@ -34,8 +32,7 @@ class ExerciseSpringControllerTest {
     var ex2 = new ExerciseResponse("Push up");
     when(controller.list()).thenReturn(List.of(
         ex1,
-        ex2
-    ));
+        ex2));
 
     mockMvc.perform(MockMvcRequestBuilders.get("/exercise"))
         .andExpect(MockMvcResultMatchers.status().isOk())

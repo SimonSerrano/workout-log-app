@@ -3,6 +3,7 @@ package com.marmouset.workout.app.exercise.external.spring.database;
 import com.marmouset.workout.app.exercise.adapter.ExerciseRepositoryGateway;
 import com.marmouset.workout.app.exercise.entity.Exercise;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -23,7 +24,6 @@ public class ExerciseRepositoryGatewayImpl implements
     this.repository = repository;
   }
 
-
   @Override
   public List<? extends Exercise> findAll() {
     return repository.findAll();
@@ -41,5 +41,10 @@ public class ExerciseRepositoryGatewayImpl implements
     }
 
     throw new IllegalArgumentException("Unsupported Exercise type");
+  }
+
+  @Override
+  public Optional<? extends Exercise> findById(String id) {
+    return repository.findById(id);
   }
 }

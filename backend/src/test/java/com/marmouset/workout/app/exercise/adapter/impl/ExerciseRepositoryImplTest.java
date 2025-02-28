@@ -14,11 +14,11 @@ import com.marmouset.workout.app.exercise.usecase.dto.CreateExerciseRepoRequest;
 import com.marmouset.workout.app.shared.external.database.exception.NotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ExerciseRepositoryImplTest {
-
 
   private ExerciseRepository repository;
   private ExerciseRepositoryGateway gatewayMock;
@@ -63,7 +63,22 @@ class ExerciseRepositoryImplTest {
     doReturn(expected).when(factoryMock).create(expected.getName());
     doReturn(expected).when(gatewayMock).save(expected);
     assertEquals(expected, repository.create(
-        new CreateExerciseRepoRequest(expected.getName())
-    ));
+        new CreateExerciseRepoRequest(expected.getName())));
   }
+
+  @Test
+  void shouldReturnExerciseFoundById() throws NotFoundException {
+    var expected = new ExerciseTestDouble();
+    doReturn(Optional.of(expected))
+        .when(gatewayMock).findById(expected.getId());
+    assertEquals(expected, repository.read(expected.getId()));
+  }
+
+  @Test
+  void shouldThrowNotFoundIfExerciseIsNotFoundByItsId() {
+    var id = "Pull ups";
+    doReturn(Optional.empty()).when(gatewayMock).findById(id);
+    assertThrows(NotFoundException.class, () -> repository.read(id));
+  }
+
 }

@@ -17,6 +17,15 @@ public interface ExerciseRepository {
   List<? extends Exercise> read();
 
   /**
+   * Reads an exercise by its id.
+   *
+   * @param id the id
+   * @return the exercise
+   * @throws NotFoundException if the exercise cannot be found
+   */
+  Exercise read(String id) throws NotFoundException;
+
+  /**
    * Read an exercise only with its id populated.
    *
    * @param id the id

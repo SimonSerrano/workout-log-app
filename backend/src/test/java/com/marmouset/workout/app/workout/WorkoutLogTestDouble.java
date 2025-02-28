@@ -11,7 +11,7 @@ import java.util.UUID;
 public class WorkoutLogTestDouble implements WorkoutLog {
 
   private final UUID id = UUID.randomUUID();
-  private final Instant createdAt = Instant.now();
+  private Instant createdAt = Instant.now();
   private String name = "My Workout";
 
   @Override
@@ -34,7 +34,6 @@ public class WorkoutLogTestDouble implements WorkoutLog {
     this.name = name;
     return this;
   }
-
 
   @Override
   public boolean equals(Object o) {
@@ -63,4 +62,16 @@ public class WorkoutLogTestDouble implements WorkoutLog {
     result = 31 * result + (name != null ? name.hashCode() : 0);
     return result;
   }
+
+  /**
+   * Sets the creation date.
+   *
+   * @param createdAt the new creation date
+   * @return this
+   */
+  public WorkoutLogTestDouble setCreatedAt(Instant createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
 }
