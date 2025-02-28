@@ -10,7 +10,8 @@ import com.marmouset.workout.app.exercise.ExerciseTestDouble;
 import com.marmouset.workout.app.exercise.usecase.ExerciseRepository;
 import com.marmouset.workout.app.exercise.usecase.exception.ExerciseNotFoundException;
 import com.marmouset.workout.app.exerciseset.ExerciseSetTestDouble;
-import com.marmouset.workout.app.progression.RepsProgressionChartTestDouble;
+import com.marmouset.workout.app.progression.entity.impl.RepsDataPointImpl;
+import com.marmouset.workout.app.progression.entity.impl.RepsProgressionChartImpl;
 import com.marmouset.workout.app.progression.usecase.CalculateRepsProgressionChartUseCase;
 import com.marmouset.workout.app.progression.usecase.dto.CalculateRepsProgressionChartCommand;
 import com.marmouset.workout.app.shared.external.database.exception.NotFoundException;
@@ -18,6 +19,7 @@ import com.marmouset.workout.app.trainedexercise.TrainedExerciseTestDouble;
 import com.marmouset.workout.app.trainedexercise.usecase.TrainedExerciseRepository;
 import com.marmouset.workout.app.trainedexercise.usecase.dto.GetTrainedExerciseByExerciseIdRepoRequest;
 import com.marmouset.workout.app.workout.WorkoutLogTestDouble;
+import java.util.GregorianCalendar;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,7 +42,27 @@ class CalculateRepsProgressionChartUseCaseImplTest {
   @Test
   void shouldReturnRepsProgressionChart() throws ExerciseNotFoundException,
       NotFoundException {
-    var expected = new RepsProgressionChartTestDouble();
+    var expected = new RepsProgressionChartImpl(
+        new ExerciseTestDouble(),
+        List.of(
+            new RepsDataPointImpl(
+                new GregorianCalendar(
+                    2025,
+                    1,
+                    27).toInstant(),
+                30),
+            new RepsDataPointImpl(
+                new GregorianCalendar(
+                    2025,
+                    2,
+                    1).toInstant(),
+                39),
+            new RepsDataPointImpl(
+                new GregorianCalendar(
+                    2025,
+                    2,
+                    4).toInstant(),
+                45)));
 
     var trainedList = List.of(
         new TrainedExerciseTestDouble()
