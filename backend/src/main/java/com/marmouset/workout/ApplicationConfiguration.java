@@ -11,6 +11,10 @@ import com.marmouset.workout.app.exercise.usecase.ListExercisesUseCase;
 import com.marmouset.workout.app.exercise.usecase.impl.ListExercisesUseCaseImpl;
 import com.marmouset.workout.app.exerciseset.entity.ExerciseSetFactory;
 import com.marmouset.workout.app.exerciseset.external.spring.database.ExerciseSetFactoryImpl;
+import com.marmouset.workout.app.progression.adapter.ProgressionController;
+import com.marmouset.workout.app.progression.adapter.impl.ProgressionControllerImpl;
+import com.marmouset.workout.app.progression.usecase.CalculateRepsProgressionChartUseCase;
+import com.marmouset.workout.app.progression.usecase.impl.CalculateRepsProgressionChartUseCaseImpl;
 import com.marmouset.workout.app.trainedexercise.adapter.TrainedExerciseController;
 import com.marmouset.workout.app.trainedexercise.adapter.TrainedExerciseRepositoryGateway;
 import com.marmouset.workout.app.trainedexercise.adapter.impl.TrainedExerciseControllerImpl;
@@ -62,9 +66,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class ApplicationConfiguration
     implements WebMvcConfigurer, ApplicationContextAware {
 
-
   private ApplicationContext context;
-
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {
@@ -102,10 +104,8 @@ public class ApplicationConfiguration
         createCreateTrainedExerciseUseCase(),
         createDeleteTrainedExerciseUseCase(),
         createListTrainedExercisesUseCase(),
-        createUpdateTrainedExerciseUseCase()
-    );
+        createUpdateTrainedExerciseUseCase());
   }
-
 
   /**
    * Creates a WorkoutLogController.
@@ -119,38 +119,50 @@ public class ApplicationConfiguration
         createDeleteWorkoutLogUseCase(),
         createGetLogDetailsUseCase(),
         createListWorkoutLogsUseCase(),
-        createUpdateWorkoutLogUseCase()
-    );
+        createUpdateWorkoutLogUseCase());
+  }
+
+  /**
+   * Creates a ProgressionController.
+   *
+   * @return a ProgressionController
+   */
+  @Bean
+  public ProgressionController createProgressionController() {
+    return new ProgressionControllerImpl(
+        createCalcRepsProgChartUc());
+  }
+
+  private CalculateRepsProgressionChartUseCase createCalcRepsProgChartUc() {
+    return new CalculateRepsProgressionChartUseCaseImpl(
+        createExerciseRepository(),
+        createTrainedExerciseRepository());
   }
 
   private UpdateTrainedExerciseUseCase createUpdateTrainedExerciseUseCase() {
     return new UpdateTrainedExerciseUseCaseImpl(
         createTrainedExerciseRepository(),
         createWorkoutLogRepository(),
-        createExerciseRepository()
-    );
+        createExerciseRepository());
   }
 
   private ListTrainedExercisesUseCase createListTrainedExercisesUseCase() {
     return new ListTrainedExerciseUseCaseImpl(
         createTrainedExerciseRepository(),
-        createWorkoutLogRepository()
-    );
+        createWorkoutLogRepository());
   }
 
   private DeleteTrainedExerciseUseCase createDeleteTrainedExerciseUseCase() {
     return new DeleteTrainedExerciseUseCaseImpl(
         createTrainedExerciseRepository(),
-        createWorkoutLogRepository()
-    );
+        createWorkoutLogRepository());
   }
 
   private WorkoutLogRepository createWorkoutLogRepository() {
     validateContextNotNull();
     return new WorkoutLogRepositoryImpl(
         context.getBean(WorkoutLogRepositoryGateway.class),
-        createWorkoutLogFactory()
-    );
+        createWorkoutLogFactory());
   }
 
   private WorkoutLogFactory createWorkoutLogFactory() {
@@ -181,8 +193,7 @@ public class ApplicationConfiguration
     return new CreateTrainedExerciseUseCaseImpl(
         createTrainedExerciseRepository(),
         createWorkoutLogRepository(),
-        createExerciseRepository()
-    );
+        createExerciseRepository());
   }
 
   private TrainedExerciseRepository createTrainedExerciseRepository() {
@@ -190,8 +201,7 @@ public class ApplicationConfiguration
     return new TrainedExerciseRepositoryImpl(
         context.getBean(TrainedExerciseRepositoryGateway.class),
         createTrainedExerciseFactory(),
-        createExerciseSetFactory()
-    );
+        createExerciseSetFactory());
   }
 
   private ExerciseSetFactory createExerciseSetFactory() {
@@ -201,7 +211,6 @@ public class ApplicationConfiguration
   private TrainedExerciseFactory createTrainedExerciseFactory() {
     return new TrainedExerciseFactoryImpl();
   }
-
 
   private ListExercisesUseCase createListExercisesUseCase() {
     return new ListExercisesUseCaseImpl(createExerciseRepository());
@@ -221,6 +230,5 @@ public class ApplicationConfiguration
   private void validateContextNotNull() {
     Objects.requireNonNull(context, "Context is null");
   }
-
 
 }
