@@ -15,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -41,7 +42,8 @@ public class TrainedExerciseImpl extends AbstractEntity implements
   @ManyToOne(targetEntity = ExerciseImpl.class)
   private Exercise exercise;
 
-  @OneToMany(cascade = CascadeType.ALL, targetEntity = ExerciseSetImpl.class)
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = ExerciseSetImpl.class)
+  @JoinTable(name = "trained_exercises_sets", joinColumns = @JoinColumn(name = "trained_exercise_id"), inverseJoinColumns = @JoinColumn(name = "sets_id"))
   private List<ExerciseSet> sets;
 
   @ManyToOne(fetch = FetchType.LAZY, targetEntity = WorkoutLogImpl.class)
