@@ -1,5 +1,4 @@
 {
-  "checkstyle.configurationPath": "google_checks.xml",
   "java.checkstyle.configuration": "${workspaceFolder}/backend/checkstyle.xml",
-  "java.checkstyle.version": "10.21.2"
+  "java.checkstyle.version": "10.21.2",
 }

@@ -1,15 +1,13 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
-import WorkoutLogPage from '../../external/ui/page/log/WorkoutLogPage';
-import ListWorkoutLogsProvider from '../../external/ui/context/workout/provider/ListWorkoutLogsProvider';
-import CreateWorkoutLogProvider 
-  from '../../external/ui/context/workout/provider/CreateWorkoutLogProvider';
+import WorkoutControllerProvider 
+  from '../../app/workout/external/react/context/WorkoutControllerProvider';
+import WorkoutLogPage 
+  from '../../app/workout/external/react/page/WorkoutLogPage';
 
 export const Route = createLazyFileRoute('/log/')({
   component: () => (
-    <ListWorkoutLogsProvider>
-      <CreateWorkoutLogProvider>
-        <WorkoutLogPage />
-      </CreateWorkoutLogProvider>
-    </ListWorkoutLogsProvider>
+    <WorkoutControllerProvider>
+      <WorkoutLogPage />
+    </WorkoutControllerProvider>
   ),
 });
