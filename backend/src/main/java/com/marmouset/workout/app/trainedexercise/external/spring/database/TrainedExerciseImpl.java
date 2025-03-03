@@ -100,17 +100,20 @@ public class TrainedExerciseImpl extends AbstractEntity implements
 
   @Override
   public TrainedExercise addSet(ExerciseSet set) {
-    return null;
+    sets.add(set);
+    return this;
   }
 
   @Override
   public TrainedExercise addAllSets(Collection<ExerciseSet> sets) {
-    return null;
+    sets.addAll(sets);
+    return this;
   }
 
   @Override
   public TrainedExercise removeSet(ExerciseSet set) {
-    return null;
+    sets.remove(set);
+    return this;
   }
 
   public WorkoutLog getLog() {
