@@ -51,7 +51,7 @@ public class TrainedExerciseRepositoryImpl
     var entity = trainedExerciseFactory.create()
         .setExercise(request.exercise())
         .setLog(request.log())
-        .addAllSets(request.sets().stream().map(
+        .setSets(request.sets().stream().map(
             exerciseSetFactory::create).toList())
         .setWeight(request.weight());
 
@@ -69,7 +69,7 @@ public class TrainedExerciseRepositoryImpl
     var entity = repositoryGateway
         .findById(request.trainedId()).orElseThrow(NotFoundException::new)
         .setExercise(request.exercise())
-        .addAllSets(
+        .setSets(
             request.sets().stream().map(exerciseSetFactory::create).toList())
         .setWeight(request.weight());
     return repositoryGateway.save(entity);

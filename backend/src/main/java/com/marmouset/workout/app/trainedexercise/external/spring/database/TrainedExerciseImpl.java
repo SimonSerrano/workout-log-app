@@ -88,14 +88,11 @@ public class TrainedExerciseImpl extends AbstractEntity implements
     return sets;
   }
 
-  /**
-   * Replace all sets with new sets.
-   *
-   * @param sets the sets to set
-   */
-  public void setSets(List<ExerciseSetImpl> sets) {
+  @Override
+  public TrainedExercise setSets(Collection<ExerciseSet> sets) {
     this.sets.clear();
     this.sets.addAll(sets);
+    return this;
   }
 
   @Override

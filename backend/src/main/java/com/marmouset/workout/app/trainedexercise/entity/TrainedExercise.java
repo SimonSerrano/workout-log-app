@@ -22,7 +22,6 @@ public interface TrainedExercise extends Entity<Long> {
    */
   UUID getLogId();
 
-
   /**
    * Get the workout date.
    *
@@ -51,6 +50,14 @@ public interface TrainedExercise extends Entity<Long> {
    * @return the sets
    */
   List<ExerciseSet> getSets();
+
+  /**
+   * Sets the sets.
+   *
+   * @param sets the sets
+   * @return this
+   */
+  TrainedExercise setSets(Collection<ExerciseSet> sets);
 
   /**
    * Add a trained set.

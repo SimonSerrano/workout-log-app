@@ -127,4 +127,11 @@ public class TrainedExerciseTestDouble implements TrainedExercise {
     result = 31 * result + (weight != null ? weight.hashCode() : 0);
     return result;
   }
+
+  @Override
+  public TrainedExercise setSets(Collection<ExerciseSet> sets) {
+    this.sets.clear();
+    this.sets.addAll(sets);
+    return this;
+  }
 }
