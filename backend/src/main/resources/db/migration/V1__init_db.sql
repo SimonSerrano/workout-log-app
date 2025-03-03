@@ -39,8 +39,8 @@ CREATE TABLE trained_exercises (
 -- Table: trained_exercises_sets
 CREATE TABLE trained_exercises_sets (
     sets_id BIGINT NOT NULL,
-    trained_exercise_entity_id BIGINT NOT NULL,
+    trained_exercise_id BIGINT NOT NULL,
     UNIQUE (sets_id),
     FOREIGN KEY (sets_id) REFERENCES sets(id),
-    FOREIGN KEY (trained_exercise_entity_id) REFERENCES trained_exercises(id)
+    FOREIGN KEY (trained_exercise_id) REFERENCES trained_exercises(id)
 );
